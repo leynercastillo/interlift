@@ -1,0 +1,55 @@
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="normal"
+		closable="true" id="windowQuotations" mode="modal"
+		title="Presupuestos"
+		viewModel="@id('vm') @init('controller.ventas.presupuesto.FrmWindowQuotations')"
+		width="90%">
+		<listbox model="@load(vm.listQuotations)" mold="paging"
+			onSelect="@command('sendQuotation', quotation=vm.selectedQuotation)"
+			pageSize="10" pagingPosition="both"
+			selectedItem="@bind(vm.selectedQuotation)">
+			<listhead>
+				<listheader align="right" label="Nro Prespuesto"
+					sort="auto(type, modernizationNumber, newNumber,  versionNumber)"
+					width="10%">
+				</listheader>
+				<listheader align="right" label="Nro Solicitud"
+					sort="auto(budgetNumber)" width="10%">
+				</listheader>
+				<listheader label="Cliente" sort="auto(partnerName)"
+					width="30%">
+				</listheader>
+				<listheader label="Equipo"
+					sort="auto(elevatorQuantity, basicDataByElevatorType.name)"
+					width="15%">
+				</listheader>
+				<listheader label="Fecha" sort="auto(date)"
+					width="15%">
+				</listheader>
+				<listheader align="right" label="Precio"
+					sort="auto(totalPrice)" width="10%">
+				</listheader>
+				<listheader label="Vendedor" sort="auto(seller)"
+					width="15%">
+				</listheader>
+			</listhead>
+			<template name="model" var="quotation">
+				<listitem>
+					<listcell
+						label="@load(vm.getQuotationNumber(quotation))">
+					</listcell>
+					<listcell label="@load(quotation.budgetNumber)"></listcell>
+					<listcell label="@load(quotation.partnerName)"></listcell>
+					<listcell label="@load(vm.getTeam(quotation))">
+					</listcell>
+					<listcell
+						label="@load(quotation.date) @converter('formattedDate', format='dd/MM/yyyy')">
+					</listcell>
+					<listcell label="@load(quotation.totalPrice)"></listcell>
+					<listcell label="@load(quotation.seller)"></listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</window>
+</zk>

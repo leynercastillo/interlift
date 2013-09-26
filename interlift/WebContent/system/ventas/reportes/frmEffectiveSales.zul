@@ -1,0 +1,68 @@
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<style src="resource/style/styleZK.css"></style>
+	<window apply="org.zkoss.bind.BindComposer" border="normal"
+		closable="true" onClose="@command('close')"
+		viewModel="@id('vm') @init('controller.ventas.reportes.FrmEffectiveSales')">
+		<caption label="VENTAS EFECTIVAS" zclass="formTitleLabel"></caption>
+		<grid>
+			<columns>
+				<column width="10%"></column>
+				<column width="15%"></column>
+				<column width="10%"></column>
+				<column width="15%"></column>
+				<column></column>
+			</columns>
+			<rows>
+				<row>
+					<label sclass="formLabel" value="Fecha inicio:"></label>
+					<datebox format="dd/MM/yyyy" hflex="1"
+						id="dtbxBegin" readonly="true"
+						value="@save(vm.beginDate, before = 'generateReport') @validator(vm.noEmpty, component = self)">
+					</datebox>
+					<label sclass="formLabel" value="Fecha inicio:"></label>
+					<datebox format="dd/MM/yyyy" hflex="1"
+						readonly="true"
+						value="@save(vm.endDate, before = 'generateReport') @validator(vm.noBeforeDate, component = self, otherDate = dtbxBegin.value)">
+					</datebox>
+					<space></space>
+				</row>
+				<row spans="5">
+					<listbox checkmark="true"
+						model="@load(vm.listUsers)" mold="paging" multiple="true"
+						pageSize="10" pagingPosition="both"
+						selectedItems="@bind(vm.listSelectedUsers)">
+						<listhead>
+							<listheader label="Vendedor"
+								sort="auto(name)">
+							</listheader>
+							<listheader label="Teléfono"
+								sort="auto(phone)">
+							</listheader>
+							<listheader label="Activo/Inactivo"
+								sort="auto(status)">
+							</listheader>
+						</listhead>
+						<template name="model" var="user">
+							<listitem label="@load(user.name)">
+								<listcell label="@load(user.name)"></listcell>
+								<listcell label="@load(user.phone)"></listcell>
+								<listcell
+									label="@load(user.status eq 'A' ? 'ACTIVO':'INACTIVO')">
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</row>
+				<row>
+					<button image="resource/images/icons/save.png"
+						label="Generar" onClick="@command('generateReport')">
+					</button>
+					<button image="resource/images/icons/cancel.png"
+						label="Cancelar" onClick="@command('restartForm')">
+					</button>
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

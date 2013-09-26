@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="budget" language="groovy" pageWidth="612" pageHeight="792" columnWidth="576" leftMargin="18" rightMargin="18" topMargin="18" bottomMargin="18" uuid="ef38146c-42ba-41c0-bb8c-f29c42295cc8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NUMBER" class="java.lang.Integer">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="IMAGES_DIR" class="java.lang.String"/>
+	<parameter name="REPORT_TITLE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+	number AS "Numero",
+	(SELECT phone FROM security_user WHERE name = seller) AS "Teléfono vendedor"
+FROM
+	budget
+WHERE
+	number = $P{NUMBER}]]>
+	</queryString>
+	<field name="Numero" class="java.lang.Integer"/>
+	<field name="Teléfono vendedor" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="96" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="9d14dd42-c59d-4697-bea9-502761f32a77" x="0" y="75" width="576" height="11"/>
+				<subreportParameter name="IMAGES_DIR">
+					<subreportParameterExpression><![CDATA[$P{IMAGES_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_TITLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_TITLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="NUMBER">
+					<subreportParameterExpression><![CDATA[$F{Numero}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"budget_detail_1.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement uuid="9ab18ab0-22ef-41e8-8c51-aba237a44624" x="0" y="85" width="570" height="1"/>
+			</break>
+			<subreport>
+				<reportElement uuid="5d08af78-a0a0-44c2-8363-733fa09d557a" x="0" y="86" width="576" height="10"/>
+				<subreportParameter name="NUMBER">
+					<subreportParameterExpression><![CDATA[$F{Numero}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"budget_detail_2.jasper"]]></subreportExpression>
+			</subreport>
+			<image>
+				<reportElement uuid="1ed11ba8-9de1-4ea8-b9d0-d75f44b819cd" x="0" y="0" width="190" height="64"/>
+				<imageExpression><![CDATA[$P{IMAGES_DIR}+"logo.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="3d610090-cc86-4154-9d6f-d7f3fd5bb80b" x="422" y="24" width="154" height="40"/>
+				<imageExpression><![CDATA[$P{IMAGES_DIR}+"liftTechnology.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,92 @@
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<style src="../resource/style/styleZK.css"></style>
+	<window apply="org.zkoss.bind.BindComposer" id="win"
+		viewModel="@id('vm') @init('controller.contacto.FrmContact')"
+		border="none">
+		<grid>
+			<columns>
+				<column width="20%"></column>
+				<column width="50%"></column>
+				<column></column>
+			</columns>
+			<rows>
+				<row>
+					<space></space>
+					<label value="Contacto"
+						style="font-size: 2.3em; color: #18184C">
+					</label>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Nombre:"></label>
+					<textbox maxlength="100"
+						value="@save(vm.contact.contactName, before = 'send') @load(vm.contact.contactName) @validator(vm.noEmpty, component = self)"
+						width="97%">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Empresa:"></label>
+					<textbox maxlength="100"
+						value="@save(vm.contact.partnerName, before = 'send') @load(vm.contact.partnerName) @validator(vm.noEmpty, component = self)"
+						width="97%">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Vendedor:"></label>
+					<combobox model="@load(vm.listSecurityUsers)"
+						readonly="true"
+						value="@load(vm.contact.securityUser eq null ? '--Seleccione--' : vm.contact.securityUser.name)"
+						selectedItem="@save(vm.contact.securityUser, before = 'send') @validator(vm.noSelect, component = self)"
+						width="100%">
+						<template name="model" var="user">
+							<comboitem label="@load(user.name)"></comboitem>
+						</template>
+					</combobox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Ciudad:"></label>
+					<textbox maxlength="100"
+						value="@save(vm.contact.city, before = 'send') @load(vm.contact.city) @validator(vm.noEmpty, component = self)"
+						width="97%">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Direccion:"></label>
+					<textbox maxlength="200"
+						value="@save(vm.contact.address, before = 'send') @load(vm.contact.address) @validator(vm.noEmpty, component = self)"
+						width="97%">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Telefono:"></label>
+					<textbox maxlength="100" value="@save(vm.contact.phone) @load(vm.contact.phone)"
+						width="97%">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Email:"></label>
+					<textbox maxlength="100"
+						value="@save(vm.contact.contactEmail, before = 'send') @load(vm.contact.contactEmail) @validator(vm.noEmail, component = self)"
+						width="97%">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Comentario:"></label>
+					<textbox maxlength="700" rows="5" value="@save(vm.contact.comment) @load(vm.contact.comment)"
+						width="97%">
+					</textbox>
+				</row>
+				<row>
+					<div align="right">
+						<button label="Enviar" mold="trendy"
+							onClick="@command('send', component = win)">
+						</button>
+					</div>
+					<button label="Cancelar" mold="trendy"
+						onClick="@command('restartForm')">
+					</button>
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

@@ -1,0 +1,57 @@
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<style src="resource/style/styleZK.css"></style>
+	<window apply="org.zkoss.bind.BindComposer" border="normal"
+		closable="true" onClose="@command('close')"
+		viewModel="@id('vm') @init('controller.ventas.resumen.FrmSalesSummary')">
+		<caption label="RESUMENES DE VENTAS" zclass="formTitleLabel"></caption>
+		<listbox model="@load(vm.listQuotations)" mold="paging"
+			onSelect="@command('pdfQuotation')" pageSize="10"
+			pagingPosition="both" selectedItem="@bind(vm.quotation)">
+			<listhead>
+				<listheader label="Nro Presupuesto"
+					sort="auto(type, modernizationNumber, newNumber,  versionNumber)"
+					width="12%">
+				</listheader>
+				<listheader label="Cliente" sort="auto(partnerName)"
+					width="18%">
+				</listheader>
+				<listheader label="Obra" sort="auto(construction)"
+					width="19%">
+				</listheader>
+				<listheader label="Equipo"
+					sort="auto(elevatorQuantity, basicDataByElevatorType.name)"
+					width="10%">
+				</listheader>
+				<listheader label="Fecha aprobacion"
+					sort="auto(approvedDate)" width="13%">
+				</listheader>
+				<listheader label="Fecha entrega"
+					sort="auto(deliveryDate)" width="13%">
+				</listheader>
+				<listheader label="Vendedor" sort="auto(seller)"
+					width="15%">
+				</listheader>
+			</listhead>
+			<template name="model" var="salesSummary">
+				<listitem>
+					<listcell
+						label="@load(vm.getQuotationNumber(salesSummary))">
+					</listcell>
+					<listcell label="@load(salesSummary.partnerName)"></listcell>
+					<listcell
+						label="@load(salesSummary.construction)">
+					</listcell>
+					<listcell label="@load(vm.getTeam(salesSummary))"></listcell>
+					<listcell
+						label="@load(vm.getDateFormat(salesSummary.approvedDate))">
+					</listcell>
+					<listcell
+						label="@load(vm.getDateFormat(salesSummary.deliveryDate))">
+					</listcell>
+					<listcell label="@load(salesSummary.seller)"></listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</window>
+</zk>

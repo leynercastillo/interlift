@@ -1,0 +1,131 @@
+<?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('controller.FrmMenu')">
+		<tabbox mold="accordion" width="100%">
+			<tabs>
+				<tab if="${sec:isAnyGranted('ROLE_ITEM_MASTER')}"
+					label="Inventario">
+				</tab>
+				<tab
+					if="${sec:isAnyGranted('ROLE_BUDGET,ROLE_QUOTATION,ROLE_SALES_SUMMARY')}"
+					label="Ventas">
+				</tab>
+				<tab
+					if="${sec:isAnyGranted('ROLE_SECURITY_PROFILE,ROLE_SECURITY_USERS_MASTER,ROLE_SECURITY_GROUPS')}"
+					label="Usuarios">
+				</tab>
+				<tab
+					if="${sec:isAnyGranted('ROLE_ITEM_MASTER,ROLE_BUDGET,ROLE_QUOTATION,ROLE_SALES_SUMMARY,ROLE_SECURITY_PROFILE,ROLE_SECURITY_USERS_MASTER,ROLE_SECURITY_GROUPS,ROLE_GENERIC_HELP')}"
+					label="Ayuda">
+				</tab>
+			</tabs>
+			<tabpanels>
+				<tabpanel
+					if="${sec:isAnyGranted('ROLE_ITEM_MASTER')}">
+					<tree>
+						<treechildren>
+							<treeitem
+								if="${sec:isAllGranted('ROLE_ITEM_MASTER')}">
+								<treerow>
+									<treecell label="Maestro articulos"
+										onClick="@command('optionSelected', optionSelected='system/inventario/frmItemMaster.zul')">
+									</treecell>
+								</treerow>
+							</treeitem>
+						</treechildren>
+					</tree>
+				</tabpanel>
+				<tabpanel
+					if="${sec:isAnyGranted('ROLE_BUDGET,ROLE_QUOTATION,ROLE_SALES_SUMMARY')}">
+					<tree>
+						<treechildren>
+							<treeitem
+								if="${sec:isAllGranted('ROLE_BUDGET')}">
+								<treerow>
+									<treecell
+										label="Solicitud de Presupuesto"
+										onClick="@command('optionSelected', optionSelected='system/ventas/solicitud/frmBudget.zul')">
+									</treecell>
+								</treerow>
+							</treeitem>
+							<treeitem
+								if="${sec:isAllGranted('ROLE_QUOTATION')}">
+								<treerow>
+									<treecell label="Presupuesto"
+										onClick="@command('optionSelected', optionSelected='system/ventas/presupuesto/frmQuotation.zul')">
+									</treecell>
+								</treerow>
+							</treeitem>
+							<treeitem
+								if="${sec:isAllGranted('ROLE_SALES_SUMMARY')}">
+								<treerow>
+									<treecell label="Resumenes de venta"
+										onClick="@command('optionSelected', optionSelected='system/ventas/resumen/frmSalesSummary.zul')">
+									</treecell>
+								</treerow>
+							</treeitem>
+							<treeitem open="false"
+								if="${sec:isAnyGranted('ROLE_EFFECTIVE_SALES')}">
+								<treerow>
+									<treecell label="Informes">
+									</treecell>
+								</treerow>
+								<treechildren>
+									<treeitem
+										if="${sec:isAllGranted('ROLE_EFFECTIVE_SALES')}">
+										<treerow>
+											<treecell
+												label="Ventas Efectivas"
+												onClick="@command('optionSelected', optionSelected='system/ventas/reportes/frmEffectiveSales.zul')">
+											</treecell>
+										</treerow>
+									</treeitem>
+								</treechildren>
+							</treeitem>
+						</treechildren>
+					</tree>
+				</tabpanel>
+				<tabpanel
+					if="${sec:isAnyGranted('ROLE_SECURITY_PROFILE,ROLE_SECURITY_USERS_MASTER,ROLE_SECURITY_GROUPS')}">
+					<tree>
+						<treechildren>
+							<treeitem
+								if="${sec:isAllGranted('ROLE_SECURITY_PROFILE')}">
+								<treerow>
+									<treecell label="Perfil de Usuario"
+										onClick="@command('optionSelected', optionSelected='system/seguridad/perfil/frmSecurityProfile.zul')">
+									</treecell>
+								</treerow>
+							</treeitem>
+							<treeitem
+								if="${sec:isAllGranted('ROLE_SECURITY_USERS_MASTER')}">
+								<treerow>
+									<treecell label="Usuarios"
+										onClick="@command('optionSelected', optionSelected='system/seguridad/usuario/frmSecurityUserList.zul')">
+									</treecell>
+								</treerow>
+							</treeitem>
+						</treechildren>
+					</tree>
+				</tabpanel>
+				<tabpanel
+					if="${sec:isAnyGranted('ROLE_ITEM_MASTER,ROLE_BUDGET,ROLE_QUOTATION,ROLE_SALES_SUMMARY,ROLE_SECURITY_PROFILE,ROLE_SECURITY_USERS_MASTER,ROLE_SECURITY_GROUPS,ROLE_GENERIC_HELP')}">
+					<tree>
+						<treechildren>
+							<treeitem
+								if="${sec:isAllGranted('ROLE_GENERIC_HELP')}">
+								<treerow>
+									<treecell label="Nuevo tutorial"
+										onClick="@command('optionSelected', optionSelected='system/ayuda/tutorial/frmNewGenericTutorial.zul')">
+									</treecell>
+								</treerow>
+							</treeitem>
+						</treechildren>
+					</tree>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</window>
+</zk>

@@ -1,0 +1,16 @@
+<zk>
+	<window title="Usuario no autorizado" border="normal" width="50%"
+		mode="modal" height="30%">
+		<vbox>
+			<label style="font-size:24pt; font-weight:bold"
+				value="Error 403. Usuario no autorizado!!">
+			</label>
+		</vbox>
+		<vbox align="center" width="100%">
+			<label style="color: red; font-size:18pt"
+				value="Para acceder a este sitio, es necesario que usted sea un usuario autorizado.">
+			</label>
+			<a style="font-size:14pt" label="Volver" href="index.jsp"></a>
+		</vbox>
+	</window>
+</zk>

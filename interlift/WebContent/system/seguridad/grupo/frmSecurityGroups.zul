@@ -1,0 +1,87 @@
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<style src="../resource/style/styleZK.css"></style>
+	<window title="Gestión Grupos" border="normal" closable="true"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('controller.seguridad.grupo.FrmSecurityGroups')">
+		<grid zclass="grid">
+			<columns>
+				<column width="15%"></column>
+				<column width="27%"></column>
+				<column></column>
+			</columns>
+			<rows>
+				<row>
+					<label value="Nombre:" sclass="formLabel"
+						hflex="1">
+					</label>
+					<combobox hflex="1" buttonVisible="false"
+						value="@save(vm.group.name, before = 'save') @load(vm.group.name) @validator(vm.noEmpty, component = self)"
+						onFocus="@command(vm.disabledAll ? 'loadGroupByField':'', field='name')"
+						autocomplete="true" model="@load(vm.listGroups)"
+						autodrop="@load(vm.disabledAll)"
+						onChange="@command(vm.disabledAll ? 'searchGroup':'', field='name', val=self.value)"
+						disabled="@load(vm.disabledAll)">
+						<template name="model" var="group">
+							<comboitem label="@load(group.name)">
+							</comboitem>
+						</template>
+					</combobox>
+					<space></space>
+				</row>
+				<row>
+					<cell colspan="3">
+						<hbox>
+							<listbox model="@load(vm.listRoles)"
+								multiple="true" checkmark="true"
+								selectedItems="@bind(vm.listTempRoles)">
+								<listhead>
+									<listheader label="Nombre:"></listheader>
+								</listhead>
+								<template name="model" var="role">
+									<listitem>
+										<listcell
+											label="@load(role.name)">
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+							<vbox>
+								<button
+									image="/resource/images/icons/add.png"
+									onClick="@command('addRole')">
+								</button>
+								<button
+									image="/resource/images/icons/minus.png"
+									onClick="@command('minusRole')">
+								</button>
+							</vbox>
+							<listbox model="@load(vm.listGroupRoles)"
+								multiple="true" checkmark="true"
+								selectedItems="@bind(vm.listTempGroupRoles)">
+								<listhead>
+									<listheader label="Nombre:"></listheader>
+								</listhead>
+								<template name="model" var="role">
+									<listitem>
+										<listcell
+											label="@load(role.name)">
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</hbox>
+					</cell>
+				</row>
+				<row>
+					<space></space>
+					<div>
+						<button label="Guardar" image="/resource/images/icons/save.png"></button>
+						<button label="Cancelar" image="/resource/images/icons/cancel.png"></button>
+					</div>
+					<space></space>
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

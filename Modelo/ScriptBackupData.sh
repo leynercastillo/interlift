@@ -1,0 +1,2 @@
+PGUSER=postgres PGPASSWORD=leyner.18654277 pg_dump -p 5432 -h localhost -F p -a --inserts --column-inserts -E WIN1252 ascensor_nardi > data`date +%d-%m-%Y`.sql
+PGUSER=postgres PGPASSWORD=leyner.18654277 pg_dump -p 5432 -h localhost -s -E WIN1252 ascensor_nardi > schema`date +%d-%m-%Y`.sql

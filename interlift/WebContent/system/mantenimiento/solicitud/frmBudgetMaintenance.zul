@@ -1,0 +1,201 @@
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<style src="resource/style/styleZK.css"></style>
+	<window apply="org.zkoss.bind.BindComposer" border="normal"
+		closable="true"
+		viewModel="@id('vm') @init('controller.mantenimiento.solicitud.FrmBudgetMaintenance')">
+		<caption label="SOLICITUD DE MANTENIMIENTO"
+			zclass="formTitleLabel">
+			<groupbox closable="false">
+				<grid zclass="grid">
+					<columns>
+						<column width="15%"></column>
+						<column width="30%"></column>
+						<column width="15%"></column>
+						<column width="20%"></column>
+						<column></column>
+					</columns>
+					<rows>
+						<row>
+							<space></space>
+							<space></space>
+							<space></space>
+							<space></space>
+							<div align="right">
+								<button label="Buscar"
+									onClick="@command('search')"
+									image="/resource/images/icons/search.png">
+								</button>
+							</div>
+						</row>
+						<row>
+							<label value="Rif:" sclass="formLabel"></label>
+							<div>
+								<combobox style="float: left"
+									width="25%"
+									value="@save(vm.budget.rifType, before = 'save') @load(vm.budget.rifType eq null ? vm.dash : vm.budget.rifType)"
+									model="@load(vm.listRifType)" disabled="true">
+									<template name="model"
+										var="rifType">
+										<comboitem
+											label="@load(rifType.name)">
+										</comboitem>
+									</template>
+								</combobox>
+								<combobox autocomplete="true"
+									autodrop="true" buttonVisible="false"
+									disabled="@load(vm.disableAfterSearch)" maxlength="15"
+									model="@load(vm.listRifPartner)"
+									onChange="@command(vm.disabledAll ? 'searchBudgetBusinessPartner' : 'searchBusinessPartner', rif=self.value)"
+									onFocus="@command(vm.disabledAll ? 'loadBudgetByField' : 'loadBusinessPartnerByField', field='rifPartner')"
+									style="float: right"
+									value="@save(vm.budget.rifPartner, before = 'save') @load(vm.budget.rifPartner) @validator(vm.noEmpty, component = self)"
+									width="75%">
+								</combobox>
+							</div>
+							<label sclass="formLabel"
+								value="Nro Solicitud:">
+							</label>
+							<combobox autocomplete="true"
+								autodrop="@load(vm.disabledAll)" buttonVisible="false"
+								disabled="@load(vm.disabledNumber)" model="@load(vm.listNumber)"
+								onChange="@command(vm.disabledAll ? 'searchBudgetId':'', field='number', val=self.value)"
+								onFocus="@command(vm.disabledAll ? 'loadBudgetByField':'', field='number')"
+								value="@load(vm.budget.number)" width="50%">
+							</combobox>
+							<space></space>
+						</row>
+						<row>
+							<label sclass="formLabel"
+								value="Cliente:">
+							</label>
+							<combobox width="100%" buttonVisible="false"
+								value="@save(vm.budget.partnerName, before = 'save') @load(vm.budget.partnerName) @validator(vm.noEmpty, component = self)"
+								autocomplete="true" model="@load(vm.listPartnerName)"
+								autodrop="@load(vm.disabledAll)"
+								onFocus="@command(vm.disabledAll ? 'loadBudgetByField':'', field='partnerName')"
+								onChange="@command(vm.disabledAll ? 'searchBudget':'', field='partnerName', val=self.value)"
+								disabled="@load(vm.disableAfterSearch)" maxlength="100">
+							</combobox>
+							<label sclass="formLabel" value="Fecha:">
+							</label>
+							<datebox value="@load(vm.budget.date)"
+								disabled="true" format="dd/MM/yyyy" width="50%">
+							</datebox>
+							<space></space>
+						</row>
+						<row>
+							<label sclass="formLabel" value="Obra:"></label>
+							<combobox width="100%" buttonVisible="false"
+								value="@save(vm.budget.construction, before = 'save') @load(vm.budget.construction) @validator(vm.noEmpty, component = self)"
+								autocomplete="true" model="@load(vm.listConstruction)"
+								autodrop="@load(vm.disabledAll)"
+								onFocus="@command(vm.disabledAll ? 'loadBudgetByField':'', field='construction')"
+								onChange="@command(vm.disabledAll ? 'searchBudget':'', field='construction', val=self.value)"
+								disabled="@load(vm.disableAfterSearch)" maxlength="100">
+							</combobox>
+							<label value="Tipo Solicitud:"
+								sclass="formLabel">
+							</label>
+							<radiogroup
+								selectedItem="@save(vm.budget.type)">
+								<radio label="Nuevo" value="true"
+									checked="@load(vm.budget.type ? 'true':'false')"
+									disabled="@load(vm.disabledAll)">
+								</radio>
+								<radio label="Modernizacion"
+									value="false" checked="@load(vm.budget.type ? 'false':'true')"
+									disabled="@load(vm.disabledAll)">
+								</radio>
+							</radiogroup>
+							<space></space>
+						</row>
+						<row>
+							<label sclass="formLabel"
+								value="Dirección:">
+							</label>
+							<textbox width="98%"
+								value="@save(vm.budget.constructionAddress, before = 'save') @load(vm.budget.constructionAddress) @validator(vm.noEmpty, component = self)"
+								disabled="@load(vm.disabledAll)" maxlength="200">
+							</textbox>
+							<label sclass="formLabel"
+								value="Vendedor:">
+							</label>
+							<combobox width="100%" buttonVisible="false"
+								value="@save(vm.budget.seller, before = 'save') @load(vm.budget.seller) @validator(vm.noEmpty, component = self)"
+								onFocus="@command(vm.disabledAll ? 'loadBudgetByField':'', field='seller')"
+								autocomplete="true" model="@load(vm.listSeller)"
+								autodrop="@load(vm.disabledAll)"
+								onChange="@command(vm.disabledAll ? 'searchBudget':'', field='seller', val=self.value)"
+								disabled="@load(vm.disableSeller ? 'true': vm.disableAfterSearch)"
+								maxlength="100">
+							</combobox>
+							<space></space>
+						</row>
+						<row>
+							<label sclass="formLabel" value="Ciudad:"></label>
+							<textbox width="98%"
+								value="@save(vm.budget.constructionCity, before = 'save') @load(vm.budget.constructionCity) @validator(vm.noEmpty, component = self)"
+								disabled="@load(vm.disabledAll)" maxlength="100">
+							</textbox>
+							<label sclass="formLabel"
+								value="Teléfono contacto:">
+							</label>
+							<textbox width="97%"
+								value="@save(vm.budget.contactPhone, before = 'save') @load(vm.budget.contactPhone) @validator(vm.noEmpty, component = self)"
+								disabled="@load(vm.disabledAll)" maxlength="15">
+							</textbox>
+							<space></space>
+						</row>
+						<row>
+							<label sclass="formLabel"
+								value="Persona contacto:">
+							</label>
+							<textbox width="98%"
+								value="@save(vm.budget.contactName, before = 'save') @load(vm.budget.contactName) @validator(vm.noEmpty, component = self)"
+								disabled="@load(vm.disabledAll)" maxlength="100">
+							</textbox>
+							<label sclass="formLabel" value="Correo:"></label>
+							<textbox width="97%"
+								value="@save(vm.budget.email, before = 'save') @load(vm.budget.email) @validator(vm.noEmail, component = self)"
+								disabled="@load(vm.disabledAll)" maxlength="100">
+							</textbox>
+							<space></space>
+						</row>
+						<row>
+							<label sclass="formLabel"
+								value="Planos de corte:">
+							</label>
+							<radiogroup
+								selectedItem="@save(vm.budget.planeC)">
+								<radio value="true" label="Si"
+									checked="@load(vm.budget.planeC ? 'true':'false')"
+									disabled="@load(vm.disabledAll)">
+								</radio>
+								<radio value="false" label="No"
+									checked="@load(vm.budget.planeC ? 'false':'true')"
+									disabled="@load(vm.disabledAll)">
+								</radio>
+							</radiogroup>
+							<label sclass="formLabel"
+								value="Planos de planta:">
+							</label>
+							<radiogroup
+								selectedItem="@save(vm.budget.planeP)">
+								<radio value="true" label="Si"
+									checked="@load(vm.budget.planeP ? 'true':'false')"
+									disabled="@load(vm.disabledAll)">
+								</radio>
+								<radio value="false" label="No"
+									checked="@load(vm.budget.planeP ? 'false':'true')"
+									disabled="@load(vm.disabledAll)">
+								</radio>
+							</radiogroup>
+							<space></space>
+						</row>
+					</rows>
+				</grid>
+			</groupbox>
+		</caption>
+	</window>
+</zk>

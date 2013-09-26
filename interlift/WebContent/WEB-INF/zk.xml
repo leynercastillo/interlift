@@ -1,0 +1,9 @@
+<!-- Created by ZK Studio -->
+<zk>
+	<device-config>
+		<device-type>ajax</device-type>
+		<session-timeout>9000</session-timeout>
+		<timeout-uri></timeout-uri><!-- An empty URL can cause the browser to reload 
+			the same URL -->
+	</device-config>
+</zk>

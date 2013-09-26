@@ -1,0 +1,78 @@
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="normal" title="Socios de Negocios"
+		apply="org.zkoss.bind.BindComposer" mode="modal"
+		viewModel="@id('vm') @init('controller.socios.FrmBusinessPartner')" id="win"
+		width="60%">
+		<style src="resource/style/styleZK.css"></style>
+		<grid zclass="grid">
+			<columns>
+				<column width="15%" align="right"></column>
+				<column width="45%"></column>
+				<column></column>
+			</columns>
+			<rows>
+				<row>
+					<label value="Rif:" sclass="formLabel"></label>
+					<div width="100%">
+						<combobox readonly="true" width="27%"
+							value="@save(vm.minCombo, before = 'save') @validator(vm.noDash, component = self)"
+							model="@load(vm.listRifType)"
+							selectedItem="@save(vm.businessPartner.basicData)">
+							<template name="model" var="rifType">
+								<comboitem
+									label="@load(rifType.name)">
+								</comboitem>
+							</template>
+						</combobox>
+						<textbox width="70%"
+							value="@save(vm.businessPartner.rif, before = 'save') @validator(vm.noRepeatRif, component = self)"
+							maxlength="15">
+						</textbox>
+					</div>
+					<space></space>
+				</row>
+				<row>
+					<label value="Nombre:" sclass="formLabel"></label>
+					<textbox hflex="1"
+						value="@save(vm.businessPartner.name, before = 'save') @validator(vm.noEmpty, component = self)"
+						maxlength="100">
+					</textbox>
+					<space></space>
+				</row>
+				<row>
+					<label value="Dirección:" sclass="formLabel">
+					</label>
+					<textbox hflex="1"
+						value="@save(vm.businessPartner.address)"
+						maxlength="200">
+					</textbox>
+					<space></space>
+				</row>
+				<row>
+					<radiogroup id="status"
+						selectedItem="@save(vm.businessPartner.status)">
+						<radio label="Activo" value="A"
+							checked="@load(vm.businessPartner.status eq 'A' ? 'true':'false')"
+							sclass="frmLabel" disabled="true">
+						</radio>
+					</radiogroup>
+					<radio label="Inactivo" value="I"
+						checked="@load(vm.businessPartner.status eq 'I' ? 'true':'false')"
+						sclass="formLabel" disabled="true" radiogroup="status">
+					</radio>
+					<space></space>
+				</row>
+				<row>
+					<button label="Guardar"
+						onClick="@command('save')">
+					</button>
+					<button label="Cancelar"
+						onClick="@command('cancel')">
+					</button>
+					<space></space>
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

@@ -1,0 +1,50 @@
+<?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk xmlns:h="native">
+	<style src="../../resource/style/styleZK.css"></style>
+	<window width="100%">
+		<h:form id="f" name="f" action="../../j_spring_security_check"
+			method="POST" xmlns:h="native">
+			<grid zclass="login">
+				<columns>
+					<column width="35%"></column>
+					<column width="30%"></column>
+					<column></column>
+				</columns>
+				<rows>
+					<row spans="3">
+						<label style="color:red"
+							if="${not empty param.login_error}"
+							value="Tu usuario o contraseña son incorrectos. Intentalo de nuevo.">
+						</label>
+					</row>
+					<row>
+						<label value="Usuario:" sclass="formLabel">
+						</label>
+						<label value="Contraseña:" sclass="formLabel">
+						</label>
+						<space></space>
+					</row>
+					<row>
+						<textbox hflex="1" id="u" name="j_username"
+							mold="rounded" />
+						<textbox hflex="1" id="p" name="j_password"
+							type="password" mold="rounded" />
+						<button type="submit" label="Entrar"
+							mold="trendy">
+						</button>
+					</row>
+					<row>
+						<div>
+							<checkbox id="r"
+								name="j_spring_security_remember_me" />
+							<label value="No olvidar mi clave."></label>
+						</div>
+						<space></space>
+						<space></space>
+					</row>
+				</rows>
+			</grid>
+		</h:form>
+	</window>
+</zk>

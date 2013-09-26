@@ -1,0 +1,122 @@
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="normal"
+		closable="true" id="windowUser" mode="modal"
+		viewModel="@id('vm') @init('controller.seguridad.usuario.FrmAddUser')"
+		width="40%">
+		<caption label="Nuevo usuario" zclass="formTitleLabel">
+		</caption>
+		<grid>
+			<columns>
+				<column width="35%"></column>
+				<column width="50%"></column>
+				<column></column>
+			</columns>
+			<rows>
+				<row>
+					<label sclass="formLabel"
+						value="Nombre Completo:">
+					</label>
+					<textbox hflex="1"
+						value="@save(vm.securityUser.name, before = 'save') @load(vm.securityUser.name) @validator(vm.noEmpty, component = self)">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel"
+						value="Correo electronico:">
+					</label>
+					<textbox hflex="1"
+						value="@save(vm.securityUser.email, before = 'save') @load(vm.securityUser.email) @validator(vm.noEmail, component = self)">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Contraseña:"></label>
+					<textbox hflex="1" type="password"
+						value="@save(vm.securityUser.password, before = 'save') @load(vm.securityUser.password) @validator(vm.noEqualPassword, component = self)">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel"
+						value="Repetir contraseña:">
+					</label>
+					<textbox hflex="1" type="password"
+						value="@save(vm.repeatPassword) @load(vm.repeatPassword)">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Telefono:"></label>
+					<textbox hflex="1"
+						value="@save(vm.securityUser.phone, before = 'save') @load(vm.securityUser.phone) @validator(vm.noEmpty, component = self)">
+					</textbox>
+				</row>
+				<row>
+					<cell colspan="3">
+						<hlayout>
+							<listbox checkmark="true" hflex="1"
+								model="@load(vm.listGroups)" multiple="true"
+								selectedItems="@save(vm.listGroupsToAdd) @load(vm.listGroupsToAdd)">
+								<listhead>
+									<listheader label="Grupo"></listheader>
+								</listhead>
+								<template name="model" var="group">
+									<listitem
+										label="@load(group.name)">
+									</listitem>
+								</template>
+							</listbox>
+							<vlayout>
+								<space></space>
+								<button
+									image="resource/images/icons/arrow-right.png"
+									onClick="@command('addUserGroups')">
+								</button>
+								<button
+									image="resource/images/icons/arrow-left.png"
+									onClick="@command('delUserGroups')">
+								</button>
+							</vlayout>
+							<listbox checkmark="true" hflex="1"
+								id="listUserGroup" model="@load(vm.securityUser.securityGroups)"
+								multiple="true"
+								selectedItems="@save(vm.listGroupsToDel) @load(vm.listGroupsToDel)">
+								<listhead>
+									<listheader label="Grupo"></listheader>
+								</listhead>
+								<template name="model" var="group">
+									<listitem
+										label="@load(group.name)">
+									</listitem>
+								</template>
+							</listbox>
+						</hlayout>
+					</cell>
+				</row>
+				<row>
+					<radiogroup
+						selectedItem="@save(vm.securityUser.status)">
+						<radio
+							checked="@load(vm.securityUser.status eq 'A' ? 'true' : 'false')"
+							label="Activo" sclass="frmLabel" value="A">
+						</radio>
+						<radio
+							checked="@load(vm.securityUser.status eq 'I' ? 'true' : 'false')"
+							label="Inactivo" sclass="formLabel" value="I">
+						</radio>
+					</radiogroup>
+				</row>
+				<row>
+					<cell colspan="3">
+						<button image="resource/images/icons/save.png"
+							label="Guardar"
+							onClick="@command('save', list = listUserGroup, window = windowUser)">
+						</button>
+						<space></space>
+						<button image="resource/images/icons/cancel.png"
+							label="Cancel" onClick="@command('restartForm')">
+						</button>
+					</cell>
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

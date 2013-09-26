@@ -1,0 +1,208 @@
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="normal"
+		closable="true" onClose="@command('close')"
+		viewModel="@id('vm') @init('controller.inventario.FrmItemMaster')">
+		<style src="resource/style/styleZK.css"></style>
+		<caption label="Maestro Productos" zclass="formTitle"></caption>
+		<grid>
+			<columns>
+				<column align="right" width="15%"></column>
+				<column width="20%"></column>
+				<column></column>
+			</columns>
+			<rows>
+				<row>
+					<label sclass="formLabel" value="Codigo:"></label>
+					<combobox autocomplete="@load(vm.disableAll)"
+						autodrop="@load(vm.disableAll)" buttonVisible="false" hflex="1"
+						maxlength="15" model="@load(vm.listItemCode)"
+						onChange="@command(vm.disableAll ? 'loadItem':'', field='code', val=self.value)"
+						onFocus="@command(vm.disableAll ? 'searchItemByField':'', field='code')"
+						value="@save(vm.item.code, before = 'save') @load(vm.item.code) @validator(vm.noRepeatCode, component = self)">
+					</combobox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Descripcion:"></label>
+					<combobox autocomplete="@load(vm.disableAll)"
+						autodrop="@load(vm.disableAll)" buttonVisible="false" hflex="1"
+						maxlength="100" model="@load(vm.listItemName)"
+						onChange="@command(vm.disableAll ? 'loadItem':'', field='name', val=self.value)"
+						onFocus="@command(vm.disableAll ? 'searchItemByField':'', field='name')"
+						value="@save(vm.item.name, before = 'save') @load(vm.item.name) @validator(vm.noEmpty, component = self)">
+					</combobox>
+				</row>
+				<row spans="3">
+					<tabbox>
+						<tabs>
+							<tab id="tabGeneral" label="General"></tab>
+							<tab id="tabBuys" label="Compras"></tab>
+							<tab id="tabSales" label="Ventas"></tab>
+						</tabs>
+						<tabpanels>
+							<tabpanel>
+								<grid>
+									<columns>
+										<column align="right"
+											width="20%">
+										</column>
+										<column width="15%"></column>
+										<column width="21%"></column>
+										<column></column>
+									</columns>
+									<rows>
+										<row>
+											<!-- align left para alinear a la izquierda en Google Chrome -->
+											<cell align="left"
+												rowspan="10" valign="top">
+												<!-- width 100% para anchar header listbox en Google Chrome -->
+												<listbox
+													id="lbxItemOffered" model="@load(vm.item.basicDatas)"
+													selectedItem="@bind(vm.elevatorComponent)">
+													<listhead>
+														<listheader
+															label="Componentes">
+														</listheader>
+													</listhead>
+													<template
+														name="model" var="component">
+														<listitem>
+															<listcell
+																label="@load(component.name)">
+															</listcell>
+														</listitem>
+													</template>
+												</listbox>
+												<button
+													disabled="@load(vm.update ? 'true': vm.disableAll)"
+													image="resource/images/icons/minus.png" label="Eliminar"
+													onClick="@command('deleteItem')">
+												</button>
+											</cell>
+										</row>
+										<row>
+											<label sclass="formLabel"
+												value="Característica:">
+											</label>
+											<combobox autodrop="true"
+												buttonVisible="false"
+												disabled="@load(vm.update ? 'true': vm.disableAll)"
+												hflex="1" maxlength="100" model="@load(vm.listComponents)"
+												onChange="@command(vm.disableAll ? '':'loadItemByField', input=self)"
+												onFocus="@command(vm.disableAll ? '':'searchItemByField', field='componentName')"
+												value="@save(vm.elevatorComponent.name, before = 'addItem') @load(vm.elevatorComponent eq null ? '' : vm.elevatorComponent.name) @validator(vm.noEmpty, component = self)">
+											</combobox>
+										</row>
+										<row>
+											<space></space>
+											<hbox>
+												<button
+													disabled="@load(vm.update ? 'true': vm.disableAll)"
+													image="resource/images/icons/add.png" label="Añadir"
+													onClick="@command('addItem')">
+												</button>
+											</hbox>
+										</row>
+									</rows>
+								</grid>
+							</tabpanel>
+							<tabpanel>
+								<grid>
+									<columns>
+										<column align="right"
+											width="15%">
+										</column>
+										<column width="20%"></column>
+										<column></column>
+									</columns>
+									<rows>
+										<row>
+											<label sclass="formLabel"
+												value="Costo:">
+											</label>
+											<doublebox
+												disabled="@load(vm.disableAll)" format="#,##0.##" hflex="1"
+												maxlength="9" style="text-align: right;"
+												value="@save(vm.item.cost, before = 'save') @load(vm.item.cost) @validator(vm.noEmptyInTab, component = self, tab = tabBuys)">
+											</doublebox>
+											<space></space>
+										</row>
+									</rows>
+								</grid>
+							</tabpanel>
+							<tabpanel>
+								<grid>
+									<columns>
+										<column align="right"
+											width="15%">
+										</column>
+										<column width="20%"></column>
+										<column></column>
+									</columns>
+									<rows>
+										<row>
+											<label sclass="formLabel"
+												value="Tipo:">
+											</label>
+											<combobox
+												disabled="@load(vm.disableAll)" hflex="1"
+												model="@load(vm.listPriceType)" readonly="true"
+												selectedItem="@save(vm.item.basicData, before = 'save') @load(vm.item.basicData) @validator(vm.noSelectInTab, component = self, tab = tabSales)"
+												value="@load(vm.item.basicData eq null ? '--Seleccione--' : vm.item.basicData.name)">
+												<template name="model"
+													var="priceType">
+													<comboitem
+														label="@load(priceType.name)">
+													</comboitem>
+												</template>
+											</combobox>
+										</row>
+										<row>
+											<label value="Precio:"
+												sclass="formLabel">
+											</label>
+											<doublebox
+												disabled="@load(vm.disableAll)" format="######0.##"
+												hflex="1" maxlength="9" style="text-align: right;"
+												value="@save(vm.item.price, before = 'save') @load(vm.item.price) @validator(vm.noEmptyInTab, component = self, tab = tabSales)">
+											</doublebox>
+										</row>
+									</rows>
+								</grid>
+							</tabpanel>
+						</tabpanels>
+					</tabbox>
+				</row>
+				<row>
+					<radiogroup id="status"
+						selectedItem="@save(vm.item.status)">
+						<radio
+							checked="@load(vm.item.status eq 'A' ? 'true':'false')"
+							disabled="@load(vm.disableAll)" label="Activo" value="A">
+						</radio>
+					</radiogroup>
+					<radio
+						checked="@load(vm.item.status eq 'I' ? 'true':'false')"
+						disabled="@load(vm.disableAll)" label="Inactivo"
+						radiogroup="status" value="I">
+					</radio>
+					<space></space>
+				</row>
+				<row>
+					<button image="resource/images/icons/search.png"
+						label="Buscar" onClick="@command('search')">
+					</button>
+					<hbox>
+						<button disabled="@load(vm.disableAll)"
+							image="resource/images/icons/save.png" label="Guardar"
+							onClick="@command('save')">
+						</button>
+						<button image="resource/images/icons/cancel.png"
+							label="Cancelar" onClick="@command('restartForm')">
+						</button>
+					</hbox>
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

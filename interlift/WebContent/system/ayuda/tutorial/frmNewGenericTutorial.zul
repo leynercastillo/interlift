@@ -1,0 +1,74 @@
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="normal"
+		closable="true" onClose="@command('close')"
+		viewModel="@id('vm') @init('controller.ayuda.FrmNewGenericTutorial')">
+		<style src="resource/style/styleZK.css"></style>
+		<caption label="Nuevo tutorial" zclass="formTitleLabel"></caption>
+		<grid>
+			<columns>
+				<column></column>
+				<column></column>
+			</columns>
+			<rows>
+				<row>
+					<cell valign="top">
+						<groupbox closable="false">
+							<caption label="Grupos"></caption>
+							<listbox checkmark="true"
+								model="@load(vm.listGroups)" multiple="true" rows="5"
+								selectedItems="@load(vm.selectedGroups)">
+								<listhead>
+									<listheader label="Nombre"></listheader>
+								</listhead>
+								<template name="model" var="group">
+									<listitem>
+										<listcell
+											label="@load(group.name)">
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</groupbox>
+					</cell>
+					<cell valign="top">
+						<groupbox closable="false">
+							<caption label="Imagenes"></caption>
+							<vlayout>
+								<listbox model="@load(vm.listImages)"
+									rows="5">
+									<listhead>
+										<listheader label="Imagen"></listheader>
+										<listheader label="Eliminar"></listheader>
+									</listhead>
+									<template name="model" var="file">
+										<listitem>
+											<listcell
+												label="@load(file.name)">
+											</listcell>
+											<listcell>
+												<button
+													image="resource/images/icons/delete.png"
+													onClick="@command('deleteImage', image = file)">
+												</button>
+											</listcell>
+										</listitem>
+									</template>
+								</listbox>
+								<button
+									image="resource/images/icons/arrow-up.png" label="Cargar"
+									onUpload="@command('upload', component = self)"
+									upload="true">
+								</button>
+							</vlayout>
+						</groupbox>
+					</cell>
+				</row>
+				<row>
+					<button image="resource/images/icons/checkmark.png" label="Aceptar"></button>
+					<space></space>
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

@@ -1,0 +1,48 @@
+<?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
+<zk>
+	<style src="resource/style/styleZK.css"></style>
+	<window apply="org.zkoss.bind.BindComposer" border="normal"
+		closable="true" onClose="@command('close')"
+		viewModel="@id('vm') @init('controller.seguridad.perfil.FrmSecurityProfile')">
+		<caption label="Perfil de usuario" zclass="formTitleLabel">
+		</caption>
+		<grid zclass="grid">
+			<columns>
+				<column width="130px"></column>
+				<column></column>
+			</columns>
+			<rows>
+				<row>
+					<label sclass="formLabel" value="Nombre:"></label>
+					<textbox disabled="true" sclass="txtGeneral"
+						value="@load(vm.user.name)">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Teléfono:"></label>
+					<textbox sclass="txtGeneral"
+						value="@load(vm.user.phone) @save(vm.user.phone, before = 'save') @validator(vm.noEmpty, component = self)">
+					</textbox>
+				</row>
+				<row>
+					<label sclass="formLabel" value="Correo:"></label>
+					<textbox disabled="true" sclass="txtGeneral"
+						value="@load(vm.user.email)">
+					</textbox>
+				</row>
+				<row>
+					<a label="Cambiar contraseña"
+						onClick="@command('frmChangePassword')">
+					</a>
+					<space></space>
+				</row>
+				<row>
+					<space></space>
+					<button image="/resource/images/icons/save.png"
+						label="Actualizar" onClick="@command('save')">
+					</button>
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>
