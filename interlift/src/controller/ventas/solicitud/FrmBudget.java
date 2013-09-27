@@ -916,11 +916,13 @@ public class FrmBudget {
 		}
 	}
 
-	@NotifyChange({ "listRifPartner" })
+	@NotifyChange({ "listRifPartner", "listPartnerName" })
 	@Command
 	public void loadBusinessPartnerByField(@BindingParam("field") String field) {
 		if (field.compareTo("rifPartner") == 0) {
 			listRifPartner = new SimpleListModelCustom<Object>(serviceBusinessPartner.listRif());
+		} else {
+			listPartnerName = new SimpleListModelCustom<Object>(serviceBusinessPartner.listName());
 		}
 	}
 
@@ -934,40 +936,21 @@ public class FrmBudget {
 			listBudget2 = serviceBudget.listByConstruction(value);
 		else if (field.compareTo("seller") == 0)
 			listBudget2 = serviceBudget.listBySeller(value);
-		searchGeneric(listBudget2);
-	}
-
-	@NotifyChange("*")
-	@Command
-	public void searchBudgetNumber(@BindingParam("field") String field, @BindingParam("val") String value) {
-		for (int i = 0; i < value.length(); i++) {
-			if (!Character.isDigit(value.charAt(i))) {
-				value = "0";
-				break;
+		else if (field.compareTo("number") == 0){
+			for (int i = 0; i < value.length(); i++) {
+				if (!Character.isDigit(value.charAt(i))) {
+					value = "0";
+					break;
+				}
 			}
+			Integer budgetNumber = Integer.parseInt(value);
+			Budget auxBudget = serviceBudget.findByNumber(budgetNumber);
+			if (auxBudget != null)
+				listBudget2.add(auxBudget);
 		}
-		Integer budgetNumber = Integer.parseInt(value);
-		Budget auxBudget = serviceBudget.findByNumber(budgetNumber);
-		if (auxBudget != null) {
-			budget = auxBudget;
-			disableAfterSearch = new Boolean(true);
-			disabledNumber = new Boolean(true);
-			disableSeller = new Boolean(true);
-			if (budget.getBasicDataByCabinDesign() != null) {
-				cabinModel = budget.getBasicDataByCabinDesign().getBasicData();
-				listDesign.add(budget.getBasicDataByCabinDesign());
-				listRoofType.add(budget.getBasicDataByRoofType());
-				listBoothDisplay.add(budget.getBasicDataByBoothDisplay());
-				listFloorDisplay.add(budget.getBasicDataByFloorDisplay());
-			}
-		} else
-			Clients.showNotification("Ningun registro coincide", "info", null, "top_center", 2000);
-	}
-
-	@NotifyChange("*")
-	@Command
-	public void searchBudgetBusinessPartner(@BindingParam("rif") String rif) {
-		List<Budget> listBudget2 = serviceBudget.listByRifPartner(rif);
+		else if (field.compareTo("rif") == 0){
+			listBudget2 = serviceBudget.listByRifPartner(value);
+		}
 		searchGeneric(listBudget2);
 	}
 
@@ -978,13 +961,6 @@ public class FrmBudget {
 			disableAfterSearch = new Boolean(true);
 			disabledNumber = new Boolean(true);
 			disableSeller = new Boolean(true);
-			listRoofType.add(budget.getBasicDataByRoofType());
-			listBoothDisplay.add(budget.getBasicDataByBoothDisplay());
-			listFloorDisplay.add(budget.getBasicDataByFloorDisplay());
-			if (budget.getBasicDataByCabinDesign() != null) {
-				cabinModel = budget.getBasicDataByCabinDesign().getBasicData();
-				listDesign.add(budget.getBasicDataByCabinDesign());
-			}
 		} else if (listSize == 0) {
 			Clients.showNotification("Ningun registro coincide", "info", null, "top_center", 2000);
 		} else {
@@ -1008,41 +984,7 @@ public class FrmBudget {
 			cabinModel = this.budget.getBasicDataByCabinDesign().getBasicData();
 			listDesign.add(this.budget.getBasicDataByCabinDesign());
 		}
-	}
-
-	@Command
-	public void selectElevatorType() {
-		String elevatorType = budget.getBasicDataByElevatorType() != null ? budget.getBasicDataByElevatorType().getName() : "";
-		String elevatorCapacitance = budget.getBasicDataByElevatorCapacitance() != null ? budget.getBasicDataByElevatorCapacitance().getName() : "";
-		if (elevatorCapacitance.compareTo("800 Kg - 10 Pers") == 0 && (elevatorType.compareTo("PASAJERO") == 0 || elevatorType.compareTo("PANORAMICO") == 0)) {
-			budget.setCabinWidth(1.4);
-			budget.setCabinHeight(2.0);
-			budget.setCabinBackground(1.4);
-		} else if (elevatorCapacitance.compareTo("1050 Kg - 13 Pers") == 0 && (elevatorType.compareTo("PASAJERO") == 0 || elevatorType.compareTo("PANORAMICO") == 0)) {
-			budget.setCabinWidth(1.6);
-			budget.setCabinHeight(2.0);
-			budget.setCabinBackground(1.5);
-		} else if (elevatorCapacitance.compareTo("1200 Kg - 16 Pers") == 0 && (elevatorType.compareTo("PASAJERO") == 0 || elevatorType.compareTo("PANORAMICO") == 0)) {
-			budget.setCabinWidth(1.8);
-			budget.setCabinHeight(2.0);
-			budget.setCabinBackground(1.5);
-		} else if (elevatorCapacitance.compareTo("1500 Kg - 20 Pers") == 0 && (elevatorType.compareTo("PASAJERO") == 0 || elevatorType.compareTo("PANORAMICO") == 0)) {
-			budget.setCabinWidth(2.0);
-			budget.setCabinHeight(2.0);
-			budget.setCabinBackground(1.7);
-		} else if (elevatorCapacitance.compareTo("1050 Kg - 13 Pers") == 0 && elevatorType.compareTo("MONTACAMILLA") == 0) {
-			budget.setCabinWidth(1.2);
-			budget.setCabinHeight(2.0);
-			budget.setCabinBackground(2.3);
-		} else if (elevatorCapacitance.compareTo("1500 Kg - 20 Pers") == 0 && elevatorType.compareTo("MONTACAMILLA") == 0) {
-			budget.setCabinWidth(1.5);
-			budget.setCabinHeight(2.0);
-			budget.setCabinBackground(2.3);
-		}
-		BindUtils.postNotifyChange(null, null, budget, "cabinWidth");
-		BindUtils.postNotifyChange(null, null, budget, "cabinHeight");
-		BindUtils.postNotifyChange(null, null, budget, "cabinBackground");
-	}
+	}	
 
 	@Command
 	public void close() {
@@ -1155,35 +1097,6 @@ public class FrmBudget {
 		BindUtils.postNotifyChange(null, null, budget, "firefighterKeychain");
 	}
 
-	@NotifyChange({ "listFan", "listRoofType" })
-	@Command
-	public void loadFans() {
-		String elevatorCapacitance = new String(budget.getBasicDataByElevatorCapacitance().getName());
-		if (elevatorCapacitance.indexOf("320 Kg - 4 Pers") != -1 || elevatorCapacitance.indexOf("450 Kg - 6 Pers") != -1 || elevatorCapacitance.indexOf("600 Kg - 8 Pers") != -1) {
-			listFan = serviceBasicData.listFan1();
-			listRoofType = serviceBasicData.listRoofTypeByElevatorCapacitance(budget.getBasicDataByElevatorCapacitance());
-		} else if (elevatorCapacitance.indexOf("OTRA") != -1) {
-			listFan = serviceBasicData.listFan1();
-			listFan.addAll(serviceBasicData.listFan2());
-			/*
-			 * Escogemos el basicdata con name "450-6" puesto que es el que tiene todos los roofType
-			 * asignados. Esto se hace porque no se sabra que tipo de Capacidad se anadira.
-			 */
-			listRoofType = serviceBasicData.listRoofTypeByElevatorCapacitance(serviceBasicData.findByElevatorCapacitance("450 Kg - 6 Pers"));
-		} else {
-			listFan = serviceBasicData.listFan2();
-			listRoofType = serviceBasicData.listRoofTypeByElevatorCapacitance(budget.getBasicDataByElevatorCapacitance());
-		}
-		/*
-		 * No asigno un nuevo OBJETO en lugar de "null" puesto que me da error al guardar el objeto budget
-		 */
-		budget.setBasicDataByRoofType(null);
-		budget.setBasicDataByFan(null);
-		BindUtils.postNotifyChange(null, null, budget, "fan");
-		BindUtils.postNotifyChange(null, null, budget, "roofType");
-		selectElevatorType();
-	}
-
 	@NotifyChange({ "listBoothDisplay", "listFloorDisplay" })
 	@Command
 	public void loadBoothFloorDisplay() {
@@ -1272,8 +1185,11 @@ public class FrmBudget {
 	}
 
 	@Command
-	public void searchBusinessPartner(@BindingParam("rif") String rif) {
-		businessPartner = serviceBusinessPartner.findActiveByRif(rif);
+	public void searchBusinessPartner(@BindingParam("val") String value, @BindingParam("field") String field) {
+		if (field.equals("rif"))
+			businessPartner = serviceBusinessPartner.findActiveByRif(value);
+		else
+			businessPartner = serviceBusinessPartner.findActiveByName(value);
 		if (businessPartner == null) {
 			Executions.createComponents("system/socios/frmBusinessPartner.zul", null, null);
 		} else {

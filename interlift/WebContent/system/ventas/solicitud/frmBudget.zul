@@ -46,7 +46,7 @@
 								autodrop="true" buttonVisible="false"
 								disabled="@load(vm.disableAfterSearch)" maxlength="15"
 								model="@load(vm.listRifPartner)"
-								onChange="@command(vm.disabledAll ? 'searchBudgetBusinessPartner' : 'searchBusinessPartner', rif=self.value)"
+								onChange="@command(vm.disabledAll ? 'searchBudget' : 'searchBusinessPartner', field='rif', val=self.value)"
 								onFocus="@command(vm.disabledAll ? 'loadBudgetByField' : 'loadBusinessPartnerByField', field='rifPartner')"
 								style="float: right"
 								value="@save(vm.budget.rifPartner, before = 'confirmSave') @load(vm.budget.rifPartner) @validator(vm.noEmpty, component = self)"
@@ -59,7 +59,7 @@
 						<combobox autocomplete="true"
 							autodrop="@load(vm.disabledAll)" buttonVisible="false"
 							disabled="@load(vm.disabledNumber)" model="@load(vm.listNumber)"
-							onChange="@command(vm.disabledAll ? 'searchBudgetNumber':'', field='number', val=self.value)"
+							onChange="@command(vm.disabledAll ? 'searchBudget':'', field='number', val=self.value)"
 							onFocus="@command(vm.disabledAll ? 'loadBudgetByField':'', field='number')"
 							value="@load(vm.budget.number)" width="50%">
 						</combobox>
@@ -71,8 +71,8 @@
 							autodrop="@load(vm.disabledAll)" buttonVisible="false"
 							disabled="@load(vm.disableAfterSearch)" maxlength="100"
 							model="@load(vm.listPartnerName)"
-							onChange="@command(vm.disabledAll ? 'searchBudget':'', field='partnerName', val=self.value)"
-							onFocus="@command(vm.disabledAll ? 'loadBudgetByField':'', field='partnerName')"
+							onChange="@command(vm.disabledAll ? 'searchBudget':'searchBusinessPartner', field='partnerName', val=self.value)"
+							onFocus="@command(vm.disabledAll ? 'loadBudgetByField':'loadBusinessPartnerByField', field='partnerName')"
 							value="@save(vm.budget.partnerName, before = 'confirmSave') @load(vm.budget.partnerName) @validator(vm.noEmpty, component = self)"
 							width="100%">
 						</combobox>
@@ -241,7 +241,6 @@
 						</label>
 						<combobox disabled="@load(vm.disabledAll)"
 							model="@load(vm.listElevatorType)"
-							onChange="@command('selectElevatorType')"
 							readonly="@load(vm.disabledAll ? 'false' : 'true')"
 							selectedItem="@bind(vm.budget.basicDataByElevatorType)"
 							value="@save(vm.seleccione, before = 'confirmSave') @load(vm.budget.basicDataByElevatorType eq null ? vm.seleccione: vm.budget.basicDataByElevatorType.name) @validator(vm.noSelect, component = self)"
@@ -267,7 +266,6 @@
 						</label>
 						<combobox disabled="@load(vm.disabledAll)"
 							model="@load(vm.listElevatorCapa)"
-							onChange="@command('loadFans')"
 							readonly="@load(vm.disabledAll ? 'false' : 'true')"
 							selectedItem="@bind(vm.budget.basicDataByElevatorCapacitance)"
 							value="@save(vm.seleccione, before = 'confirmSave') @load(vm.budget.basicDataByElevatorCapacitance eq null ? vm.seleccione : vm.budget.basicDataByElevatorCapacitance.name) @validator(vm.noSelect, component = self)"
@@ -901,7 +899,7 @@
 							value="@load(vm.budget.doorFrameStainless ? vm.budget.doorFrameStainlessDescrip : '') @save(vm.budget.doorFrameStainlessDescrip)"
 							width="97%">
 						</textbox>
-						<label sclass="formLabel" value="Martillado:"></label>
+						<label sclass="formLabel" value="Pintura electrostatica:"></label>
 						<combobox disabled="@load(vm.disabledAll)"
 							model="@load(vm.listDoorframeHammered)"
 							readonly="@load(vm.disabledAll ? 'false' : 'true')"

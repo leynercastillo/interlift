@@ -3,25 +3,29 @@
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory>
-		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
-		<property name="hibernate.c3p0.acquire_increment">1</property>
-		<property name="hibernate.c3p0.idle_test_period">100</property>
-		<property name="hibernate.c3p0.max_size">100</property>
-		<property name="hibernate.c3p0.max_statements">1</property>
-		<property name="hibernate.c3p0.min_size">10</property>
-		<property name="hibernate.c3p0.timeout">100</property>
-		<property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
-		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-		<property name="hibernate.search.autoregister_listeners">false</property>
-		<mapping class="model.database.SecurityRole" />
-		<mapping class="model.database.Budget" />
-		<mapping class="model.database.SecurityUser" />
-		<mapping class="model.database.SecurityGroup" />
-		<mapping class="model.database.Item" />
-		<mapping class="model.database.Quotation" />
-		<mapping class="model.database.BusinessPartner" />
-		<mapping class="model.database.BasicData" />
-		<mapping class="model.database.Contact" />
-	</session-factory>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        <property name="hibernate.c3p0.idle_test_period">100</property>
+        <property name="hibernate.c3p0.max_size">100</property>
+        <property name="hibernate.c3p0.max_statements">1</property>
+        <property name="hibernate.c3p0.min_size">10</property>
+        <property name="hibernate.c3p0.timeout">100</property>
+        <property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.password">leyner.18654277</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/interlift</property>
+        <property name="hibernate.connection.username">interlift_admin</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+        <mapping class="model.database.SecurityRole" />
+        <mapping class="model.database.Budget" />
+        <mapping class="model.database.SecurityUser" />
+        <mapping class="model.database.SecurityGroup" />
+        <mapping class="model.database.Item" />
+        <mapping class="model.database.Quotation" />
+        <mapping class="model.database.BusinessPartner" />
+        <mapping class="model.database.BasicData" />
+        <mapping class="model.database.Contact" />
+    </session-factory>
 </hibernate-configuration>

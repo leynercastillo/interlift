@@ -1,6 +1,6 @@
 package model.database;
 
-// Generated 09-sep-2013 15:28:18 by Hibernate Tools 4.0.0
+// Generated 27-sep-2013 15:23:09 by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -45,6 +45,7 @@ public class Budget implements java.io.Serializable {
 	private BasicData basicDataByElevatorCapacitance;
 	private BusinessPartner businessPartner;
 	private BasicData basicDataByBoothDisplay;
+	private BasicData basicDataByCabinModel;
 	private BasicData basicDataByElevatorType;
 	private BasicData basicDataByDoorSystem;
 	private BasicData basicDataByFrequency;
@@ -91,8 +92,8 @@ public class Budget implements java.io.Serializable {
 	private Boolean designSpecial;
 	private String designSpecialComment;
 	private Double cabinWidth;
-	private Double cabinHeight;
 	private Double cabinBackground;
+	private Double cabinHeight;
 	private Integer doorOfNumber;
 	private String doorframeTypeComment;
 	private String hallButtonPlace;
@@ -128,10 +129,11 @@ public class Budget implements java.io.Serializable {
 	public Budget() {
 	}
 
-	public Budget(int idBudget, SecurityUser securityUser, BusinessPartner businessPartner, int number, Date date, char rifType, String rifPartner, String partnerName, String construction, String seller, String constructionAddress, String constructionCity, String contactPhone, String contactName, boolean type, char status) {
+	public Budget(int idBudget, SecurityUser securityUser, BusinessPartner businessPartner, BasicData basicDataByCabinModel, int number, Date date, char rifType, String rifPartner, String partnerName, String construction, String seller, String constructionAddress, String constructionCity, String contactPhone, String contactName, boolean type, char status) {
 		this.idBudget = idBudget;
 		this.securityUser = securityUser;
 		this.businessPartner = businessPartner;
+		this.basicDataByCabinModel = basicDataByCabinModel;
 		this.number = number;
 		this.date = date;
 		this.rifType = rifType;
@@ -147,7 +149,7 @@ public class Budget implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public Budget(int idBudget, BasicData basicDataByElectricityType, BasicData basicDataByHourMachine, BasicData basicDataByHallButton, BasicData basicDataByRoofType, BasicData basicDataBySpeed, BasicData basicDataByVoltageLighting, BasicData basicDataByDoorframeType, BasicData basicDataByRailing, BasicData basicDataByBoothButton, SecurityUser securityUser, BasicData basicDataByMirror, BasicData basicDataByElevatorCapacitance, BusinessPartner businessPartner, BasicData basicDataByBoothDisplay, BasicData basicDataByElevatorType, BasicData basicDataByDoorSystem, BasicData basicDataByFrequency, BasicData basicDataByHallButtonType, BasicData basicDataByFan, BasicData basicDataByCabinDesign, BasicData basicDataByMachineType, BasicData basicDataByBuildingType, BasicData basicDataByManeuverType, BasicData basicDataByDoorFrameHammered, BasicData basicDataByFloorType, BasicData basicDataByMachineBase, BasicData basicDataByHeight, BasicData basicDataByDoorType, BasicData basicDataByButtonType, BasicData basicDataByControlType, BasicData basicDataByFreeAdmission, BasicData basicDataByFloorDisplay, BasicData basicDataByAccess, int number, Date date, char rifType, String rifPartner, String partnerName, String construction, String seller, String constructionAddress, String constructionCity, String contactPhone, String email, String contactName, Boolean planeP, Boolean planeC, boolean type, Integer elevatorQuantity, Integer motorQuantity, String motorTraction, Integer stopNumber, Double tour, Double onTour, Double widthHole, Double fossa, Double bottomHole, Boolean designSpecial, String designSpecialComment, Double cabinWidth, Double cabinHeight, Double cabinBackground, Integer doorOfNumber, String doorframeTypeComment, String hallButtonPlace, Boolean lightCurtain, Boolean loadLimiter, Boolean speechSynthesizer, Boolean gomSystem, Boolean intercom, Boolean phone, Boolean accessSytem, Boolean firefighterKeychain, String displayPlaceFloor, Boolean stopSequenceContinuous, String stopSequenceContinuousQ, Integer stopSequenceContinuousNumber, Boolean stopSequenceEven, String stopSequenceEvenQ, Integer stopSequenceEvenNumber, Boolean stopSequenceOdd, String stopSequenceOddQ, Integer stopSequenceOddNumber, String doorFrameHammeredDesc, Boolean doorFrameStainless, String doorFrameStainlessDescrip, Boolean sistelWdisplayPb, Integer sistelWdisplayFloor, Boolean sistelWarrowPb, Integer sistelWarrowFloor, String comment, char status, Set<Quotation> quotations) {
+	public Budget(int idBudget, BasicData basicDataByElectricityType, BasicData basicDataByHourMachine, BasicData basicDataByHallButton, BasicData basicDataByRoofType, BasicData basicDataBySpeed, BasicData basicDataByVoltageLighting, BasicData basicDataByDoorframeType, BasicData basicDataByRailing, BasicData basicDataByBoothButton, SecurityUser securityUser, BasicData basicDataByMirror, BasicData basicDataByElevatorCapacitance, BusinessPartner businessPartner, BasicData basicDataByBoothDisplay, BasicData basicDataByCabinModel, BasicData basicDataByElevatorType, BasicData basicDataByDoorSystem, BasicData basicDataByFrequency, BasicData basicDataByHallButtonType, BasicData basicDataByFan, BasicData basicDataByCabinDesign, BasicData basicDataByMachineType, BasicData basicDataByBuildingType, BasicData basicDataByManeuverType, BasicData basicDataByDoorFrameHammered, BasicData basicDataByFloorType, BasicData basicDataByMachineBase, BasicData basicDataByHeight, BasicData basicDataByDoorType, BasicData basicDataByButtonType, BasicData basicDataByControlType, BasicData basicDataByFreeAdmission, BasicData basicDataByFloorDisplay, BasicData basicDataByAccess, int number, Date date, char rifType, String rifPartner, String partnerName, String construction, String seller, String constructionAddress, String constructionCity, String contactPhone, String email, String contactName, Boolean planeP, Boolean planeC, boolean type, Integer elevatorQuantity, Integer motorQuantity, String motorTraction, Integer stopNumber, Double tour, Double onTour, Double widthHole, Double fossa, Double bottomHole, Boolean designSpecial, String designSpecialComment, Double cabinWidth, Double cabinBackground, Double cabinHeight, Integer doorOfNumber, String doorframeTypeComment, String hallButtonPlace, Boolean lightCurtain, Boolean loadLimiter, Boolean speechSynthesizer, Boolean gomSystem, Boolean intercom, Boolean phone, Boolean accessSytem, Boolean firefighterKeychain, String displayPlaceFloor, Boolean stopSequenceContinuous, String stopSequenceContinuousQ, Integer stopSequenceContinuousNumber, Boolean stopSequenceEven, String stopSequenceEvenQ, Integer stopSequenceEvenNumber, Boolean stopSequenceOdd, String stopSequenceOddQ, Integer stopSequenceOddNumber, String doorFrameHammeredDesc, Boolean doorFrameStainless, String doorFrameStainlessDescrip, Boolean sistelWdisplayPb, Integer sistelWdisplayFloor, Boolean sistelWarrowPb, Integer sistelWarrowFloor, String comment, char status, Set<Quotation> quotations) {
 		this.idBudget = idBudget;
 		this.basicDataByElectricityType = basicDataByElectricityType;
 		this.basicDataByHourMachine = basicDataByHourMachine;
@@ -163,6 +165,7 @@ public class Budget implements java.io.Serializable {
 		this.basicDataByElevatorCapacitance = basicDataByElevatorCapacitance;
 		this.businessPartner = businessPartner;
 		this.basicDataByBoothDisplay = basicDataByBoothDisplay;
+		this.basicDataByCabinModel = basicDataByCabinModel;
 		this.basicDataByElevatorType = basicDataByElevatorType;
 		this.basicDataByDoorSystem = basicDataByDoorSystem;
 		this.basicDataByFrequency = basicDataByFrequency;
@@ -209,8 +212,8 @@ public class Budget implements java.io.Serializable {
 		this.designSpecial = designSpecial;
 		this.designSpecialComment = designSpecialComment;
 		this.cabinWidth = cabinWidth;
-		this.cabinHeight = cabinHeight;
 		this.cabinBackground = cabinBackground;
+		this.cabinHeight = cabinHeight;
 		this.doorOfNumber = doorOfNumber;
 		this.doorframeTypeComment = doorframeTypeComment;
 		this.hallButtonPlace = hallButtonPlace;
@@ -394,6 +397,16 @@ public class Budget implements java.io.Serializable {
 
 	public void setBasicDataByBoothDisplay(BasicData basicDataByBoothDisplay) {
 		this.basicDataByBoothDisplay = basicDataByBoothDisplay;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cabin_model", nullable = false)
+	public BasicData getBasicDataByCabinModel() {
+		return this.basicDataByCabinModel;
+	}
+
+	public void setBasicDataByCabinModel(BasicData basicDataByCabinModel) {
+		this.basicDataByCabinModel = basicDataByCabinModel;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -837,15 +850,6 @@ public class Budget implements java.io.Serializable {
 		this.cabinWidth = cabinWidth;
 	}
 
-	@Column(name = "cabin_height", precision = 17, scale = 17)
-	public Double getCabinHeight() {
-		return this.cabinHeight;
-	}
-
-	public void setCabinHeight(Double cabinHeight) {
-		this.cabinHeight = cabinHeight;
-	}
-
 	@Column(name = "cabin_background", precision = 17, scale = 17)
 	public Double getCabinBackground() {
 		return this.cabinBackground;
@@ -853,6 +857,15 @@ public class Budget implements java.io.Serializable {
 
 	public void setCabinBackground(Double cabinBackground) {
 		this.cabinBackground = cabinBackground;
+	}
+
+	@Column(name = "cabin_height", precision = 17, scale = 17)
+	public Double getCabinHeight() {
+		return this.cabinHeight;
+	}
+
+	public void setCabinHeight(Double cabinHeight) {
+		this.cabinHeight = cabinHeight;
 	}
 
 	@Column(name = "door_of_number")
