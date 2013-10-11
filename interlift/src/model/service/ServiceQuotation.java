@@ -57,8 +57,8 @@ public class ServiceQuotation {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Quotation> listByRifPartner(String rifPartner) {
-		return daoQuotation.listByField("rifPartner", rifPartner);
+	public List<Quotation> listByNitPartner(String nitPartner) {
+		return daoQuotation.listByField("nitPartner", nitPartner);
 	}
 
 	@Transactional(readOnly = true)
@@ -82,8 +82,8 @@ public class ServiceQuotation {
 	}
 
 	@Transactional(readOnly = true)
-	public List<String> listRifPartner() {
-		return daoQuotation.listStringByFields("rifPartner");
+	public List<String> listNitPartner() {
+		return daoQuotation.listStringByFields("nitPartner");
 	}
 
 	@Transactional(readOnly = true)

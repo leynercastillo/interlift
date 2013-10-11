@@ -1,11 +1,13 @@
 package general;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -22,14 +24,20 @@ import org.zkoss.zk.ui.Sessions;
 public class GenericReport {
 
 	private Connection getConnection() {
+		Properties dbProperties = new Properties();
 		try {
-			Class.forName("org.postgresql.Driver");
+			dbProperties.load(this.getClass().getClassLoader().getResourceAsStream("/configuration/database.properties"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			Class.forName(dbProperties.getProperty("db.driverClass"));
 		} catch (ClassNotFoundException e2) {
 			e2.printStackTrace();
 		}
 		Connection connection;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ascensor_nardi", "ascensor_admin", "leyner.18654277");
+			connection = DriverManager.getConnection(dbProperties.getProperty("db.jdbcUrl"), dbProperties.getProperty("db.user"), dbProperties.getProperty("db.password"));
 		} catch (SQLException e) {
 			connection = null;
 			e.printStackTrace();

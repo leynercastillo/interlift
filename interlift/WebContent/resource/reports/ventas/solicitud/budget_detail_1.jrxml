@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="budget_genera1_1" language="groovy" pageWidth="572" pageHeight="640" columnWidth="572" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="3bd75de0-205f-4086-846b-93752dd8996c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="170"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="NUMBER" class="java.lang.Integer">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -224,7 +224,7 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="640" splitType="Stretch">
+		<band height="564" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="35a832dc-7664-4825-935b-206700cec3d4" x="3" y="50" width="125" height="15"/>
 				<textElement>
@@ -955,10 +955,6 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$P{REPORT_TITLE}]]></textFieldExpression>
 			</textField>
-			<image hAlign="Center" vAlign="Middle">
-				<reportElement uuid="2249fa04-e4c0-49be-a2f1-dd55f5d686e9" x="3" y="591" width="569" height="49"/>
-				<imageExpression><![CDATA[$P{IMAGES_DIR}+"pie.jpg"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement uuid="7b48fde9-a21f-4b94-8a2f-0650011ce80d" x="318" y="519" width="125" height="15"/>
 				<textElement>

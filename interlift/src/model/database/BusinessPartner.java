@@ -1,6 +1,6 @@
 package model.database;
 
-// Generated 09-sep-2013 15:28:18 by Hibernate Tools 4.0.0
+// Generated 11-oct-2013 10:33:55 by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -25,8 +23,7 @@ public class BusinessPartner implements java.io.Serializable {
 
 	private static final long serialVersionUID = -8226898077750640075L;
 	private int idBusinessPartner;
-	private BasicData basicData;
-	private String rif;
+	private String nit;
 	private String name;
 	private String address;
 	private char status;
@@ -36,18 +33,16 @@ public class BusinessPartner implements java.io.Serializable {
 	public BusinessPartner() {
 	}
 
-	public BusinessPartner(int idBusinessPartner, BasicData basicData, String rif, String name, char status) {
+	public BusinessPartner(int idBusinessPartner, String nit, String name, char status) {
 		this.idBusinessPartner = idBusinessPartner;
-		this.basicData = basicData;
-		this.rif = rif;
+		this.nit = nit;
 		this.name = name;
 		this.status = status;
 	}
 
-	public BusinessPartner(int idBusinessPartner, BasicData basicData, String rif, String name, String address, char status, Set<Budget> budgets, Set<Quotation> quotations) {
+	public BusinessPartner(int idBusinessPartner, String nit, String name, String address, char status, Set<Budget> budgets, Set<Quotation> quotations) {
 		this.idBusinessPartner = idBusinessPartner;
-		this.basicData = basicData;
-		this.rif = rif;
+		this.nit = nit;
 		this.name = name;
 		this.address = address;
 		this.status = status;
@@ -67,23 +62,13 @@ public class BusinessPartner implements java.io.Serializable {
 		this.idBusinessPartner = idBusinessPartner;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "rif_type", nullable = false)
-	public BasicData getBasicData() {
-		return this.basicData;
+	@Column(name = "nit", nullable = false, length = 15)
+	public String getNit() {
+		return this.nit;
 	}
 
-	public void setBasicData(BasicData basicData) {
-		this.basicData = basicData;
-	}
-
-	@Column(name = "rif", nullable = false, length = 15)
-	public String getRif() {
-		return this.rif;
-	}
-
-	public void setRif(String rif) {
-		this.rif = rif;
+	public void setNit(String nit) {
+		this.nit = nit;
 	}
 
 	@Column(name = "name", nullable = false, length = 100)

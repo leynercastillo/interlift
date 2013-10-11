@@ -1,6 +1,6 @@
 package model.database;
 
-// Generated 27-sep-2013 15:23:09 by Hibernate Tools 4.0.0
+// Generated 11-oct-2013 10:33:55 by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -67,8 +67,7 @@ public class Budget implements java.io.Serializable {
 	private BasicData basicDataByAccess;
 	private int number;
 	private Date date;
-	private char rifType;
-	private String rifPartner;
+	private String nitPartner;
 	private String partnerName;
 	private String construction;
 	private String seller;
@@ -129,15 +128,14 @@ public class Budget implements java.io.Serializable {
 	public Budget() {
 	}
 
-	public Budget(int idBudget, SecurityUser securityUser, BusinessPartner businessPartner, BasicData basicDataByCabinModel, int number, Date date, char rifType, String rifPartner, String partnerName, String construction, String seller, String constructionAddress, String constructionCity, String contactPhone, String contactName, boolean type, char status) {
+	public Budget(int idBudget, SecurityUser securityUser, BusinessPartner businessPartner, BasicData basicDataByCabinModel, int number, Date date, String nitPartner, String partnerName, String construction, String seller, String constructionAddress, String constructionCity, String contactPhone, String contactName, boolean type, char status) {
 		this.idBudget = idBudget;
 		this.securityUser = securityUser;
 		this.businessPartner = businessPartner;
 		this.basicDataByCabinModel = basicDataByCabinModel;
 		this.number = number;
 		this.date = date;
-		this.rifType = rifType;
-		this.rifPartner = rifPartner;
+		this.nitPartner = nitPartner;
 		this.partnerName = partnerName;
 		this.construction = construction;
 		this.seller = seller;
@@ -149,7 +147,7 @@ public class Budget implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public Budget(int idBudget, BasicData basicDataByElectricityType, BasicData basicDataByHourMachine, BasicData basicDataByHallButton, BasicData basicDataByRoofType, BasicData basicDataBySpeed, BasicData basicDataByVoltageLighting, BasicData basicDataByDoorframeType, BasicData basicDataByRailing, BasicData basicDataByBoothButton, SecurityUser securityUser, BasicData basicDataByMirror, BasicData basicDataByElevatorCapacitance, BusinessPartner businessPartner, BasicData basicDataByBoothDisplay, BasicData basicDataByCabinModel, BasicData basicDataByElevatorType, BasicData basicDataByDoorSystem, BasicData basicDataByFrequency, BasicData basicDataByHallButtonType, BasicData basicDataByFan, BasicData basicDataByCabinDesign, BasicData basicDataByMachineType, BasicData basicDataByBuildingType, BasicData basicDataByManeuverType, BasicData basicDataByDoorFrameHammered, BasicData basicDataByFloorType, BasicData basicDataByMachineBase, BasicData basicDataByHeight, BasicData basicDataByDoorType, BasicData basicDataByButtonType, BasicData basicDataByControlType, BasicData basicDataByFreeAdmission, BasicData basicDataByFloorDisplay, BasicData basicDataByAccess, int number, Date date, char rifType, String rifPartner, String partnerName, String construction, String seller, String constructionAddress, String constructionCity, String contactPhone, String email, String contactName, Boolean planeP, Boolean planeC, boolean type, Integer elevatorQuantity, Integer motorQuantity, String motorTraction, Integer stopNumber, Double tour, Double onTour, Double widthHole, Double fossa, Double bottomHole, Boolean designSpecial, String designSpecialComment, Double cabinWidth, Double cabinBackground, Double cabinHeight, Integer doorOfNumber, String doorframeTypeComment, String hallButtonPlace, Boolean lightCurtain, Boolean loadLimiter, Boolean speechSynthesizer, Boolean gomSystem, Boolean intercom, Boolean phone, Boolean accessSytem, Boolean firefighterKeychain, String displayPlaceFloor, Boolean stopSequenceContinuous, String stopSequenceContinuousQ, Integer stopSequenceContinuousNumber, Boolean stopSequenceEven, String stopSequenceEvenQ, Integer stopSequenceEvenNumber, Boolean stopSequenceOdd, String stopSequenceOddQ, Integer stopSequenceOddNumber, String doorFrameHammeredDesc, Boolean doorFrameStainless, String doorFrameStainlessDescrip, Boolean sistelWdisplayPb, Integer sistelWdisplayFloor, Boolean sistelWarrowPb, Integer sistelWarrowFloor, String comment, char status, Set<Quotation> quotations) {
+	public Budget(int idBudget, BasicData basicDataByElectricityType, BasicData basicDataByHourMachine, BasicData basicDataByHallButton, BasicData basicDataByRoofType, BasicData basicDataBySpeed, BasicData basicDataByVoltageLighting, BasicData basicDataByDoorframeType, BasicData basicDataByRailing, BasicData basicDataByBoothButton, SecurityUser securityUser, BasicData basicDataByMirror, BasicData basicDataByElevatorCapacitance, BusinessPartner businessPartner, BasicData basicDataByBoothDisplay, BasicData basicDataByCabinModel, BasicData basicDataByElevatorType, BasicData basicDataByDoorSystem, BasicData basicDataByFrequency, BasicData basicDataByHallButtonType, BasicData basicDataByFan, BasicData basicDataByCabinDesign, BasicData basicDataByMachineType, BasicData basicDataByBuildingType, BasicData basicDataByManeuverType, BasicData basicDataByDoorFrameHammered, BasicData basicDataByFloorType, BasicData basicDataByMachineBase, BasicData basicDataByHeight, BasicData basicDataByDoorType, BasicData basicDataByButtonType, BasicData basicDataByControlType, BasicData basicDataByFreeAdmission, BasicData basicDataByFloorDisplay, BasicData basicDataByAccess, int number, Date date, String nitPartner, String partnerName, String construction, String seller, String constructionAddress, String constructionCity, String contactPhone, String email, String contactName, Boolean planeP, Boolean planeC, boolean type, Integer elevatorQuantity, Integer motorQuantity, String motorTraction, Integer stopNumber, Double tour, Double onTour, Double widthHole, Double fossa, Double bottomHole, Boolean designSpecial, String designSpecialComment, Double cabinWidth, Double cabinBackground, Double cabinHeight, Integer doorOfNumber, String doorframeTypeComment, String hallButtonPlace, Boolean lightCurtain, Boolean loadLimiter, Boolean speechSynthesizer, Boolean gomSystem, Boolean intercom, Boolean phone, Boolean accessSytem, Boolean firefighterKeychain, String displayPlaceFloor, Boolean stopSequenceContinuous, String stopSequenceContinuousQ, Integer stopSequenceContinuousNumber, Boolean stopSequenceEven, String stopSequenceEvenQ, Integer stopSequenceEvenNumber, Boolean stopSequenceOdd, String stopSequenceOddQ, Integer stopSequenceOddNumber, String doorFrameHammeredDesc, Boolean doorFrameStainless, String doorFrameStainlessDescrip, Boolean sistelWdisplayPb, Integer sistelWdisplayFloor, Boolean sistelWarrowPb, Integer sistelWarrowFloor, String comment, char status, Set<Quotation> quotations) {
 		this.idBudget = idBudget;
 		this.basicDataByElectricityType = basicDataByElectricityType;
 		this.basicDataByHourMachine = basicDataByHourMachine;
@@ -187,8 +185,7 @@ public class Budget implements java.io.Serializable {
 		this.basicDataByAccess = basicDataByAccess;
 		this.number = number;
 		this.date = date;
-		this.rifType = rifType;
-		this.rifPartner = rifPartner;
+		this.nitPartner = nitPartner;
 		this.partnerName = partnerName;
 		this.construction = construction;
 		this.seller = seller;
@@ -625,22 +622,13 @@ public class Budget implements java.io.Serializable {
 		this.date = date;
 	}
 
-	@Column(name = "rif_type", nullable = false, length = 1)
-	public char getRifType() {
-		return this.rifType;
+	@Column(name = "nit_partner", nullable = false, length = 15)
+	public String getNitPartner() {
+		return this.nitPartner;
 	}
 
-	public void setRifType(char rifType) {
-		this.rifType = rifType;
-	}
-
-	@Column(name = "rif_partner", nullable = false, length = 15)
-	public String getRifPartner() {
-		return this.rifPartner;
-	}
-
-	public void setRifPartner(String rifPartner) {
-		this.rifPartner = rifPartner;
+	public void setNitPartner(String nitPartner) {
+		this.nitPartner = nitPartner;
 	}
 
 	@Column(name = "partner_name", nullable = false, length = 100)

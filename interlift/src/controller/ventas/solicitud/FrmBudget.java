@@ -1,11 +1,10 @@
 package controller.ventas.solicitud;
 
+import general.GenericReport;
 import general.SimpleListModelCustom;
 import general.ValidateZK;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,16 +22,7 @@ import model.service.ServiceBudget;
 import model.service.ServiceBusinessPartner;
 import model.service.ServiceQuotation;
 import model.service.ServiceSecurityUser;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
 
-import org.hibernate.HibernateException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.zkoss.bind.BindUtils;
@@ -113,13 +103,11 @@ public class FrmBudget {
 	private List<BasicData> listCabinModel;
 	private List<BasicData> listHallButton;
 	private List<BasicData> listHallButtonType;
-	private List<BasicData> listRifType;
-	private ListModel<Object> listRifPartner;
+	private ListModel<Object> listNitPartner;
 	private ListModel<Object> listNumber;
 	private ListModel<Object> listPartnerName;
 	private ListModel<Object> listConstruction;
 	private ListModel<Object> listSeller;
-	private BasicData cabinModel;
 	private Boolean stainlessSteel;
 	private Boolean hammeredGray;
 	private Boolean hammeredBrown;
@@ -188,20 +176,12 @@ public class FrmBudget {
 		this.listMachineBase = listMachineBase;
 	}
 
-	public ListModel<Object> getListRifPartner() {
-		return listRifPartner;
+	public ListModel<Object> getListNitPartner() {
+		return listNitPartner;
 	}
 
-	public void setListRifPartner(ListModel<Object> listRifPartner) {
-		this.listRifPartner = listRifPartner;
-	}
-
-	public List<BasicData> getListRifType() {
-		return listRifType;
-	}
-
-	public void setListRifType(List<BasicData> listRifType) {
-		this.listRifType = listRifType;
+	public void setListNitPartner(ListModel<Object> listNitPartner) {
+		this.listNitPartner = listNitPartner;
 	}
 
 	public Boolean getDisableSistelHall() {
@@ -258,14 +238,6 @@ public class FrmBudget {
 
 	public void setListDesign(List<BasicData> listDesign) {
 		this.listDesign = listDesign;
-	}
-
-	public BasicData getCabinModel() {
-		return cabinModel;
-	}
-
-	public void setCabinModel(BasicData cabinModel) {
-		this.cabinModel = cabinModel;
 	}
 
 	public List<BasicData> getListCabinModel() {
@@ -611,7 +583,6 @@ public class FrmBudget {
 		disableSeller = new Boolean(true);
 		disableSistelHall = new Boolean(true);
 		isSpecial = new Boolean(false);
-		cabinModel = new BasicData();
 		User auxUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		SecurityUser user = serviceSecurityUser.findUser(auxUser.getUsername());
 		budget.setSeller(user.getName());
@@ -646,8 +617,7 @@ public class FrmBudget {
 		budget.setSistelWdisplayPb(new Boolean(false));
 		budget.setSistelWdisplayFloor(0);
 		budget.setSistelWarrowPb(new Boolean(false));
-		budget.setRifType('-');
-		budget.setRifPartner(new String());
+		budget.setNitPartner(new String());
 		budget.setLightCurtain(true);
 		/* listDesign = new ArrayList<BasicData>(); */
 		listDesign = serviceBasicData.listDesign();
@@ -659,12 +629,11 @@ public class FrmBudget {
 		listFloorDisplay = serviceBasicData.listFloorDisplay();
 		/* listRoofType = new ArrayList<BasicData>(); */
 		listRoofType = serviceBasicData.listRoofType();
-		listRifPartner = new ListModelList<Object>();
+		listNitPartner = new ListModelList<Object>();
 		listNumber = new ListModelList<Object>();
 		listPartnerName = new ListModelList<Object>();
 		listConstruction = new ListModelList<Object>();
 		listSeller = new ListModelList<Object>();
-		listRifType = serviceBasicData.listRifType();
 		listBType = serviceBasicData.listBuildingType();
 		listElevatorType = serviceBasicData.listElevatorType();
 		listElevatorCapa = serviceBasicData.listElevatorCapacitance();
@@ -736,66 +705,27 @@ public class FrmBudget {
 	 * 
 	 * @return {@link Validator}
 	 */
-	public Validator getNoEmptyForFormica() {
+	public Validator getNoEmptyDesign() {
 		return new AbstractValidator() {
 			@Override
 			public void validate(ValidationContext ctx) {
 				InputElement inputElement = (InputElement) ctx.getBindContext().getValidatorArg("component");
 				String str = inputElement.getText();
-				if (budget.getBasicDataByCabinDesign() != null && budget.getBasicDataByCabinDesign().getName().indexOf("FORMICA") != -1 && str.trim().isEmpty())
-					throw new WrongValueException(inputElement, "Debe ingresar una descripcion para formica.");
 				if (budget.getBasicDataByCabinDesign() != null && budget.getBasicDataByCabinDesign().getName().indexOf("OTRO") != -1 && str.trim().isEmpty())
 					throw new WrongValueException(inputElement, "Debe ingresar una descripcion para otro.");
-				if (budget.getBasicDataByFloorType() != null && budget.getBasicDataByFloorType().getName().indexOf("OTROS") != -1 && str.trim().isEmpty())
-					throw new WrongValueException(inputElement, "Debe ingresar una descripcion acabados de piso OTROS.");
 			}
 		};
 	}
 
-	public Validator getNoZeroContinuous() {
+	public Validator getNoStop() {
 		return new AbstractValidator() {
 			@Override
 			public void validate(ValidationContext ctx) {
 				InputElement inputElement = (InputElement) ctx.getBindContext().getValidatorArg("component");
+				Boolean stopSequence = (Boolean) ctx.getBindContext().getValidatorArg("bool");
 				Integer value = Integer.valueOf(inputElement.getText());
-				if (budget.getStopSequenceContinuous() && value <= 0)
+				if (stopSequence && value <= 0)
 					throw new WrongValueException(inputElement, "Debe ingresar cantidad de paradas.");
-			}
-		};
-	}
-
-	public Validator getNoZeroEven() {
-		return new AbstractValidator() {
-			@Override
-			public void validate(ValidationContext ctx) {
-				InputElement inputElement = (InputElement) ctx.getBindContext().getValidatorArg("component");
-				Integer value = Integer.valueOf(inputElement.getText());
-				if (budget.getStopSequenceEven() && value <= 0)
-					throw new WrongValueException(inputElement, "Debe ingresar cantidad de paradas.");
-			}
-		};
-	}
-
-	public Validator getNoZeroOdd() {
-		return new AbstractValidator() {
-			@Override
-			public void validate(ValidationContext ctx) {
-				InputElement inputElement = (InputElement) ctx.getBindContext().getValidatorArg("component");
-				Integer value = Integer.valueOf(inputElement.getText());
-				if (budget.getStopSequenceOdd() && value <= 0)
-					throw new WrongValueException(inputElement, "Debe ingresar cantidad de paradas.");
-			}
-		};
-	}
-
-	public Validator getValidateDoorframeType() {
-		return new AbstractValidator() {
-			@Override
-			public void validate(ValidationContext ctx) {
-				InputElement inputElement = (InputElement) ctx.getBindContext().getValidatorArg("component");
-				String str = inputElement.getText();
-				if (budget.getBasicDataByDoorframeType() != null && (str.indexOf("RECTO - 30X150") != -1) && (budget.getHallButtonPlace().indexOf("MARCO") != -1))
-					throw new WrongValueException(inputElement, "Este tipo no puede ser ubicado en el Marco.");
 			}
 		};
 	}
@@ -821,19 +751,21 @@ public class FrmBudget {
 
 	public List<File> mailAttach() {
 		List<File> listAttach = new ArrayList<File>();
-		try {
-			createPdf();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		File file = new File(Sessions.getCurrent().getWebApp().getRealPath("/resource/reports/ventas/solicitud/presupuesto" + budget.getNumber() + ".pdf"));
+		GenericReport report = new GenericReport();
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		int number = budget.getNumber();
+		parameters.put("NUMBER", number);
+		parameters.put("REPORT_TITLE", "Solicitud Presupuesto");
+		parameters.put("IMAGES_DIR", "../../resource/images/system/reports/");
+		parameters.put("SUBREPORT_DIR", "../../resource/reports/ventas/solicitud/");
+		report.createPdf("/resource/reports/ventas/solicitud", "budget.jasper", parameters, "solicitud_" + number + ".pdf");
+		File file = new File(Sessions.getCurrent().getWebApp().getRealPath("/resource/reports/ventas/solicitud/solicitud_" + number + ".pdf"));
 		listAttach.add(file);
 		return listAttach;
 	}
 
 	public void sendMail() {
 		List<String> listRecipient = new ArrayList<String>();
-		listRecipient.add("ventas@ascensoresnardi.com");
 		listRecipient.add("sistemas@ascensoresnardi.com");
 		emails.sendMail("sistemas@ascensoresnardi.com", "Solicitud de presupuesto nro" + budget.getNumber(), listRecipient, mailMessage(), mailAttach());
 	}
@@ -841,19 +773,19 @@ public class FrmBudget {
 	@NotifyChange({ "*" })
 	@Command
 	public void save(@BindingParam("component") InputElement component) throws SQLException {
+		boolean sendMail = false;
+		// Se envia si es solictud nueva.
+		if (budget.getIdBudget() == 0)
+			sendMail = true;
 		if (businessPartner.getIdBusinessPartner() != 0)
 			budget.setBusinessPartner(businessPartner);
-		/* Cambiar if a metodo de validacion tradicional */
 		if (!serviceBudget.save(budget)) {
 			Clients.showNotification("No se pudo guardar.", "error", null, "bottom_center", 2000);
 			return;
 		}
-		/* Se envia si se guarda. Si se modifica o no se guarda, no se envia */
-		/* ACTIVAR DE NUEVO */
-		/*
-		 * if (budget.getIdBudget() == 0) sendMail();
-		 */
-		Clients.showNotification("Presupuesto enviado", "info", null, "bottom_center", 2000);
+		if (sendMail)
+			sendMail();
+		Clients.showNotification("Solicitud enviada", "info", null, "bottom_center", 2000);
 		print();
 		restartForm();
 	}
@@ -895,11 +827,11 @@ public class FrmBudget {
 		disableSeller = new Boolean(false);
 	}
 
-	@NotifyChange({ "listRifPartner", "listNumber", "listPartnerName", "listConstruction", "listSeller" })
+	@NotifyChange({ "listNitPartner", "listNumber", "listPartnerName", "listConstruction", "listSeller" })
 	@Command
 	public void loadBudgetByField(@BindingParam("field") String field) {
-		if (field.compareTo("rifPartner") == 0) {
-			listRifPartner = new SimpleListModelCustom<Object>(serviceBudget.listRifPartner());
+		if (field.compareTo("nitPartner") == 0) {
+			listNitPartner = new SimpleListModelCustom<Object>(serviceBudget.listNitPartner());
 			return;
 		} else if (field.compareTo("number") == 0) {
 			listNumber = new SimpleListModelCustom<Object>(serviceBudget.listNumber());
@@ -916,11 +848,11 @@ public class FrmBudget {
 		}
 	}
 
-	@NotifyChange({ "listRifPartner", "listPartnerName" })
+	@NotifyChange({ "listNitPartner", "listPartnerName" })
 	@Command
 	public void loadBusinessPartnerByField(@BindingParam("field") String field) {
-		if (field.compareTo("rifPartner") == 0) {
-			listRifPartner = new SimpleListModelCustom<Object>(serviceBusinessPartner.listRif());
+		if (field.compareTo("nitPartner") == 0) {
+			listNitPartner = new SimpleListModelCustom<Object>(serviceBusinessPartner.listNit());
 		} else {
 			listPartnerName = new SimpleListModelCustom<Object>(serviceBusinessPartner.listName());
 		}
@@ -936,7 +868,7 @@ public class FrmBudget {
 			listBudget2 = serviceBudget.listByConstruction(value);
 		else if (field.compareTo("seller") == 0)
 			listBudget2 = serviceBudget.listBySeller(value);
-		else if (field.compareTo("number") == 0){
+		else if (field.compareTo("number") == 0) {
 			for (int i = 0; i < value.length(); i++) {
 				if (!Character.isDigit(value.charAt(i))) {
 					value = "0";
@@ -947,9 +879,8 @@ public class FrmBudget {
 			Budget auxBudget = serviceBudget.findByNumber(budgetNumber);
 			if (auxBudget != null)
 				listBudget2.add(auxBudget);
-		}
-		else if (field.compareTo("rif") == 0){
-			listBudget2 = serviceBudget.listByRifPartner(value);
+		} else if (field.compareTo("nit") == 0) {
+			listBudget2 = serviceBudget.listByNitPartner(value);
 		}
 		searchGeneric(listBudget2);
 	}
@@ -981,10 +912,9 @@ public class FrmBudget {
 		listBoothDisplay.add(this.budget.getBasicDataByBoothDisplay());
 		listFloorDisplay.add(this.budget.getBasicDataByFloorDisplay());
 		if (this.budget.getBasicDataByCabinDesign() != null) {
-			cabinModel = this.budget.getBasicDataByCabinDesign().getBasicData();
 			listDesign.add(this.budget.getBasicDataByCabinDesign());
 		}
-	}	
+	}
 
 	@Command
 	public void close() {
@@ -1008,111 +938,16 @@ public class FrmBudget {
 	}
 
 	@Command
-	public void createPdf() throws SQLException {
-		/* Se debe tomar la sesion a partir de Hibernate CORREGIR */
-		Integer number = budget.getNumber();
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e2) {
-			e2.printStackTrace();
-		}
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ascensor_nardi", "ascensor_admin", "leyner.18654277");
-		String string = Sessions.getCurrent().getWebApp().getRealPath("/resource/reports/ventas/solicitud");
-		JasperReport jasperReport;
-		try {
-			jasperReport = (JasperReport) JRLoader.loadObjectFromFile(string + "/budget.jasper");
-		} catch (JRException e) {
-			jasperReport = null;
-			System.out.println("budget.jasper didn't find");
-		}
+	public void print() {
+		GenericReport report = new GenericReport();
 		Map<String, Object> parameters = new HashMap<String, Object>();
+		int number = budget.getNumber();
 		parameters.put("NUMBER", number);
-		/*
-		 * Enviamos por parametro a ireport la ruta de la ubicacion de los subreportes e imagenes.
-		 */
 		parameters.put("REPORT_TITLE", "Solicitud Presupuesto");
 		parameters.put("IMAGES_DIR", "../../resource/images/system/reports/");
 		parameters.put("SUBREPORT_DIR", "../../resource/reports/ventas/solicitud/");
-		JasperPrint jasperPrint;
-		try {
-			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
-		} catch (HibernateException e1) {
-			jasperPrint = null;
-			System.out.println("Connection wasn't obtained.");
-		} catch (JRException e1) {
-			jasperPrint = null;
-			e1.printStackTrace();
-		}
-		JRExporter jrExporter = new JRPdfExporter();
-		jrExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-		jrExporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, string + "/presupuesto" + number + ".pdf");
-		File file = new File(string + "/presupuesto" + number + ".pdf");
-		/* Eliminamos el pdf si ya existia, puesto que no se sobreescribe. */
-		if (file.isFile())
-			file.delete();
-		try {
-			jrExporter.exportReport();
-		} catch (JRException e) {
-			System.out.println("Report wasn't export.");
-		}
-		connection.close();
-	}
-
-	@Command
-	public void print() throws SQLException {
-		createPdf();
-		String report = new String("/resource/reports/ventas/solicitud/presupuesto" + budget.getNumber() + ".pdf");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("reportPath", report);
-		map.put("reportTitle", "Solicitud de presupuesto");
-		map.put("absolutePath", Sessions.getCurrent().getWebApp().getRealPath("/resource/reports/ventas/solicitud/") + "/presupuesto" + budget.getNumber() + ".pdf");
-		Executions.createComponents("system/frmReport.zul", null, map);
-	}
-
-	@NotifyChange({ "listDesign" })
-	@Command
-	public void loadCabinDesign() {
-		listDesign = serviceBasicData.listDesignByModel(cabinModel);
-		/*
-		 * No asigno un nuevo OBJETO en lugar de "null" puesto que me da error al guardar el objeto budget
-		 */
-		budget.setBasicDataByCabinDesign(null);
-	}
-
-	@Command
-	public void selectDoorType(@BindingParam("doorType") String doorType) {
-		if (doorType.compareTo("BATIENTE IZQUIERDA") == 0 || doorType.compareTo("BATIENTE DERECHA") == 0 || doorType.compareTo("GUILLOTINA") == 0 || doorType.compareTo("SANTA MARIA") == 0)
-			budget.setBasicDataByDoorSystem(serviceBasicData.findByDoorSystem("NO APLICA"));
-		else
-			budget.setBasicDataByDoorSystem(null);
-		BindUtils.postNotifyChange(null, null, budget, "basicDataByDoorSystem");
-	}
-
-	@Command
-	public void changeTour(@BindingParam("tour") Double tour) {
-		if (tour >= 24)
-			budget.setFirefighterKeychain(true);
-		else
-			budget.setFirefighterKeychain(false);
-		BindUtils.postNotifyChange(null, null, budget, "firefighterKeychain");
-	}
-
-	@NotifyChange({ "listBoothDisplay", "listFloorDisplay" })
-	@Command
-	public void loadBoothFloorDisplay() {
-		String controlType = budget.getBasicDataByControlType().getName();
-		if (controlType.indexOf("SISTEL") != -1) {
-			listBoothDisplay = serviceBasicData.listBoothDisplaySistel();
-			listFloorDisplay = serviceBasicData.listFloorDisplaySistel();
-		} else if (controlType.indexOf("CF CONTROL") != -1) {
-			listBoothDisplay = serviceBasicData.listBoothDisplayCF();
-			listFloorDisplay = serviceBasicData.listFloorDisplayCF();
-		} else {
-			listBoothDisplay = new ArrayList<BasicData>();
-			listFloorDisplay = new ArrayList<BasicData>();
-		}
-		budget.setBasicDataByBoothDisplay(null);
-		budget.setBasicDataByFloorDisplay(null);
+		report.createPdf("/resource/reports/ventas/solicitud", "budget.jasper", parameters, "solicitud_" + number + ".pdf");
+		report.viewPdf("/resource/reports/ventas/solicitud/solicitud_" + number + ".pdf", "Solicitud de presupuesto");
 	}
 
 	@NotifyChange({ "isSpecial" })
@@ -1134,20 +969,6 @@ public class FrmBudget {
 		}
 	}
 
-	@NotifyChange("disableSistelHall")
-	@Command
-	public void disabledSistelsHall() {
-		if (budget.getBasicDataByHallButtonType().getName().indexOf("SISTEL") != -1)
-			disableSistelHall = false;
-		else {
-			disableSistelHall = true;
-			budget.setSistelWarrowPb(false);
-			budget.setSistelWarrowFloor(0);
-			budget.setSistelWdisplayPb(false);
-			budget.setSistelWdisplayFloor(0);
-		}
-	}
-
 	@Command
 	public void updateMotorQuantity(@ContextParam(ContextType.TRIGGER_EVENT) InputEvent event) {
 		/*
@@ -1164,41 +985,23 @@ public class FrmBudget {
 	}
 
 	@Command
-	public void activeDesignComment() {
-		String cabinDesign = new String();
-		String floorType = new String();
-		if (budget.getBasicDataByCabinDesign() != null)
-			cabinDesign = budget.getBasicDataByCabinDesign().getName();
-		if (budget.getBasicDataByFloorType() != null)
-			floorType = budget.getBasicDataByFloorType().getName();
-		if (cabinDesign.indexOf("FORMICA") != -1 || cabinDesign.indexOf("OTRO") != -1 || floorType.indexOf("OTROS") != -1)
-			budget.setDesignSpecial(true);
-		/*
-		 * IMPORTANTE Solo actualizao una propiedad del objeto BUDGET, mas no todo el objeto
-		 */
-		BindUtils.postNotifyChange(null, null, budget, "designSpecial");
-	}
-
-	@Command
 	public void isDesignSpecial() {
 		budget.setDesignSpecialComment(" ");
 	}
 
 	@Command
 	public void searchBusinessPartner(@BindingParam("val") String value, @BindingParam("field") String field) {
-		if (field.equals("rif"))
-			businessPartner = serviceBusinessPartner.findActiveByRif(value);
+		if (field.equals("nit"))
+			businessPartner = serviceBusinessPartner.findActiveByNit(value);
 		else
 			businessPartner = serviceBusinessPartner.findActiveByName(value);
 		if (businessPartner == null) {
 			Executions.createComponents("system/socios/frmBusinessPartner.zul", null, null);
 		} else {
 			budget.setPartnerName(businessPartner.getName());
-			budget.setRifPartner(businessPartner.getRif());
-			budget.setRifType(businessPartner.getBasicData().getName().charAt(0));
+			budget.setNitPartner(businessPartner.getNit());
 			BindUtils.postNotifyChange(null, null, budget, "partnerName");
-			BindUtils.postNotifyChange(null, null, budget, "rifType");
-			BindUtils.postNotifyChange(null, null, budget, "rifPartner");
+			BindUtils.postNotifyChange(null, null, budget, "nitPartner");
 		}
 	}
 
@@ -1207,16 +1010,13 @@ public class FrmBudget {
 		if (businessPartner != null) {
 			this.businessPartner = serviceBusinessPartner.findById(businessPartner.getIdBusinessPartner());
 			budget.setPartnerName(this.businessPartner.getName());
-			budget.setRifPartner(this.businessPartner.getRif());
-			budget.setRifType(this.businessPartner.getBasicData().getName().charAt(0));
+			budget.setNitPartner(this.businessPartner.getNit());
 		} else {
 			budget.setPartnerName(null);
-			budget.setRifPartner("");
-			budget.setRifType('-');
+			budget.setNitPartner("");
 		}
 		BindUtils.postNotifyChange(null, null, budget, "partnerName");
-		BindUtils.postNotifyChange(null, null, budget, "rifType");
-		BindUtils.postNotifyChange(null, null, budget, "rifPartner");
+		BindUtils.postNotifyChange(null, null, budget, "nitPartner");
 	}
 
 	@NotifyChange("*")
@@ -1225,14 +1025,10 @@ public class FrmBudget {
 		Budget auxBudget = this.budget;
 		restartForm();
 		this.budget = auxBudget;
+		budget.setIdBudget(0);
 		List<Budget> listAllBudget = serviceBudget.listAll();
 		budget.setNumber(listAllBudget.get(listAllBudget.size() - 1).getNumber() + 1);
 		budget.setDate(new Date());
-		/* Recargamos todas las listas dependientes de lo seleccionado en el budget */
-		if (this.budget.getBasicDataByCabinDesign() != null) {
-			cabinModel = this.budget.getBasicDataByCabinDesign().getBasicData();
-			listDesign = serviceBasicData.listDesignByModel(cabinModel);
-		}
 		String elevatorCapacitance = new String(budget.getBasicDataByElevatorCapacitance().getName());
 		if (elevatorCapacitance.indexOf("320 Kg - 4 Pers") != -1 || elevatorCapacitance.indexOf("450 Kg - 6 Pers") != -1 || elevatorCapacitance.indexOf("600 Kg - 8 Pers") != -1) {
 			listFan = serviceBasicData.listFan1();

@@ -66,23 +66,25 @@ WHERE
 	<pageHeader>
 		<band height="80" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="d1b9cf89-149d-4600-8117-3797ba88d7e5" x="341" y="65" width="174" height="15"/>
-				<textElement>
+				<reportElement uuid="d1b9cf89-149d-4600-8117-3797ba88d7e5" x="1" y="65" width="449" height="15"/>
+				<box>
+					<bottomPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PRESUPUESTO NRO:]]></text>
 			</staticText>
-			<image>
-				<reportElement uuid="3d610090-cc86-4154-9d6f-d7f3fd5bb80b" x="422" y="24" width="154" height="40"/>
-				<imageExpression><![CDATA[$P{IMAGES_DIR}+"liftTechnology.jpg"]]></imageExpression>
-			</image>
 			<image>
 				<reportElement uuid="07e748a9-5f7b-40b7-96a0-7948487a2bd5" x="0" y="0" width="190" height="64"/>
 				<imageExpression><![CDATA[$P{IMAGES_DIR}+"logo.jpg"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement uuid="375aea9b-13ef-47ca-9666-1de7d4af4a7e" x="450" y="65" width="127" height="15"/>
-				<textElement>
+				<box>
+					<bottomPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Numero}]]></textFieldExpression>
@@ -149,14 +151,14 @@ WHERE
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement uuid="32c9bf4d-f64c-4963-ac23-b34e3c998c44" x="450" y="0" width="127" height="15"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="3b8a5bf4-6626-4b28-996b-899020bf080d" x="341" y="0" width="174" height="15"/>
-				<textElement>
+				<reportElement uuid="3b8a5bf4-6626-4b28-996b-899020bf080d" x="276" y="0" width="174" height="15"/>
+				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA:]]></text>
@@ -218,11 +220,25 @@ WHERE
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="40" splitType="Stretch">
-			<image hAlign="Center">
-				<reportElement uuid="3d610090-cc86-4154-9d6f-d7f3fd5bb80b" x="20" y="0" width="537" height="40"/>
-				<imageExpression><![CDATA[$P{IMAGES_DIR}+"pie.jpg"]]></imageExpression>
-			</image>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="93ddf388-27ae-4bdd-aa8d-c98ee545380c" x="1" y="0" width="575" height="15"/>
+				<box>
+					<topPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Dirección: Autopista Medellín Km. 2.5 Vía Siberia Centro empresarial Porto Sabana 80 Bodega 103]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f6c6290b-e1ca-4ed1-bb7e-63972e8b3f47" x="210" y="15" width="156" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Teléfono: (57) 1-8767055]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4ef5f85c-91df-495c-bd6b-36ed6d2b3cef" x="62" y="30" width="453" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[N.I.T 900.512.637-3 Bógota Colombia | Correo Electrónico: info@interlift.co]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 </jasperReport>

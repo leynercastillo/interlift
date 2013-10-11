@@ -40,8 +40,8 @@ public class ServiceBudget {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Budget> listByRifPartner(String rifPartner) {
-		return daoBudget.listByField("rifPartner", rifPartner);
+	public List<Budget> listByNitPartner(String nitPartner) {
+		return daoBudget.listByField("nitPartner", nitPartner);
 	}	
 	
 	@Transactional(readOnly = true)
@@ -70,8 +70,8 @@ public class ServiceBudget {
 	}
 
 	@Transactional(readOnly = true)
-	public List<String> listRifPartner() {
-		return daoBudget.listStringByFields("rifPartner");
+	public List<String> listNitPartner() {
+		return daoBudget.listStringByFields("nitPartner");
 	}
 
 	@Transactional(readOnly = true)

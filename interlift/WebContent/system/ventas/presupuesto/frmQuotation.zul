@@ -47,30 +47,14 @@
 						</div>
 					</row>
 					<row>
-						<label sclass="formLabel" value="Rif:"></label>
-						<div>
-							<combobox disabled="true"
-								model="@load(vm.listRifType)" readonly="false"
-								style="float: left"
-								value="@save(vm.quotation.rifType, before = 'confirmSave') @load(vm.quotation.rifType eq 'Z' ? vm.dash : vm.quotation.rifType) @validator(vm.noDash, component = self)"
-								width="24%">
-								<template name="model" var="rifType">
-									<comboitem
-										label="@load(rifType.name)">
-									</comboitem>
-								</template>
-							</combobox>
-							<combobox autocomplete="true"
-								autodrop="true" buttonVisible="false"
-								disabled="@load(vm.disableBeforeSearch)" maxlength="15"
-								model="@load(vm.listRifPartner)"
-								onChange="@command(vm.disableBeforeSearch ? '' : 'loadQuotationByField', field='rifPartner',val=self.value)"
-								onFocus="@command(vm.disableBeforeSearch ? '' : 'searchQuotationByField', field='rifPartner')"
-								style="float: right"
-								value="@save(vm.quotation.rifPartner, before = 'confirmSave') @load(vm.quotation.rifPartner) @validator(vm.noEmpty, component = self)"
-								width="74%">
-							</combobox>
-						</div>
+						<label sclass="formLabel" value="Nit:"></label>
+						<combobox autocomplete="true" autodrop="true"
+							buttonVisible="false" disabled="@load(vm.disableBeforeSearch)"
+							hflex="1" maxlength="15" model="@load(vm.listNitPartner)"
+							onChange="@command(vm.disableBeforeSearch ? '' : 'loadQuotationByField', field='nitPartner',val=self.value)"
+							onFocus="@command(vm.disableBeforeSearch ? '' : 'searchQuotationByField', field='nitPartner')"
+							value="@save(vm.quotation.nitPartner, before = 'confirmSave') @load(vm.quotation.nitPartner) @validator(vm.noEmpty, component = self)">
+						</combobox>
 						<label sclass="formLabel"
 							value="Nro Solicitud:">
 						</label>
@@ -90,11 +74,10 @@
 						<combobox autocomplete="true"
 							autodrop="@load(vm.disableBeforeSearch ? 'false' : 'true')"
 							buttonVisible="false" disabled="@load(vm.disableBeforeSearch)"
-							maxlength="100" model="@load(vm.listPartnerName)"
+							hflex="1" maxlength="100" model="@load(vm.listPartnerName)"
 							onChange="@command(vm.disableBeforeSearch  ? '':'loadQuotationByField', field='partnerName', val=self.value)"
 							onFocus="@command(vm.disableBeforeSearch ? '':'searchQuotationByField', field='partnerName')"
-							value="@save(vm.quotation.partnerName, before = 'confirmSave') @load(vm.quotation.partnerName) @validator(vm.noEmpty, component = self)"
-							width="99%">
+							value="@save(vm.quotation.partnerName, before = 'confirmSave') @load(vm.quotation.partnerName) @validator(vm.noEmpty, component = self)">
 						</combobox>
 						<label sclass="formLabel" value="Fecha:"></label>
 						<datebox disabled="true" format="dd/MM/yyyy"
@@ -104,19 +87,20 @@
 					</row>
 					<row>
 						<label sclass="formLabel" value="Obra:"></label>
-						<combobox width="99%" buttonVisible="false"
-							value="@save(vm.quotation.construction, before = 'confirmSave') @load(vm.quotation.construction) @validator(vm.noEmpty, component = self)"
-							autocomplete="true" model="@load(vm.listConstruction)"
+						<combobox autocomplete="true"
 							autodrop="@load(vm.disableBeforeSearch ? 'false' : 'true')"
+							buttonVisible="false" disabled="@load(vm.disableBeforeSearch)"
+							hflex="1" maxlength="100" model="@load(vm.listConstruction)"
 							onChange="@command(vm.disableBeforeSearch ? '':'loadQuotationByField', field='construction', val=self.value)"
 							onFocus="@command(vm.disableBeforeSearch ? '':'searchQuotationByField', field='construction')"
-							disabled="@load(vm.disableBeforeSearch)" maxlength="100">
+							value="@save(vm.quotation.construction, before = 'confirmSave') @load(vm.quotation.construction) @validator(vm.noEmpty, component = self)">
 						</combobox>
 						<label sclass="formLabel"
 							value="Fecha Entrega:">
 						</label>
 						<datebox disabled="true" format="dd/MM/yyyy"
-							id="deliveryDate" readonly="true"
+							id="deliveryDate"
+							readonly="@load(self.disabled ? 'false':'true')"
 							value="@save(vm.quotation.deliveryDate) @load(vm.quotation.deliveryDate)"
 							width="97%">
 						</datebox>
@@ -126,9 +110,9 @@
 						<label sclass="formLabel"
 							value="Persona contacto:">
 						</label>
-						<textbox disabled="true" maxlength="100"
-							value="@save(vm.quotation.contactName, before = 'confirmSave') @load(vm.quotation.contactName) @validator(vm.noEmpty, component = self)"
-							width="97%">
+						<textbox disabled="true" hflex="1"
+							maxlength="100"
+							value="@save(vm.quotation.contactName, before = 'confirmSave') @load(vm.quotation.contactName) @validator(vm.noEmpty, component = self)">
 						</textbox>
 						<label sclass="formLabel" value="Vendedor:">
 						</label>

@@ -1,12 +1,10 @@
 package controller.ventas.presupuesto;
 
+import general.GenericReport;
 import general.SimpleListModelCustom;
 import general.ValidateZK;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,16 +19,7 @@ import model.database.Quotation;
 import model.service.ServiceBasicData;
 import model.service.ServiceBudget;
 import model.service.ServiceQuotation;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
 
-import org.hibernate.HibernateException;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.Validator;
@@ -76,7 +65,6 @@ public class FrmQuotation {
 	private String modalMessage;
 	private String printMessage;
 	private BasicData cabinModel;
-	private List<BasicData> listRifType;
 	private List<BasicData> listElevatorType;
 	private List<BasicData> listElevatorCapa;
 	private List<BasicData> listSpeed;
@@ -98,7 +86,7 @@ public class FrmQuotation {
 	private List<BasicData> listControlType;
 	private List<BasicData> listRoofType;
 	private ListModel<Object> listQuotationNumber;
-	private ListModel<Object> listRifPartner;
+	private ListModel<Object> listNitPartner;
 	private ListModel<Object> listBudgetNumber;
 	private ListModel<Object> listPartnerName;
 	private ListModel<Object> listConstruction;
@@ -176,12 +164,12 @@ public class FrmQuotation {
 		this.listBudgetNumber = listBudgetNumber;
 	}
 
-	public ListModel<Object> getListRifPartner() {
-		return listRifPartner;
+	public ListModel<Object> getListNitPartner() {
+		return listNitPartner;
 	}
 
-	public void setListRifPartner(ListModel<Object> listRifPartner) {
-		this.listRifPartner = listRifPartner;
+	public void setListNitPartner(ListModel<Object> listNitPartner) {
+		this.listNitPartner = listNitPartner;
 	}
 
 	public Boolean getDisabledBudgetNumber() {
@@ -376,14 +364,6 @@ public class FrmQuotation {
 		this.quotation = quotation;
 	}
 
-	public List<BasicData> getListRifType() {
-		return listRifType;
-	}
-
-	public void setListRifType(List<BasicData> listRifType) {
-		this.listRifType = listRifType;
-	}
-
 	public List<BasicData> getListElevatorType() {
 		return listElevatorType;
 	}
@@ -473,7 +453,6 @@ public class FrmQuotation {
 	@Command
 	public void restartForm() {
 		quotation = new Quotation();
-		quotation.setRifType(new Character('Z'));
 		quotation.setDate(new Date());
 		quotation.setType(true);
 		quotation.setStopSequenceContinuous(false);
@@ -502,13 +481,12 @@ public class FrmQuotation {
 		disabledPrint = new Boolean(true);
 		disabledEdit = new Boolean(true);
 		listQuotationNumber = new ListModelList<Object>();
-		listRifPartner = new ListModelList<Object>();
+		listNitPartner = new ListModelList<Object>();
 		listBudgetNumber = new ListModelList<Object>();
 		listPartnerName = new ListModelList<Object>();
 		listConstruction = new ListModelList<Object>();
 		listSeller = new ListModelList<Object>();
 		listDesign = new ArrayList<BasicData>();
-		listRifType = serviceBasicData.listRifType();
 		listRoofType = serviceBasicData.listRoofType();
 		listElevatorCapa = serviceBasicData.listElevatorCapacitance();
 		listSpeed = serviceBasicData.listSpeed();
@@ -535,8 +513,7 @@ public class FrmQuotation {
 	public void budgetToQuotation(Budget budget) {
 		quotation.setBudget(budget);
 		quotation.setBusinessPartner(budget.getBusinessPartner());
-		quotation.setRifType(budget.getRifType());
-		quotation.setRifPartner(budget.getRifPartner());
+		quotation.setNitPartner(budget.getNitPartner());
 		quotation.setBudgetNumber(budget.getNumber());
 		quotation.setPartnerName(budget.getPartnerName());
 		quotation.setConstruction(budget.getConstruction());
@@ -660,11 +637,11 @@ public class FrmQuotation {
 		}
 	}
 
-	@NotifyChange({ "listRifPartner", "listBudgetNumber", "listPartnerName", "listQuotationNumber", "listSeller", "listConstruction" })
+	@NotifyChange({ "listNitPartner", "listBudgetNumber", "listPartnerName", "listQuotationNumber", "listSeller", "listConstruction" })
 	@Command
 	public void searchQuotationByField(@BindingParam("field") String field) {
-		if (field.compareTo("rifPartner") == 0) {
-			listRifPartner = new SimpleListModelCustom<Object>(serviceQuotation.listRifPartner());
+		if (field.compareTo("nitPartner") == 0) {
+			listNitPartner = new SimpleListModelCustom<Object>(serviceQuotation.listNitPartner());
 		} else if (field.compareTo("number") == 0) {
 			/*
 			 * Se cambia el nombre del field, ya que en el zul, se debe enviar una variable obligatoriamente
@@ -707,8 +684,8 @@ public class FrmQuotation {
 			}
 			list = serviceQuotation.listByNewNumber(Integer.parseInt(value));
 			list.addAll(serviceQuotation.listByModernizationNumber(Integer.parseInt(value)));
-		} else if (field.compareTo("rifPartner") == 0) {
-			list = serviceQuotation.listByRifPartner(value);
+		} else if (field.compareTo("nitPartner") == 0) {
+			list = serviceQuotation.listByNitPartner(value);
 		} else if (field.compareTo("partnerName") == 0) {
 			list = serviceQuotation.listByPartnerName(value);
 		} else if (field.compareTo("construction") == 0) {
@@ -841,115 +818,23 @@ public class FrmQuotation {
 		return (quotation.getElevatorQuantity() > 1 ? "ASCENSORES " : "ASCENSOR ") + str;
 	}
 
-	@Command
-	public void createQuotationPdf(String quotationNumber, Quotation q, String template) throws SQLException {
-		/* Se debe tomar la sesion a partir de Hibernate CORREGIR */
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e2) {
-			e2.printStackTrace();
-		}
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ascensor_nardi", "ascensor_admin", "leyner.18654277");
-		String string = Sessions.getCurrent().getWebApp().getRealPath("/resource/reports/ventas/presupuesto");
-		JasperReport jasperReport;
-		try {
-			if (template == null || template.compareTo("SI") == 0)
-				jasperReport = (JasperReport) JRLoader.loadObjectFromFile(string + "/quotation.jasper");
-			else
-				jasperReport = (JasperReport) JRLoader.loadObjectFromFile(string + "/quotation_without.jasper");
-		} catch (JRException e) {
-			jasperReport = null;
-			e.printStackTrace();
-		}
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("TYPE", q.isType());
-		parameters.put("NEW", q.getNewNumber());
-		parameters.put("MODERNIZATION", q.getModernizationNumber());
-		parameters.put("VERSION", q.getVersionNumber());
-		/*
-		 * Enviamos por parametro a ireport la ruta de la ubicacion de los subreportes e imagenes.
-		 */
-		parameters.put("IMAGES_DIR", "../../resource/images/system/reports/");
-		parameters.put("SUBREPORT_DIR", "../../resource/reports/ventas/presupuesto/");
-		JasperPrint jasperPrint;
-		try {
-			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
-		} catch (HibernateException e1) {
-			jasperPrint = null;
-			e1.printStackTrace();
-		} catch (JRException e1) {
-			jasperPrint = null;
-			e1.printStackTrace();
-		}
-		JRExporter jrExporter = new JRPdfExporter();
-		jrExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-		jrExporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, string + "/Ppto_" + quotationNumber + ".pdf");
-		File file = new File(string + "/Ppto_" + quotationNumber + ".pdf");
-		/* Eliminamos el pdf si ya existia, puesto que no se sobreescribe. */
-		if (file.isFile())
-			file.delete();
-		try {
-			jrExporter.exportReport();
-		} catch (JRException e) {
-			System.out.println("Report wasn't export.");
-		}
-		connection.close();
-	}
-
-	@Command
-	public void createBudgetPdf(Quotation q) throws SQLException {
-		Integer number = q.getBudgetNumber();
-		/* Se debe tomar la sesion a partir de Hibernate CORREGIR */
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e2) {
-			e2.printStackTrace();
-		}
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ascensor_nardi", "ascensor_admin", "leyner.18654277");
-		String string = Sessions.getCurrent().getWebApp().getRealPath("/resource/reports/ventas/solicitud");
-		JasperReport jasperReport;
-		try {
-			jasperReport = (JasperReport) JRLoader.loadObjectFromFile(string + "/budget.jasper");
-		} catch (JRException e) {
-			jasperReport = null;
-			e.printStackTrace();
-		}
+	public List<File> mailAttach() {
+		List<File> listAttach = new ArrayList<File>();
+		GenericReport report = new GenericReport();
+		String quotationNumber = new String();
+		if (quotation.isType())
+			quotationNumber = "1-" + quotation.getNewNumber() + "-" + quotation.getVersionNumber();
+		else
+			quotationNumber = "2-" + quotation.getModernizationNumber() + "-" + quotation.getVersionNumber();
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("REPORT_TITLE", "Resumen de Venta");
-		parameters.put("NUMBER", number);
+		parameters.put("NUMBER", quotation.getBudgetNumber());
 		/*
 		 * Enviamos por parametro a ireport la ruta de la ubicacion de los subreportes e imagenes.
 		 */
 		parameters.put("IMAGES_DIR", "../../resource/images/system/reports/");
 		parameters.put("SUBREPORT_DIR", "../../resource/reports/ventas/solicitud/");
-		JasperPrint jasperPrint;
-		try {
-			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
-		} catch (HibernateException e1) {
-			jasperPrint = null;
-			System.out.println("Connection wasn't obtained.");
-		} catch (JRException e1) {
-			jasperPrint = null;
-			e1.printStackTrace();
-		}
-		JRExporter jrExporter = new JRPdfExporter();
-		jrExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-		jrExporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, string + "/presupuesto" + number + ".pdf");
-		try {
-			jrExporter.exportReport();
-		} catch (JRException e) {
-			e.printStackTrace();
-		}
-		connection.close();
-	}
-
-	public List<File> mailAttach() {
-		List<File> listAttach = new ArrayList<File>();
-		try {
-			createBudgetPdf(quotation);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		report.createPdf("/resource/reports/ventas/solicitud", "budget.jasper", parameters, "ppto_" + quotationNumber + ".pdf");
 		File file = new File(Sessions.getCurrent().getWebApp().getRealPath("/resource/reports/ventas/solicitud/presupuesto" + quotation.getBudgetNumber() + ".pdf"));
 		listAttach.add(file);
 		return listAttach;
@@ -1015,19 +900,26 @@ public class FrmQuotation {
 
 	@NotifyChange("*")
 	@Command
-	public void print(@BindingParam("template") String template) throws SQLException {
+	public void print(@BindingParam("template") String template) {
+		GenericReport report = new GenericReport();
 		String quotationNumber = new String();
 		if (quotation.isType())
 			quotationNumber = "1-" + quotation.getNewNumber() + "-" + quotation.getVersionNumber();
 		else
 			quotationNumber = "2-" + quotation.getModernizationNumber() + "-" + quotation.getVersionNumber();
-		createQuotationPdf(quotationNumber, quotation, template);
-		String report = new String("/resource/reports/ventas/presupuesto/Ppto_" + quotationNumber + ".pdf");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("reportPath", report);
-		map.put("reportTitle", "Presupuesto");
-		map.put("absolutePath", Sessions.getCurrent().getWebApp().getRealPath("/resource/reports/ventas/presupuesto") + "/Ppt_" + quotationNumber + ".pdf");
-		Executions.createComponents("system/frmReport.zul", null, map);
+		if (template == null || template.compareTo("SI") == 0)
+			template = "quotation.jasper";
+		else
+			template = "quotation_without.jasper";
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("TYPE", quotation.isType());
+		parameters.put("NEW", quotation.getNewNumber());
+		parameters.put("MODERNIZATION", quotation.getModernizationNumber());
+		parameters.put("VERSION", quotation.getVersionNumber());
+		parameters.put("IMAGES_DIR", "../../resource/images/system/reports/");
+		parameters.put("SUBREPORT_DIR", "../../resource/reports/ventas/presupuesto/");
+		report.createPdf("/resource/reports/ventas/presupuesto", template, parameters, "ppto_" + quotationNumber + ".pdf");
+		report.viewPdf("/resource/reports/ventas/presupuesto/ppto_" + quotationNumber + ".pdf", "Presupuesto");
 		restartForm();
 	}
 

@@ -36,7 +36,7 @@
 		<div class="container">
 			<p>Interlift SAS</p>
 			<p>Autopista Medellín Km 2.5 - Centro Empresarial Portos Sabana 80 Bodega 112. Bogotá Colombia</p>
-			<p>Tel: (571) - 8767055 - (571) - 8764497</p>
+			<p>Telf: (571) 8767055 || (571) 8764497</p>
 			<p>Todos los derechos reservados.</p>
 		</div>
 	</div>

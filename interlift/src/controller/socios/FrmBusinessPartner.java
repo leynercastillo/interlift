@@ -39,7 +39,7 @@ public class FrmBusinessPartner {
 
 	private String minCombo = new String("-");
 	private BusinessPartner businessPartner;
-	private List<BasicData> listRifType;
+	private List<BasicData> listNitType;
 
 	public String getMinCombo() {
 		return minCombo;
@@ -57,12 +57,12 @@ public class FrmBusinessPartner {
 		this.businessPartner = businessPartner;
 	}
 
-	public List<BasicData> getListRifType() {
-		return listRifType;
+	public List<BasicData> getListNitType() {
+		return listNitType;
 	}
 
-	public void setListRifType(List<BasicData> listRifType) {
-		this.listRifType = listRifType;
+	public void setListNitType(List<BasicData> listNitType) {
+		this.listNitType = listNitType;
 	}
 
 	public Validator getNoDash() {
@@ -73,17 +73,17 @@ public class FrmBusinessPartner {
 		return new ValidateZK().getNoEmpty();
 	}
 
-	public Validator getNoRepeatRif() {
+	public Validator getNoRepeatNit() {
 		return new AbstractValidator() {
 			@Override
 			public void validate(ValidationContext ctx) {
 				InputElement inputElement = (InputElement) ctx.getBindContext().getValidatorArg("component");
 				String string = inputElement.getText();
-				BusinessPartner auxBusinessPartner = serviceBusinessPartner.findByRif(string);
+				BusinessPartner auxBusinessPartner = serviceBusinessPartner.findByNit(string);
 				if (string.trim().isEmpty())
 					throw new WrongValueException(inputElement, "Ingrese un dato valido.");
 				if (auxBusinessPartner != null)
-					throw new WrongValueException(inputElement, "Este rif ya se encuentra registrado en el sistema.");
+					throw new WrongValueException(inputElement, "Este nit ya se encuentra registrado en el sistema.");
 			}
 		};
 	}
@@ -99,7 +99,6 @@ public class FrmBusinessPartner {
 	public void restartForm() {
 		businessPartner = new BusinessPartner();
 		businessPartner.setStatus('A');
-		listRifType = serviceBasicData.listRifType();
 	}
 
 	@Command

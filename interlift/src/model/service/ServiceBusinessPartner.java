@@ -29,13 +29,13 @@ public class ServiceBusinessPartner {
 	}
 
 	@Transactional(readOnly = true)
-	public BusinessPartner findByRif(String rif) {
-		return daoBusinessPartner.findByField("rif", rif);
+	public BusinessPartner findByNit(String nit) {
+		return daoBusinessPartner.findByField("nit", nit);
 	}
 
 	@Transactional(readOnly = true)
-	public BusinessPartner findActiveByRif(String rif) {
-		return daoBusinessPartner.findActiveByField("rif", rif);
+	public BusinessPartner findActiveByNit(String nit) {
+		return daoBusinessPartner.findActiveByField("nit", nit);
 	}
 
 	@Transactional(readOnly = true)
@@ -44,8 +44,8 @@ public class ServiceBusinessPartner {
 	}
 
 	@Transactional(readOnly = true)
-	public List<String> listRif() {
-		return daoBusinessPartner.listStringByFields("rif");
+	public List<String> listNit() {
+		return daoBusinessPartner.listStringByFields("nit");
 	}
 
 	@Transactional(readOnly = true)

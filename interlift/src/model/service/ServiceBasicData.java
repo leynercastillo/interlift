@@ -41,11 +41,6 @@ public class ServiceBasicData {
 	}
 
 	@Transactional(readOnly = true)
-	public List<BasicData> listRifType() {
-		return daoBasicdata.listByFieldTable("BUSINESS PARTNER", "RIF TYPE");
-	}
-
-	@Transactional(readOnly = true)
 	public List<BasicData> listRoofType() {
 		return daoBasicdata.listByFieldTable("BUDGET", "ROOF TYPE");
 	}

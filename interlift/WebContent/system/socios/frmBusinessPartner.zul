@@ -1,73 +1,63 @@
 <?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="normal" title="Socios de Negocios"
-		apply="org.zkoss.bind.BindComposer" mode="modal"
-		viewModel="@id('vm') @init('controller.socios.FrmBusinessPartner')" id="win"
+	<window apply="org.zkoss.bind.BindComposer" border="normal" id="win"
+		mode="modal" title="Socios de Negocios"
+		viewModel="@id('vm') @init('controller.socios.FrmBusinessPartner')"
 		width="60%">
 		<style src="resource/style/styleZK.css"></style>
 		<grid zclass="grid">
 			<columns>
-				<column width="15%" align="right"></column>
+				<column align="right" width="15%"></column>
 				<column width="45%"></column>
 				<column></column>
 			</columns>
 			<rows>
 				<row>
-					<label value="Rif:" sclass="formLabel"></label>
+					<label sclass="formLabel" value="Nit:"></label>
 					<div width="100%">
-						<combobox readonly="true" width="27%"
-							value="@save(vm.minCombo, before = 'save') @validator(vm.noDash, component = self)"
-							model="@load(vm.listRifType)"
-							selectedItem="@save(vm.businessPartner.basicData)">
-							<template name="model" var="rifType">
-								<comboitem
-									label="@load(rifType.name)">
-								</comboitem>
-							</template>
-						</combobox>
-						<textbox width="70%"
-							value="@save(vm.businessPartner.rif, before = 'save') @validator(vm.noRepeatRif, component = self)"
-							maxlength="15">
+						<textbox hflex="1" maxlength="15"
+							value="@save(vm.businessPartner.nit, before = 'save') @validator(vm.noRepeatNit, component = self)">
 						</textbox>
 					</div>
 					<space></space>
 				</row>
 				<row>
-					<label value="Nombre:" sclass="formLabel"></label>
-					<textbox hflex="1"
-						value="@save(vm.businessPartner.name, before = 'save') @validator(vm.noEmpty, component = self)"
-						maxlength="100">
+					<label sclass="formLabel" value="Nombre:"></label>
+					<textbox hflex="1" maxlength="100"
+						value="@save(vm.businessPartner.name, before = 'save') @validator(vm.noEmpty, component = self)">
 					</textbox>
 					<space></space>
 				</row>
 				<row>
-					<label value="Dirección:" sclass="formLabel">
+					<label sclass="formLabel" value="Dirección:">
 					</label>
-					<textbox hflex="1"
-						value="@save(vm.businessPartner.address)"
-						maxlength="200">
+					<textbox hflex="1" maxlength="200"
+						value="@save(vm.businessPartner.address)">
 					</textbox>
 					<space></space>
 				</row>
 				<row>
 					<radiogroup id="status"
 						selectedItem="@save(vm.businessPartner.status)">
-						<radio label="Activo" value="A"
+						<radio
 							checked="@load(vm.businessPartner.status eq 'A' ? 'true':'false')"
-							sclass="frmLabel" disabled="true">
+							disabled="true" label="Activo" sclass="frmLabel" value="A">
 						</radio>
 					</radiogroup>
-					<radio label="Inactivo" value="I"
+					<radio
 						checked="@load(vm.businessPartner.status eq 'I' ? 'true':'false')"
-						sclass="formLabel" disabled="true" radiogroup="status">
+						disabled="true" label="Inactivo" radiogroup="status"
+						sclass="formLabel" value="I">
 					</radio>
 					<space></space>
 				</row>
 				<row>
 					<button label="Guardar"
+						image="/resource/images/icons/save.png"
 						onClick="@command('save')">
 					</button>
 					<button label="Cancelar"
+						image="/resource/images/icons/cancel.png"
 						onClick="@command('cancel')">
 					</button>
 					<space></space>
