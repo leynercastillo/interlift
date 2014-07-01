@@ -8,8 +8,11 @@
 				<tab if="${sec:isAnyGranted('ROLE_ITEM_MASTER')}"
 					label="Inventario">
 				</tab>
+				<tab if="${sec:isAnyGranted('ROLE_BUSINESS_PARTNER')}"
+					label="Clientes">
+				</tab>
 				<tab
-					if="${sec:isAnyGranted('ROLE_BUDGET,ROLE_QUOTATION,ROLE_SALES_SUMMARY')}"
+					if="${sec:isAnyGranted('ROLE_BUDGET,ROLE_QUOTATION,ROLE_SALES_SUMMARY,ROLE_TRANSACTION_SUMMARY,ROLE_UPDATE_DATA')}"
 					label="Ventas">
 				</tab>
 				<tab
@@ -38,7 +41,22 @@
 					</tree>
 				</tabpanel>
 				<tabpanel
-					if="${sec:isAnyGranted('ROLE_BUDGET,ROLE_QUOTATION,ROLE_SALES_SUMMARY')}">
+					if="${sec:isAnyGranted('ROLE_BUSINESS_PARTNER')}">
+					<tree>
+						<treechildren>
+							<treeitem
+								if="${sec:isAllGranted('ROLE_BUSINESS_PARTNER')}">
+								<treerow>
+									<treecell label="Clientes"
+										onClick="@command('optionSelected', optionSelected='system/socios/frmBusinessPartner.zul')">
+									</treecell>
+								</treerow>
+							</treeitem>
+						</treechildren>
+					</tree>
+				</tabpanel>
+				<tabpanel
+					if="${sec:isAnyGranted('ROLE_BUDGET,ROLE_QUOTATION,ROLE_SALES_SUMMARY,ROLE_TRANSACTION_SUMMARY,ROLE_UPDATE_DATA')}">
 					<tree>
 						<treechildren>
 							<treeitem
@@ -59,10 +77,19 @@
 								</treerow>
 							</treeitem>
 							<treeitem
+								if="${sec:isAllGranted('ROLE_TRANSACTION_SUMMARY')}">
+								<treerow>
+									<treecell
+										label="Resumen de negociacion"
+										onClick="@command('optionSelected', optionSelected='system/ventas/resumen_negociacion/frmTransactionSummary.zul')">
+									</treecell>
+								</treerow>
+							</treeitem>
+							<treeitem
 								if="${sec:isAllGranted('ROLE_SALES_SUMMARY')}">
 								<treerow>
-									<treecell label="Resumenes de venta"
-										onClick="@command('optionSelected', optionSelected='system/ventas/resumen/frmSalesSummary.zul')">
+									<treecell label="Resumen de ventas"
+										onClick="@command('optionSelected', optionSelected='system/ventas/resumen/frmSaleSummary.zul')">
 									</treecell>
 								</treerow>
 							</treeitem>
@@ -83,6 +110,14 @@
 										</treerow>
 									</treeitem>
 								</treechildren>
+							</treeitem>
+							<treeitem
+								if="${sec:isAllGranted('ROLE_UPDATE_DATA')}">
+								<treerow>
+									<treecell label="Actualización de Datos"
+										onClick="@command('optionSelected', optionSelected='system/ventas/actualizacion_datos/frmActualizacionDatos.zul')">
+									</treecell>
+								</treerow>
 							</treeitem>
 						</treechildren>
 					</tree>

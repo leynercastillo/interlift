@@ -10,7 +10,7 @@
 			pageSize="10" pagingPosition="both"
 			selectedItem="@bind(vm.selectedBudget)">
 			<listhead>
-				<listheader label="Nro Pedido" sort="auto(number)"
+				<listheader label="Nro Solicitud" sort="auto(number)"
 					width="10%">
 				</listheader>
 				<listheader label="Cliente" sort="auto(partnerName)"

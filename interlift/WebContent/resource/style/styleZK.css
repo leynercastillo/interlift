@@ -2,6 +2,7 @@
 /*===================Etiquetas label principales de los formularios===================*/
 .formLabel {
 	font-weight: bold;
+	color: #636363;
 }
 
 .formTitleLabel {

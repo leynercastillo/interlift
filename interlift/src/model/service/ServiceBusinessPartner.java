@@ -44,12 +44,17 @@ public class ServiceBusinessPartner {
 	}
 
 	@Transactional(readOnly = true)
-	public List<String> listNit() {
-		return daoBusinessPartner.listStringByFields("nit");
+	public List<BusinessPartner> listAll(){
+		return daoBusinessPartner.listAll();
 	}
-
+	
 	@Transactional(readOnly = true)
 	public List<String> listName() {
 		return daoBusinessPartner.listStringByFields("name");
+	}
+
+	@Transactional(readOnly = true)
+	public List<String> listNit() {
+		return daoBusinessPartner.listStringByFields("nit");
 	}
 }

@@ -72,15 +72,12 @@ public class DaoBasicdata {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<BasicData> listByFieldTable(String table, String field) {
+	public BasicData findByField(String field, Object value) {
 		Session session = getCurrentSession();
 		Criteria criteria = session.createCriteria(BasicData.class);
-		criteria.add(Restrictions.eq("status", 'A'));
-		criteria.add(Restrictions.eq("field", field).ignoreCase());
-		criteria.add(Restrictions.eq("dataBaseName", table));
-		criteria.addOrder(Order.asc("priority"));
-		return criteria.list();
+		criteria.add(Restrictions.eq(field, value));
+		Object obj = criteria.uniqueResult();
+		return obj == null ? null : (BasicData) obj;
 	}
 
 	public BasicData findByName(String table, String field, String name) {
@@ -91,9 +88,19 @@ public class DaoBasicdata {
 		criteria.add(Restrictions.eq("field", field).ignoreCase());
 		criteria.add(Restrictions.eq("name", name).ignoreCase());
 		criteria.add(Restrictions.eq("dataBaseName", table));
-		criteria.addOrder(Order.asc("priority"));
 		Object obj = criteria.uniqueResult();
 		return obj == null ? null : (BasicData) obj;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<BasicData> listByFieldTable(String table, String field) {
+		Session session = getCurrentSession();
+		Criteria criteria = session.createCriteria(BasicData.class);
+		criteria.add(Restrictions.eq("status", 'A'));
+		criteria.add(Restrictions.eq("field", field).ignoreCase());
+		criteria.add(Restrictions.eq("dataBaseName", table));
+		criteria.addOrder(Order.asc("priority"));
+		return criteria.list();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -122,4 +129,16 @@ public class DaoBasicdata {
 		criteria.add(Restrictions.eq(field, value));
 		return criteria.list();
 	}
+	
+	public BasicData findByFieldTable(String table, String field) {
+		Session session = getCurrentSession();
+		Criteria criteria = session.createCriteria(BasicData.class);
+		criteria.add(Restrictions.eq("status", 'A'));
+		criteria.add(Restrictions.eq("field", field).ignoreCase());
+		criteria.add(Restrictions.eq("dataBaseName", table));
+		Object obj = criteria.uniqueResult();
+		return obj == null ? null : (BasicData) obj;
+	}
+	
+	
 }

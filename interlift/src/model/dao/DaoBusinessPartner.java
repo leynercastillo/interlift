@@ -73,6 +73,14 @@ public class DaoBusinessPartner {
 	}
 
 	@SuppressWarnings("unchecked")
+	public List<BusinessPartner> listAll() {
+		Session session = getCurrentSession();
+		Criteria criteria = session.createCriteria(BusinessPartner.class);
+		criteria.addOrder(Order.asc("name"));
+		return criteria.list();
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<BusinessPartner> listActiveOrderByField(String field) {
 		Session session = getCurrentSession();
 		Criteria criteria = session.createCriteria(BusinessPartner.class);

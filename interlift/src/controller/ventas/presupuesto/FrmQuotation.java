@@ -16,9 +16,13 @@ import java.util.Map;
 import model.database.BasicData;
 import model.database.Budget;
 import model.database.Quotation;
+import model.database.SaleSummary;
+import model.database.TransactionSummary;
 import model.service.ServiceBasicData;
 import model.service.ServiceBudget;
 import model.service.ServiceQuotation;
+import model.service.ServiceSaleSummary;
+import model.service.ServiceTransactionSummary;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
@@ -30,7 +34,6 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
@@ -51,6 +54,10 @@ public class FrmQuotation {
 	@WireVariable
 	private ServiceBudget serviceBudget;
 	@WireVariable
+	private ServiceSaleSummary serviceSaleSummary;
+	@WireVariable
+	private ServiceTransactionSummary serviceTransactionSummary;
+	@WireVariable
 	private Emails emails;
 
 	private final String seleccione = new String("--Seleccione--");
@@ -64,33 +71,21 @@ public class FrmQuotation {
 	private Boolean disabledEdit;
 	private String modalMessage;
 	private String printMessage;
-	private BasicData cabinModel;
-	private List<BasicData> listElevatorType;
-	private List<BasicData> listElevatorCapa;
-	private List<BasicData> listSpeed;
-	private List<BasicData> listManeuverType;
-	private List<BasicData> listBoothDisplay;
-	private List<BasicData> listFloorDisplay;
-	private List<BasicData> listHallButtonType;
-	private List<BasicData> listHallButton;
-	private List<BasicData> listMachineType;
-	private List<BasicData> listElectricityType;
-	private List<BasicData> listCabinModel;
-	private List<BasicData> listDesign;
-	private List<BasicData> listRailing;
-	private List<BasicData> listFloorType;
-	private List<BasicData> listDoorType;
-	private List<BasicData> listFreeAdmission;
-	private List<BasicData> listHeight;
-	private List<BasicData> listDoorframeHammered;
-	private List<BasicData> listControlType;
-	private List<BasicData> listRoofType;
+	private List<BasicData> listQuotationType;
 	private ListModel<Object> listQuotationNumber;
 	private ListModel<Object> listNitPartner;
 	private ListModel<Object> listBudgetNumber;
 	private ListModel<Object> listPartnerName;
 	private ListModel<Object> listConstruction;
 	private ListModel<Object> listSeller;
+
+	public List<BasicData> getListQuotationType() {
+		return listQuotationType;
+	}
+
+	public void setListQuotationType(List<BasicData> listQuotationType) {
+		this.listQuotationType = listQuotationType;
+	}
 
 	public String getPrintMessage() {
 		return printMessage;
@@ -114,14 +109,6 @@ public class FrmQuotation {
 
 	public void setDisabledEdit(Boolean disabledEdit) {
 		this.disabledEdit = disabledEdit;
-	}
-
-	public List<BasicData> getListRoofType() {
-		return listRoofType;
-	}
-
-	public void setListRoofType(List<BasicData> listRoofType) {
-		this.listRoofType = listRoofType;
 	}
 
 	public Boolean getDisabledPrint() {
@@ -180,158 +167,6 @@ public class FrmQuotation {
 		this.disabledBudgetNumber = disabledBudgetNumber;
 	}
 
-	public List<BasicData> getListControlType() {
-		return listControlType;
-	}
-
-	public void setListControlType(List<BasicData> listControlType) {
-		this.listControlType = listControlType;
-	}
-
-	public List<BasicData> getListDoorframeHammered() {
-		return listDoorframeHammered;
-	}
-
-	public void setListDoorframeHammered(List<BasicData> listDoorframeHammered) {
-		this.listDoorframeHammered = listDoorframeHammered;
-	}
-
-	public List<BasicData> getListHeight() {
-		return listHeight;
-	}
-
-	public void setListHeight(List<BasicData> listHeight) {
-		this.listHeight = listHeight;
-	}
-
-	public List<BasicData> getListFreeAdmission() {
-		return listFreeAdmission;
-	}
-
-	public void setListFreeAdmission(List<BasicData> listFreeAdmission) {
-		this.listFreeAdmission = listFreeAdmission;
-	}
-
-	public List<BasicData> getListDoorType() {
-		return listDoorType;
-	}
-
-	public void setListDoorType(List<BasicData> listDoorType) {
-		this.listDoorType = listDoorType;
-	}
-
-	public List<BasicData> getListRailing() {
-		return listRailing;
-	}
-
-	public void setListRailing(List<BasicData> listRailing) {
-		this.listRailing = listRailing;
-	}
-
-	public List<BasicData> getListFloorType() {
-		return listFloorType;
-	}
-
-	public void setListFloorType(List<BasicData> listFloorType) {
-		this.listFloorType = listFloorType;
-	}
-
-	public List<BasicData> getListDesign() {
-		return listDesign;
-	}
-
-	public void setListDesign(List<BasicData> listDesign) {
-		this.listDesign = listDesign;
-	}
-
-	public List<BasicData> getListCabinModel() {
-		return listCabinModel;
-	}
-
-	public void setListCabinModel(List<BasicData> listCabinModel) {
-		this.listCabinModel = listCabinModel;
-	}
-
-	public BasicData getCabinModel() {
-		return cabinModel;
-	}
-
-	public void setCabinModel(BasicData cabinModel) {
-		this.cabinModel = cabinModel;
-	}
-
-	public List<BasicData> getListElectricityType() {
-		return listElectricityType;
-	}
-
-	public void setListElectricityType(List<BasicData> listElectricityType) {
-		this.listElectricityType = listElectricityType;
-	}
-
-	public List<BasicData> getListMachineType() {
-		return listMachineType;
-	}
-
-	public void setListMachineType(List<BasicData> listMachineType) {
-		this.listMachineType = listMachineType;
-	}
-
-	public List<BasicData> getListHallButton() {
-		return listHallButton;
-	}
-
-	public void setListHallButton(List<BasicData> listHallButton) {
-		this.listHallButton = listHallButton;
-	}
-
-	public List<BasicData> getListHallButtonType() {
-		return listHallButtonType;
-	}
-
-	public void setListHallButtonType(List<BasicData> listHallButtonType) {
-		this.listHallButtonType = listHallButtonType;
-	}
-
-	public List<BasicData> getListFloorDisplay() {
-		return listFloorDisplay;
-	}
-
-	public void setListFloorDisplay(List<BasicData> listFloorDisplay) {
-		this.listFloorDisplay = listFloorDisplay;
-	}
-
-	public List<BasicData> getListBoothDisplay() {
-		return listBoothDisplay;
-	}
-
-	public void setListBoothDisplay(List<BasicData> listBoothDisplay) {
-		this.listBoothDisplay = listBoothDisplay;
-	}
-
-	public List<BasicData> getListManeuverType() {
-		return listManeuverType;
-	}
-
-	public void setListManeuverType(List<BasicData> listManeuverType) {
-		this.listManeuverType = listManeuverType;
-	}
-
-	public List<BasicData> getListSpeed() {
-		return listSpeed;
-	}
-
-	public void setListSpeed(List<BasicData> listSpeed) {
-		this.listSpeed = listSpeed;
-	}
-
-	public List<BasicData> getListElevatorCapa() {
-		return listElevatorCapa;
-	}
-
-	public void setListElevatorCapa(List<BasicData> listElevatorCapa) {
-		this.listElevatorCapa = listElevatorCapa;
-	}
-
 	public String getDash() {
 		return dash;
 	}
@@ -364,12 +199,8 @@ public class FrmQuotation {
 		this.quotation = quotation;
 	}
 
-	public List<BasicData> getListElevatorType() {
-		return listElevatorType;
-	}
-
-	public void setListElevatorType(List<BasicData> listElevatorType) {
-		this.listElevatorType = listElevatorType;
+	public Validator getNoSelect() {
+		return new ValidateZK().getNoSelect();
 	}
 
 	public Validator getNoDash() {
@@ -410,38 +241,29 @@ public class FrmQuotation {
 		};
 	}
 
-	public Validator getWasApproved() {
+	public Validator getNoValidDate() {
 		return new AbstractValidator() {
 			@Override
 			public void validate(ValidationContext ctx) {
-				Radiogroup radiogroup = (Radiogroup) ctx.getBindContext().getValidatorArg("component");
-				if (radiogroup.getSelectedItem().getValue().charAt(0) == 'A') {
-					List<Quotation> list = serviceQuotation.listByBudget(quotation.getBudgetNumber());
-					for (Quotation q : list) {
-						if (q.getStatus() == 'A') {
-							quotation.setStatus('E');
-							quotation.setApprovedDate(null);
-							BindUtils.postNotifyChange(null, null, quotation, "status");
-							BindUtils.postNotifyChange(null, null, quotation, "approvedDate");
-							throw new WrongValueException(radiogroup, "Esta solicitud ya tiene presupuesto aprobado.");
-						}
-					}
-					/*
-					 * Si no hay ninguna aprobada, excepto la actual, entonces se asigna fecha de
-					 * aprobacion
-					 */
-					quotation.setApprovedDate(new Date());
-					if (quotation.getDeliveryDate() == null) {
-						Datebox datebox = (Datebox) ctx.getBindContext().getValidatorArg("datebox");
-						datebox.setDisabled(false);
-						throw new WrongValueException(datebox, "Ingrese una fecha de entrega estimada.");
-					}
-				} else {
-					quotation.setApprovedDate(null);
-					BindUtils.postNotifyChange(null, null, quotation, "approvedDate");
-				}
+				Datebox datebox = (Datebox) ctx.getBindContext().getValidatorArg("datebox");
+				if (quotation.getStatus() == 'A' && datebox.getValue() == null)
+					throw new WrongValueException(datebox, "Ingrese una fecha valida.");
 			}
 		};
+	}
+
+	@Command
+	public void selectStatus(@BindingParam("radioGroup") Radiogroup radiogroup) {
+		if (radiogroup.getSelectedItem().getValue().charAt(0) == 'A') {
+			List<Quotation> list = serviceQuotation.listByBudget(quotation.getBudgetNumber());
+			for (Quotation q : list) {
+				if (q.getStatus() == 'A') {
+					quotation.setStatus('E');
+					BindUtils.postNotifyChange(null, null, quotation, "status");
+					throw new WrongValueException(radiogroup, "Esta solicitud ya tiene presupuesto aprobado.");
+				}
+			}
+		}
 	}
 
 	@Init
@@ -449,7 +271,7 @@ public class FrmQuotation {
 		restartForm();
 	}
 
-	@NotifyChange("*")
+	@NotifyChange({ "quotation", "disableBeforeSearch", "disabledBudgetNumber", "disabledPrint", "disabledEdit", "listQuotationNumber", "listNitPartner", "listBudgetNumber", "listPartnerName", "listConstruction", "listSeller", "listQuotationType", "modalMessage", "printMessage" })
 	@Command
 	public void restartForm() {
 		quotation = new Quotation();
@@ -475,7 +297,6 @@ public class FrmQuotation {
 		/* Numero improbable */
 		updateQuotationNumber(-1);
 		budget = new Budget();
-		cabinModel = new BasicData();
 		disableBeforeSearch = new Boolean(true);
 		disabledBudgetNumber = new Boolean(false);
 		disabledPrint = new Boolean(true);
@@ -486,31 +307,12 @@ public class FrmQuotation {
 		listPartnerName = new ListModelList<Object>();
 		listConstruction = new ListModelList<Object>();
 		listSeller = new ListModelList<Object>();
-		listDesign = new ArrayList<BasicData>();
-		listRoofType = serviceBasicData.listRoofType();
-		listElevatorCapa = serviceBasicData.listElevatorCapacitance();
-		listSpeed = serviceBasicData.listSpeed();
-		listManeuverType = serviceBasicData.listManeuverType();
-		listHallButton = serviceBasicData.listHallButton();
-		listMachineType = serviceBasicData.listMachineType();
-		listElectricityType = serviceBasicData.listElectricityType();
-		listCabinModel = serviceBasicData.listCabinModel();
-		listRailing = serviceBasicData.listRailing();
-		listFloorType = serviceBasicData.listFloorType();
-		listDoorType = serviceBasicData.listDoorType();
-		listFreeAdmission = serviceBasicData.listFreeAdmission();
-		listHeight = serviceBasicData.listHeight();
-		listDoorframeHammered = serviceBasicData.listDoorframeHammered();
-		listElevatorType = serviceBasicData.listElevatorType();
-		listHallButtonType = serviceBasicData.listHallButtonType();
-		listControlType = serviceBasicData.listControlType();
-		listBoothDisplay = new ArrayList<BasicData>();
-		listFloorDisplay = new ArrayList<BasicData>();
+		listQuotationType = serviceBasicData.listQuotationTypeMoney();
 		modalMessage = null;
 		printMessage = null;
 	}
 
-	public void budgetToQuotation(Budget budget) {
+	private void budgetToQuotation(Budget budget) {
 		quotation.setBudget(budget);
 		quotation.setBusinessPartner(budget.getBusinessPartner());
 		quotation.setNitPartner(budget.getNitPartner());
@@ -537,7 +339,6 @@ public class FrmQuotation {
 		quotation.setStopSequenceOddQ(budget.getStopSequenceOddQ());
 		quotation.setBasicDataByManeuverType(budget.getBasicDataByManeuverType());
 		quotation.setBasicDataByControlType(budget.getBasicDataByControlType());
-		quotation.setBasicDataByHallButtonType(budget.getBasicDataByHallButtonType());
 		quotation.setBasicDataByHallButton(budget.getBasicDataByHallButton());
 		quotation.setBasicDataByMachineType(budget.getBasicDataByMachineType());
 		quotation.setBasicDataByElectricityType(budget.getBasicDataByElectricityType());
@@ -545,6 +346,7 @@ public class FrmQuotation {
 		quotation.setBottomHole(budget.getBottomHole());
 		quotation.setOnTour(budget.getOnTour());
 		quotation.setFossa(budget.getFossa());
+		
 		quotation.setBasicDataByCabinDesign(budget.getBasicDataByCabinDesign());
 		quotation.setDesignSpecial(budget.getDesignSpecial());
 		quotation.setDesignSpecialComment(budget.getDesignSpecialComment());
@@ -561,7 +363,6 @@ public class FrmQuotation {
 		quotation.setDoorFrameStainlessDescrip(budget.getDoorFrameStainlessDescrip());
 		quotation.setBasicDataByDoorFrameHammered(budget.getBasicDataByDoorFrameHammered());
 		quotation.setDoorFrameHammeredDesc(budget.getDoorFrameHammeredDesc());
-		loadBoothFloorDisplay();
 		quotation.setBasicDataByBoothDisplay(budget.getBasicDataByBoothDisplay());
 		quotation.setBasicDataByFloorDisplay(budget.getBasicDataByFloorDisplay());
 		quotation.setLightCurtain(budget.getLightCurtain());
@@ -573,6 +374,10 @@ public class FrmQuotation {
 		quotation.setAccessSytem(budget.getAccessSytem());
 		quotation.setFirefighterKeychain(budget.getFirefighterKeychain());
 		quotation.setComment(budget.getComment());
+	}
+
+	private SaleSummary quotationToSaleSummary(Quotation auxQuotation) {
+		return new SaleSummary(0, auxQuotation.getBasicDataByElectricityType(), auxQuotation.getBudget().getBasicDataByHourMachine(), auxQuotation.getBasicDataByHallButton(), auxQuotation.getBasicDataByRoofType(), auxQuotation.getBasicDataBySpeed(), auxQuotation.getBudget().getBasicDataByVoltageLighting(), auxQuotation.getBasicDataByDoorframeType(), auxQuotation.getBasicDataByRailing(), auxQuotation.getBudget().getBasicDataByBoothButton(), auxQuotation.getBasicDataByMirror(), auxQuotation.getBasicDataByElevatorCapacitance(), auxQuotation.getBasicDataByBoothDisplay(), auxQuotation.getBasicDataByCabinModel(), auxQuotation.getBasicDataByElevatorType(), auxQuotation.getBudget().getBasicDataByDoorSystem(), auxQuotation.getBudget().getBasicDataByFrequency(), auxQuotation.getBudget().getBasicDataByFan(), auxQuotation.getBasicDataByCabinDesign(), auxQuotation.getBasicDataByMachineType(), auxQuotation.getBudget().getBasicDataByBuildingType(), auxQuotation.getBasicDataByManeuverType(), auxQuotation.getBasicDataByDoorFrameHammered(), auxQuotation.getBasicDataByFloorType(), auxQuotation.getBudget().getBasicDataByMachineBase(), auxQuotation, auxQuotation.getBasicDataByHeight(), auxQuotation.getBasicDataByDoorType(), auxQuotation.getBudget().getBasicDataByButtonType(), auxQuotation.getBasicDataByControlType(), auxQuotation.getBasicDataByFreeAdmission(), auxQuotation.getBasicDataByFloorDisplay(), auxQuotation.getBudget().getBasicDataByAccess(), 0, null, new Date(), auxQuotation.getDeliveryDate(), auxQuotation.getConstruction(), auxQuotation.getBudget().getConstructionCity(), auxQuotation.getBudget().getConstructionAddress(), auxQuotation.getContactName(), auxQuotation.getBudget().getContactPhone(), auxQuotation.getBudget().getEmail(), auxQuotation.getBudget().getPlaneC(), auxQuotation.getBudget().getPlaneP(), auxQuotation.isType(), auxQuotation.getElevatorQuantity(), auxQuotation.getBudget().getMotorQuantity(), auxQuotation.getBudget().getMotorTraction(), auxQuotation.getStopNumber(), auxQuotation.getTour(), auxQuotation.getOnTour(), auxQuotation.getWidthHole(), auxQuotation.getFossa(), auxQuotation.getBottomHole(), auxQuotation.getDesignSpecial(), auxQuotation.getDesignSpecialComment(), auxQuotation.getCabinWidth(), auxQuotation.getCabinBackground(), auxQuotation.getCabinHeight(), auxQuotation.getBudget().getDoorOfNumber(), auxQuotation.getDoorframeTypeComment(), auxQuotation.getBudget().getHallButtonPlace(), auxQuotation.getLightCurtain(), auxQuotation.getLoadLimiter(), auxQuotation.getSpeechSynthesizer(), auxQuotation.getGomSystem(), auxQuotation.getIntercom(), auxQuotation.getPhone(), auxQuotation.getAccessSytem(), auxQuotation.getFirefighterKeychain(), auxQuotation.getBudget().getDisplayPlaceFloor(), auxQuotation.getStopSequenceContinuous(), auxQuotation.getStopSequenceContinuousQ(), auxQuotation.getStopSequenceContinuousNumber(), auxQuotation.getStopSequenceEven(), auxQuotation.getStopSequenceEvenQ(), auxQuotation.getStopSequenceEvenNumber(), auxQuotation.getStopSequenceOdd(), auxQuotation.getStopSequenceOddQ(), auxQuotation.getStopSequenceOddNumber(), auxQuotation.getDoorFrameHammeredDesc(), auxQuotation.getDoorFrameStainless(), auxQuotation.getDoorFrameStainlessDescrip(), auxQuotation.getComment(), auxQuotation.getStatus());
 	}
 
 	@Command
@@ -609,31 +414,47 @@ public class FrmQuotation {
 			disabledBudgetNumber = new Boolean(true);
 			disabledEdit = new Boolean(false);
 			budgetToQuotation(budget);
-			if (quotation.getBasicDataByCabinDesign() != null) {
-				cabinModel = quotation.getBasicDataByCabinDesign().getBasicData();
-				listDesign = serviceBasicData.listDesignByModel(cabinModel);
-			}
 			updateQuotationNumber(budgetNumber);
-			loadPayment();
 		} else
 			Clients.showNotification("Ningun registro coincide", "info", null, "top_center", 2000);
 	}
 
+	@NotifyChange({ "quotation" })
+	@Command
 	public void loadPayment() {
-		if (quotation.isType()) {
-			quotation.setPayment("60% de Inicial pagadera a la firma del contrato de venta.\n" + "15% a los 30 días.\n" + "15% a los 60 días.\n" + "5% para el despacho del equipo a la obra.\n" + "5% para la entrega del equipo y puesta en marcha.");
+		if (quotation.isType() && quotation.getBasicDataByQuotationType().getName().contains("MONEDA NACIONAL")) {
+			quotation.setPayment("80% de Inicial pagadera a la firma del contrato de venta.\n" + "20% a los 30 días.\n");
 			quotation.setWarranty("3");
 			quotation.setExtendedWarranty("12");
-			quotation.setDeliveryEstimate("8");
+			quotation.setDeliveryEstimate("6");
 			quotation.setQuotationValidity("07");
-			quotation.setNotes("- Los precios señalados no incluyen el IVA.\n" + "- El equipo se comenzará a fabricar luego de cancelado el 80% del precio de venta.\n" + "- Las cuotas del material importado han sido calculadas al tipo de cambio oficial del momento, por lo tanto, cualquier variación que exista en el tipo de cambio sera calculado al momento de efectuarse el pago.\n" + "- El incumplimiento en el pago de las cuotas genera intereses de mora.\n" + "- El precio por instalacion del equipo sera ajustado al momento de la ejecución y culminacion del montaje.\n" + "- La empresa no se hace responsable de la contribucion o pagos al sindicato de la construccion, ni a ningun otro sindicato.\n" + "- Este presupuesto no contempla gastos de fianzas de ninguna indole.");
-		} else {
+			quotation.setNotes("- Los precios señalados no incluyen el IVA.\n" + "- Este presupuesto NO incluye montaje, el mismo será presupuestado en el momento que se vaya a ejecutar.\n" + "- El equipo se comenzará a fabricar luego de cancelado el 80% del precio de venta.\n" + "- Las cuotas del material importado han sido calculadas al tipo de cambio oficial del momento, por lo tanto, cualquier variación que exista en el tipo de cambio sera calculado al momento de efectuarse el pago.\n" + "- El incumplimiento en el pago de las cuotas genera intereses de mora.\n" + "- La empresa no se hace responsable de la contribucion o pagos al sindicato de la construccion, ni a ningun otro sindicato.\n" + "- Este presupuesto no contempla gastos de fianzas de ninguna indole.");
+			quotation.setPriceImportedMaterial(0);
+			quotation.setPriceNationalMaterial(0);
+			quotation.setTotalPrice(0);
+		} else if (!quotation.isType() && quotation.getBasicDataByQuotationType().getName().contains("MONEDA NACIONAL")) {
 			quotation.setPayment("60% de inicial al momento de la firma del contrato.\n" + "20% para el desarme  de los equipos en  la obra.\n" + "15% para el despacho de los equipos y comenzar el trabajo de armado.\n" + "5% para la entrega de los equipos funcionando.");
 			quotation.setWarranty("3");
 			quotation.setExtendedWarranty("6");
 			quotation.setDeliveryEstimate("8");
 			quotation.setQuotationValidity("07");
-			quotation.setNotes("- Los precios señalados no incluyen el IVA.\n" + "- Las cuotas del material importado han sido calculadas al tipo de cambio oficial del momento, por lo tanto, cualquier variación que exista en el tipo de cambio sera calculado al momento de efectuarse el pago.\n" + "-El precio por instalación del equipo, sera ajustado al momento de la ejecución y culminación del montaje.\n" + "- El incumplimiento en el pago de las cuotas genera intereses de mora.\n" + "- La empresa no se hace responsable de la contribucion o pagos al sindicato de la construccion, ni a ningun otro sindicato.\n" + "- Este presupuesto no contempla gastos de fianzas de ninguna indole.");
+			quotation.setNotes("- Los precios señalados no incluyen el IVA.\n" + "- En caso de daño oculto será presupuestado el mismo al momento de ser detectado y por separado.\n" + "- Las cuotas del material importado han sido calculadas al tipo de cambio oficial del momento, por lo tanto, cualquier variación que exista en el tipo de cambio sera calculado al momento de efectuarse el pago.\n" + "-El precio por instalación del equipo, sera ajustado al momento de la ejecución y culminación del montaje.\n" + "- El incumplimiento en el pago de las cuotas genera intereses de mora.\n" + "- La empresa no se hace responsable de la contribucion o pagos al sindicato de la construccion, ni a ningun otro sindicato.\n" + "- Este presupuesto no contempla gastos de fianzas de ninguna indole.");
+			quotation.setPriceImportedMaterial(0);
+			quotation.setPriceNationalMaterial(0);
+			quotation.setTotalPrice(0);
+		} else if (quotation.isType() && quotation.getBasicDataByQuotationType().getName().contains("MONEDA EXTRANJERA")) {
+			quotation.setPaymentForeign("100% para la orden produccion y firma del contrato.");
+			quotation.setPayment("20% para la orden de produccion y firma del contrato.\n" + "80% para nacionalizar los equipos al llegar a puerto venezolano.\n");
+			quotation.setWarranty("3");
+			quotation.setExtendedWarranty("12");
+			quotation.setDeliveryEstimate("6");
+			quotation.setQuotationValidity("07");
+			quotation.setNotes("- Los precios señalados no incluyen el IVA.\n" + "- El precio de (los) equipo(s) NO INCLUYE el valor por concepto de mano de obra de MONTAJE. Este precio sera estimado al momento del comienzo de la instalación del (los) equipo(s).\n" + "- La empresa no se hace responsable de la contribucion o pagos al sindicato de la construccion, ni a ningun otro sindicato.\n" + "- Este presupuesto no contempla gastos de fianzas de ninguna indole.");
+			quotation.setPriceImportedMaterial(0);
+			quotation.setPriceNationalMaterial(0);
+			quotation.setTotalPrice(0);
+		} else if (!quotation.isType() && quotation.getBasicDataByQuotationType().getName().contains("MONEDA EXTRANJERA")) {
+
 		}
 	}
 
@@ -643,10 +464,6 @@ public class FrmQuotation {
 		if (field.compareTo("nitPartner") == 0) {
 			listNitPartner = new SimpleListModelCustom<Object>(serviceQuotation.listNitPartner());
 		} else if (field.compareTo("number") == 0) {
-			/*
-			 * Se cambia el nombre del field, ya que en el zul, se debe enviar una variable obligatoriamente
-			 * y se utilizan dos metodos.
-			 */
 			listBudgetNumber = new SimpleListModelCustom<Object>(serviceQuotation.listBudgetNumber());
 		} else if (field.compareTo("partnerName") == 0) {
 			listPartnerName = new SimpleListModelCustom<Object>(serviceQuotation.listPartnerName());
@@ -666,6 +483,8 @@ public class FrmQuotation {
 	public void loadQuotationByField(@BindingParam("field") String field, @BindingParam("val") String value) {
 		List<Quotation> list = new ArrayList<Quotation>();
 		if (field.compareTo("budgetNumber") == 0) {
+			if (value.isEmpty())
+				value = "0";
 			for (int i = 0; i < value.length(); i++) {
 				if (!Character.isDigit(value.charAt(i))) {
 					value = "0";
@@ -700,8 +519,6 @@ public class FrmQuotation {
 			disabledBudgetNumber = new Boolean(true);
 			disabledPrint = new Boolean(false);
 			disabledEdit = new Boolean(true);
-			if (quotation.getBasicDataByCabinDesign() != null)
-				cabinModel = quotation.getBasicDataByCabinDesign().getBasicData();
 		} else if (listSize == 0) {
 			Clients.showNotification("Ningun registro coincide", "info", null, "top_center", 2000);
 		} else {
@@ -731,57 +548,6 @@ public class FrmQuotation {
 		}
 	}
 
-	@NotifyChange({ "listDesign" })
-	@Command
-	public void loadCabinDesign() {
-		listDesign = serviceBasicData.listDesignByModel(cabinModel);
-		/*
-		 * No asigno un nuevo OBJETO en lugar de "null" puesto que me da error al guardar el objeto budget
-		 */
-		quotation.setBasicDataByCabinDesign(null);
-	}
-
-	@Command
-	public void activeDesignComment() {
-		String cabinDesign = new String();
-		String floorType = new String();
-		if (quotation.getBasicDataByCabinDesign() != null)
-			cabinDesign = quotation.getBasicDataByCabinDesign().getName();
-		if (quotation.getBasicDataByFloorType() != null)
-			floorType = quotation.getBasicDataByFloorType().getName();
-		if (cabinDesign.indexOf("FORMICA") != -1 || floorType.indexOf("OTROS") != -1)
-			quotation.setDesignSpecial(true);
-		/*
-		 * IMPORTANTE Solo actualizo una propiedad del objeto BUDGET, mas no todo el objeto
-		 */
-		BindUtils.postNotifyChange(null, null, quotation, "designSpecial");
-	}
-
-	@Command
-	public void isDesignSpecial() {
-		quotation.setDesignSpecialComment(" ");
-	}
-
-	@NotifyChange({ "listBoothDisplay", "listFloorDisplay" })
-	@Command
-	public void loadBoothFloorDisplay() {
-		if (quotation.getBasicDataByControlType() != null) {
-			String controlType = quotation.getBasicDataByControlType().getName();
-			if (controlType.indexOf("SISTEL") != -1) {
-				listBoothDisplay = serviceBasicData.listBoothDisplaySistel();
-				listFloorDisplay = serviceBasicData.listFloorDisplaySistel();
-			} else if (controlType.indexOf("CF CONTROL") != -1) {
-				listBoothDisplay = serviceBasicData.listBoothDisplayCF();
-				listFloorDisplay = serviceBasicData.listFloorDisplayCF();
-			} else {
-				listBoothDisplay = new ArrayList<BasicData>();
-				listFloorDisplay = new ArrayList<BasicData>();
-			}
-			quotation.setBasicDataByBoothDisplay(null);
-			quotation.setBasicDataByFloorDisplay(null);
-		}
-	}
-
 	@Command
 	public void priceUnit(@BindingParam("val") Double value) {
 		quotation.setPriceImportedMaterial(value * 0.6);
@@ -792,11 +558,21 @@ public class FrmQuotation {
 		BindUtils.postNotifyChange(null, null, quotation, "totalPrice");
 	}
 
+	@Command
+	public void setPrice(@BindingParam("price") Double value, @BindingParam("type") String type) {
+		if (type.contains("national")) {
+			quotation.setPriceNationalMaterial(value);
+			BindUtils.postNotifyChange(null, null, quotation, "priceNationalMaterial");
+		} else if (type.contains("foreign")) {
+			quotation.setPriceImportedMaterial(value);
+			BindUtils.postNotifyChange(null, null, quotation, "priceImportedMaterial");
+		}
+	}
+
 	@NotifyChange({ "quotation", "disabledPrint", "disableBeforeSearch", "disabledBudgetNumber", "cabinModel" })
 	@GlobalCommand
 	public void selectedQuotation(@BindingParam("quotation") Quotation quotation) {
 		this.quotation = serviceQuotation.findById(quotation.getIdQuotation());
-		cabinModel = this.quotation.getBasicDataByCabinDesign().getBasicData();
 		disableBeforeSearch = new Boolean(true);
 		disabledBudgetNumber = new Boolean(true);
 		disabledPrint = new Boolean(false);
@@ -818,61 +594,101 @@ public class FrmQuotation {
 		return (quotation.getElevatorQuantity() > 1 ? "ASCENSORES " : "ASCENSOR ") + str;
 	}
 
-	public List<File> mailAttach() {
+	private List<File> mainMailAttach(SaleSummary saleSummary) {
 		List<File> listAttach = new ArrayList<File>();
 		GenericReport report = new GenericReport();
+		// Creamos el pdf del resumen de ventas
+		listAttach.add(createSaleSummaryPdf(report, saleSummary));
 		String quotationNumber = new String();
 		if (quotation.isType())
 			quotationNumber = "1-" + quotation.getNewNumber() + "-" + quotation.getVersionNumber();
 		else
 			quotationNumber = "2-" + quotation.getModernizationNumber() + "-" + quotation.getVersionNumber();
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("REPORT_TITLE", "Resumen de Venta");
-		parameters.put("NUMBER", quotation.getBudgetNumber());
-		/*
-		 * Enviamos por parametro a ireport la ruta de la ubicacion de los subreportes e imagenes.
-		 */
-		parameters.put("IMAGES_DIR", "../../resource/images/system/reports/");
-		parameters.put("SUBREPORT_DIR", "../../resource/reports/ventas/solicitud/");
-		report.createPdf("/resource/reports/ventas/solicitud", "budget.jasper", parameters, "ppto_" + quotationNumber + ".pdf");
-		File file = new File(Sessions.getCurrent().getWebApp().getRealPath("/resource/reports/ventas/solicitud/presupuesto" + quotation.getBudgetNumber() + ".pdf"));
-		listAttach.add(file);
+		// Creamos el pdf del presupuesto
+		createQuotationPdf("SI", quotationNumber, report);
+		listAttach.add(report.getFile());
+		// Creamos el pdf del resumen de negociacion
+		TransactionSummary ts = serviceTransactionSummary.findByQuotation(quotation);
+		if (ts != null) {
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("IMAGES_DIR", "../../resource/images/system/reports/");
+			parameters.put("ID", ts.getIdTransactionSummary());
+			report.createPdf("/resource/reports/ventas/resumen_negociacion", "transaction_summary.jasper", parameters, "resumen_negociacion_" + ts.getIdTransactionSummary() + ".pdf");
+			listAttach.add(report.getFile());
+		}
 		return listAttach;
 	}
 
-	public String mailMessage() {
+	public List<File> logisticMailAttach(SaleSummary saleSummary) {
+		List<File> listAttach = new ArrayList<File>();
+		GenericReport report = new GenericReport();
+		listAttach.add(createSaleSummaryPdf(report, saleSummary));
+		return listAttach;
+	}
+
+	private File createSaleSummaryPdf(GenericReport report, SaleSummary saleSummary) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("ID_SALE_SUMMARY", saleSummary.getIdSaleSummary());
+		parameters.put("IMAGES_DIR", "../../resource/images/system/reports/");
+		parameters.put("SUBREPORT_DIR", "../../resource/reports/ventas/resumen/");
+		report.createPdf("/resource/reports/ventas/resumen", "sale_summary.jasper", parameters, "Resumen_venta_" + saleSummary.getNumber() + ".pdf");
+		return report.getFile();
+	}
+
+	private String mainMailMessage() {
 		Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-		String message = new String();
-		message = "Presupuesto aprobado el dia " + formatter.format(quotation.getApprovedDate()) + "\n\nPresupuesto nro:" + (quotation.isType() ? "1" : "2") + "-" + (quotation.isType() ? quotation.getNewNumber() : quotation.getModernizationNumber()) + "-" + quotation.getVersionNumber() + "\n\nCliente: " + quotation.getPartnerName() + "\n\nCantidad ascensores: " + quotation.getElevatorQuantity() + "\n\nCiudad: " + quotation.getConstruction();
-		return message;
+		return "Presupuesto aprobado el dia " + formatter.format(quotation.getApprovedDate()) + "\n\nPresupuesto nro:" + (quotation.isType() ? "1" : "2") + "-" + (quotation.isType() ? quotation.getNewNumber() : quotation.getModernizationNumber()) + "-" + quotation.getVersionNumber() + "\n\nCliente: " + quotation.getPartnerName() + "\n\nCantidad ascensores: " + quotation.getElevatorQuantity() + "\n\nCiudad: " + quotation.getConstruction();
 	}
 
-	public void sendMail() {
+	private String logisticMailMessage(SaleSummary saleSummary) {
+		Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return "Obra aprobada el día " + formatter.format(quotation.getApprovedDate()) + "\n\nNro Obra: " + saleSummary.getNumber() + "\n\nCliente: " + saleSummary.getQuotation().getPartnerName() + "\n\nObra: " + saleSummary.getConstruction() + "\n\nDirección de la obra: " + saleSummary.getConstructionAddress() + "\n\nCiudad: " + saleSummary.getConstructionCity();
+	}
+
+	private void sendMail(SaleSummary saleSummary) {
 		List<String> listRecipient = new ArrayList<String>();
-		listRecipient.add("ventas@ascensoresnardi.com");
-		listRecipient.add("logistica@ascensoresnardi.com");
-		listRecipient.add(quotation.getBudget().getSecurityUser().getEmail());
+		/*
+		 * listRecipient.add("ventas@ascensoresnardi.com");
+		 * listRecipient.add("administracion@ascensoresnardi.com");
+		 * listRecipient.add("cobranzas@ascensoresnardi.com");
+		 */
+		/*
+		 * listRecipient.add(serviceBudget.findByNumber(saleSummary.getQuotation().getBudget().getNumber()).
+		 * getSecurityUser().getEmail());
+		 */
 		listRecipient.add("sistemas@ascensoresnardi.com");
-		emails.sendMail("sistemas@ascensoresnardi.com", "Presupuesto nro" + (quotation.isType() ? "1" : "2") + "-" + (quotation.isType() ? quotation.getNewNumber() : quotation.getModernizationNumber()) + "-" + quotation.getVersionNumber(), listRecipient, mailMessage(), mailAttach());
+		emails.sendMail("sistemas@ascensoresnardi.com", "Presupuesto nro " + (quotation.isType() ? "1" : "2") + "-" + (quotation.isType() ? quotation.getNewNumber() : quotation.getModernizationNumber()) + "-" + quotation.getVersionNumber(), listRecipient, mainMailMessage(), mainMailAttach(saleSummary));
+		listRecipient.clear();
+		/* listRecipient.add("logistica@ascensoresnardi.com"); */
+		listRecipient.add("sistemas@ascensoresnardi.com");
+		emails.sendMail("sistemas@ascensoresnardi.com", "Obra Nro " + saleSummary.getNumber() + "-" + saleSummary.getVersion(), listRecipient, logisticMailMessage(saleSummary), logisticMailAttach(saleSummary));
 	}
 
-	@NotifyChange("*")
+	@NotifyChange("printMessage")
 	@Command
 	public void save() {
 		if (!serviceQuotation.save(quotation)) {
-			Clients.showNotification("No se pudo guardar el presupuest.", "error", null, "bottom_center", 2000);
+			Clients.showNotification("No se pudo guardar el presupuesto", "error", null, "bottom_center", 2000);
 			return;
 		}
-		if (quotation.getStatus() == 'A')
-			sendMail();
+		if (quotation.getStatus() == 'A') {
+			SaleSummary saleSummary = quotationToSaleSummary(quotation);
+			if (!serviceSaleSummary.save(saleSummary)) {
+				Clients.showNotification("No se pudo guardar el presupuesto", "error", null, "bottom_center", 2000);
+				return;
+			}
+			saleSummary = serviceSaleSummary.findByQuotation(quotation);
+			sendMail(saleSummary);
+		}
 		Clients.showNotification("Presupuesto guardado", "info", null, "bottom_center", 2000);
 		selectPrintTemplate();
 	}
 
 	@NotifyChange("modalMessage")
 	@Command
-	public void confirmSave() {
+	public void confirmSave(@BindingParam("radioGroup") Radiogroup radiogroup, @BindingParam("datebox") Datebox datebox) {
 		modalMessage = "El proceso de guardado es irreversible. ¿Esta seguro de guardar el presupuesto?";
+		selectStatus(radiogroup);
 	}
 
 	@NotifyChange("printMessage")
@@ -881,7 +697,7 @@ public class FrmQuotation {
 		printMessage = "Escoja el formato para la impresion.";
 	}
 
-	@NotifyChange("*")
+	@NotifyChange({ "quotation", "disableBeforeSearch", "disabledBudgetNumber", "disabledPrint", "disabledEdit", "listQuotationNumber", "listNitPartner", "listBudgetNumber", "listPartnerName", "listConstruction", "listSeller", "listQuotationType", "modalMessage", "printMessage" })
 	@Command
 	public void cancelModal() {
 		if (modalMessage != null)
@@ -898,19 +714,25 @@ public class FrmQuotation {
 		disabledEdit = new Boolean(false);
 	}
 
-	@NotifyChange("*")
-	@Command
-	public void print(@BindingParam("template") String template) {
-		GenericReport report = new GenericReport();
-		String quotationNumber = new String();
-		if (quotation.isType())
-			quotationNumber = "1-" + quotation.getNewNumber() + "-" + quotation.getVersionNumber();
-		else
-			quotationNumber = "2-" + quotation.getModernizationNumber() + "-" + quotation.getVersionNumber();
-		if (template == null || template.compareTo("SI") == 0)
-			template = "quotation.jasper";
-		else
-			template = "quotation_without.jasper";
+	/**
+	 * @param template
+	 *                If 'SI' the pdf will create print with head, else 'NO' the pdf will create
+	 * @param quotationNumber
+	 *                Quotations number.
+	 * @param report
+	 *                For to generate report.
+	 */
+	private void createQuotationPdf(String template, String quotationNumber, GenericReport report) {
+		if (template == null || template.compareTo("SI") == 0) {
+			if (quotation.getBasicDataByQuotationType().getName().contains("MONEDA NACIONAL"))
+				template = "quotation.jasper";
+			else if (quotation.getBasicDataByQuotationType().getName().contains("MONEDA EXTRANJERA"))
+				template = "quotation_foreign.jasper";
+		} else if (template.contains("NO"))
+			if (quotation.getBasicDataByQuotationType().getName().contains("MONEDA NACIONAL"))
+				template = "quotation_without.jasper";
+			else if (quotation.getBasicDataByQuotationType().getName().contains("MONEDA EXTRANJERA"))
+				template = "quotation_foreign_without.jasper";
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("TYPE", quotation.isType());
 		parameters.put("NEW", quotation.getNewNumber());
@@ -919,6 +741,18 @@ public class FrmQuotation {
 		parameters.put("IMAGES_DIR", "../../resource/images/system/reports/");
 		parameters.put("SUBREPORT_DIR", "../../resource/reports/ventas/presupuesto/");
 		report.createPdf("/resource/reports/ventas/presupuesto", template, parameters, "ppto_" + quotationNumber + ".pdf");
+	}
+
+	@NotifyChange({ "quotation", "disableBeforeSearch", "disabledBudgetNumber", "disabledPrint", "disabledEdit", "listQuotationNumber", "listNitPartner", "listBudgetNumber", "listPartnerName", "listConstruction", "listSeller", "listQuotationType", "modalMessage", "printMessage" })
+	@Command
+	public void print(@BindingParam("template") String template) {
+		GenericReport report = new GenericReport();
+		String quotationNumber = new String();
+		if (quotation.isType())
+			quotationNumber = "1-" + quotation.getNewNumber() + "-" + quotation.getVersionNumber();
+		else
+			quotationNumber = "2-" + quotation.getModernizationNumber() + "-" + quotation.getVersionNumber();
+		createQuotationPdf(template, quotationNumber, report);
 		report.viewPdf("/resource/reports/ventas/presupuesto/ppto_" + quotationNumber + ".pdf", "Presupuesto");
 		restartForm();
 	}

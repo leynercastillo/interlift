@@ -42,7 +42,7 @@ public class ServiceBudget {
 	@Transactional(readOnly = true)
 	public List<Budget> listByNitPartner(String nitPartner) {
 		return daoBudget.listByField("nitPartner", nitPartner);
-	}	
+	}
 	
 	@Transactional(readOnly = true)
 	public List<Budget> listBySeller(String seller) {

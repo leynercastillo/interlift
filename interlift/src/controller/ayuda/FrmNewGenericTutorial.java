@@ -119,15 +119,13 @@ public class FrmNewGenericTutorial {
 		List<SecurityUser> listUsers = serviceSecurityUser.listAll();
 		List<SecurityUser> listUsersFeature = new ArrayList<SecurityUser>();
 		for (SecurityUser securityUser : listUsers) {
-			Set<SecurityGroup> groups = securityUser.getSecurityGroups();
-			group:
-			for (SecurityGroup userGroup : groups) {
-				for (SecurityGroup selectedGroup : selectedGroups) {
-					if (userGroup.getIdSecurityGroup() == selectedGroup.getIdSecurityGroup())
-						listUsersFeature.add(securityUser);
-					break group;
-				}
+			SecurityGroup userGroup = securityUser.getSecurityGroup();
+			group: for (SecurityGroup selectedGroup : selectedGroups) {
+				if (userGroup.getIdSecurityGroup() == selectedGroup.getIdSecurityGroup())
+					listUsersFeature.add(securityUser);
+				break group;
 			}
+
 		}
 	}
 

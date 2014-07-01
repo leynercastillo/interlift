@@ -68,16 +68,18 @@ public class FrmContact {
 		restartForm();
 	}
 
-	@NotifyChange({ "*" })
+	@NotifyChange({ "contact", "listSecurityUsers" })
 	@Command
 	public void restartForm() {
 		contact = new Contact();
 		contact.setStatus('A');
 		contact.setDate(new Date());
 		SecurityGroup group = serviceSecurityGroup.findGroupSeller();
-		listSecurityUsers = new ArrayList<SecurityUser>(group.getSecurityUsers());
+		if (!group.getSecurityUsers().isEmpty())
+			listSecurityUsers = new ArrayList<SecurityUser>(group.getSecurityUsers());
 		group = serviceSecurityGroup.findGroupSalesCoordinator();
-		listSecurityUsers.addAll(group.getSecurityUsers());
+		if (!group.getSecurityUsers().isEmpty())
+			listSecurityUsers.addAll(group.getSecurityUsers());
 	}
 
 	public String mailMessage() {
@@ -86,7 +88,7 @@ public class FrmContact {
 		return message;
 	}
 
-	@NotifyChange({ "*" })
+	@NotifyChange({ "contact", "listSecurityUsers" })
 	@Command
 	public void send(@BindingParam("component") Component component) {
 		List<String> list = new ArrayList<String>();

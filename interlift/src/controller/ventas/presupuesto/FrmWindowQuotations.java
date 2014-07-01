@@ -1,10 +1,13 @@
 package controller.ventas.presupuesto;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.database.BasicData;
 import model.database.Quotation;
+import model.service.ServiceBasicData;
 import model.service.ServiceQuotation;
 
 import org.zkoss.bind.BindUtils;
@@ -25,6 +28,8 @@ public class FrmWindowQuotations {
 
 	@WireVariable
 	private ServiceQuotation serviceQuotation;
+	@WireVariable
+	private ServiceBasicData serviceBasicData;
 
 	@Wire("#windowQuotations")
 	private Window windowQuotations;
@@ -68,6 +73,20 @@ public class FrmWindowQuotations {
 		Quotation q = serviceQuotation.findById(quotation.getIdQuotation());
 		return q.getElevatorQuantity() + " - " + q.getBasicDataByElevatorType().getName();
 	}
+
+	public String getValorComercial(Quotation quotation) {
+		Double a = (quotation.getPriceNationalMaterial()*1.16);
+		DecimalFormat num = new DecimalFormat("#,###.00");
+		String conversionComercial = num.format(a);
+			return conversionComercial + "$";
+	}
+	
+	public String getValorMercantil(Quotation quotation) {
+		Double a1 = (quotation.getPriceImportedMaterial());
+		DecimalFormat num1 = new DecimalFormat("#,###.00");
+		String conversionMercantil = num1.format(a1);
+			return conversionMercantil + "$";
+}
 
 	public String getQuotationNumber(Quotation quotation) {
 		if (quotation.isType())

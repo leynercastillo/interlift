@@ -27,6 +27,14 @@
 					</datebox>
 					<space></space>
 				</row>
+				<row>
+					<checkbox checked="@bind(vm.newSales)"
+						label="Ventas nuevas">
+					</checkbox>
+					<checkbox checked="@bind(vm.modernization)"
+						label="Modernizacion">
+					</checkbox>
+				</row>
 				<row spans="5">
 					<listbox checkmark="true"
 						model="@load(vm.listUsers)" mold="paging" multiple="true"

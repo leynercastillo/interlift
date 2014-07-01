@@ -1,9 +1,10 @@
 package model.database;
 
-// Generated 11-oct-2013 10:33:55 by Hibernate Tools 4.0.0
+// Generated 23-may-2014 15:32:55 by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +25,10 @@ import javax.persistence.Table;
 @Table(name = "basic_data", schema = "public")
 public class BasicData implements java.io.Serializable {
 
-	private static final long serialVersionUID = -3178387161743077228L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4034095629794094708L;
 	private int idBasic;
 	private BasicData basicData;
 	private String dataBaseName;
@@ -34,25 +38,46 @@ public class BasicData implements java.io.Serializable {
 	private int priority;
 	private String imageurl;
 	private char status;
+	private Set<SaleSummary> saleSummariesForDoorSystem = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForDoorType = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForFan = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForRoofType = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForCabinDesign = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForManeuverType = new HashSet<SaleSummary>(0);
 	private Set<Quotation> quotationsForElectricityType = new HashSet<Quotation>(0);
+	private Set<SaleSummary> saleSummariesForFloorType = new HashSet<SaleSummary>(0);
 	private Set<Quotation> quotationsForRailing = new HashSet<Quotation>(0);
+	private Set<SaleSummary> saleSummariesForMirror = new HashSet<SaleSummary>(0);
 	private Set<Quotation> quotationsForRoofType = new HashSet<Quotation>(0);
+	private Set<SaleSummary> saleSummariesForRailing = new HashSet<SaleSummary>(0);
 	private Set<Quotation> quotationsForFloorType = new HashSet<Quotation>(0);
+	private Set<SaleSummary> saleSummariesForButtonType = new HashSet<SaleSummary>(0);
 	private Set<Quotation> quotationsForDoorType = new HashSet<Quotation>(0);
 	private Set<Budget> budgetsForHeight = new HashSet<Budget>(0);
+	private Set<SaleSummary> saleSummariesForElevatorType = new HashSet<SaleSummary>(0);
 	private Set<Budget> budgetsForFreeAdmission = new HashSet<Budget>(0);
+	private Set<SaleSummary> saleSummariesForMachineBase = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForMachineType = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForElectricityType = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForAccess = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForFrequency = new HashSet<SaleSummary>(0);
 	private Set<Quotation> quotationsForElevatorType = new HashSet<Quotation>(0);
+	private Set<SaleSummary> saleSummariesForSpeed = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForHourMachine = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForVoltageLighting = new HashSet<SaleSummary>(0);
 	private Set<Budget> budgetsForSpeed = new HashSet<Budget>(0);
 	private Set<Item> items = new HashSet<Item>(0);
 	private Set<Item> items_1 = new HashSet<Item>(0);
 	private Set<Quotation> quotationsForCabinDesign = new HashSet<Quotation>(0);
+	private Set<Quotation> quotationsForQuotationType = new HashSet<Quotation>(0);
 	private Set<Budget> budgetsForFloorType = new HashSet<Budget>(0);
-	private Set<Quotation> quotationsForMirror = new HashSet<Quotation>(0);
+	private Set<Quotation> quotationsForCabinModel = new HashSet<Quotation>(0);
 	private Set<Budget> budgetsForDoorSystem = new HashSet<Budget>(0);
-	private Set<Quotation> quotationsForDoorFrameHammered = new HashSet<Quotation>(0);
+	private Set<Quotation> quotationsForMirror = new HashSet<Quotation>(0);
 	private Set<Budget> budgetsForDoorframeType = new HashSet<Budget>(0);
-	private Set<Quotation> quotationsForHeight = new HashSet<Quotation>(0);
+	private Set<Quotation> quotationsForDoorFrameHammered = new HashSet<Quotation>(0);
 	private Set<Budget> budgetsForControlType = new HashSet<Budget>(0);
+	private Set<Quotation> quotationsForHeight = new HashSet<Quotation>(0);
 	private Set<Budget> budgetsForBoothButton = new HashSet<Budget>(0);
 	private Set<Quotation> quotationsForFreeAdmission = new HashSet<Quotation>(0);
 	private Set<Budget> budgetsForBoothDisplay = new HashSet<Budget>(0);
@@ -60,35 +85,45 @@ public class BasicData implements java.io.Serializable {
 	private Set<Quotation> quotationsForDoorframeType = new HashSet<Quotation>(0);
 	private Set<Budget> budgetsForFan = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForDoorType = new HashSet<Budget>(0);
+	private Set<SaleSummary> saleSummariesForCabinModel = new HashSet<SaleSummary>(0);
 	private Set<Budget> budgetsForVoltageLighting = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForFrequency = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForHourMachine = new HashSet<Budget>(0);
+	private Set<SaleSummary> saleSummariesForBuildingType = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForElevatorCapacitance = new HashSet<SaleSummary>(0);
 	private Set<Budget> budgetsForMirror = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForRailing = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForButtonType = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForRoofType = new HashSet<Budget>(0);
-	private Set<Budget> budgetsForHallButtonType = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForCabinDesign = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForManeuverType = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForHallButton = new HashSet<Budget>(0);
+	private Set<SaleSummary> saleSummariesForBoothButton = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForBoothDisplay = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForFloorDisplay = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForDoorFrameHammered = new HashSet<SaleSummary>(0);
 	private Set<BasicData> basicDatas = new HashSet<BasicData>(0);
-	private Set<Quotation> quotationsForHallButtonType = new HashSet<Quotation>(0);
-	private Set<Budget> budgetsForBuildingType = new HashSet<Budget>(0);
+	private Set<SaleSummary> saleSummariesForDoorframeType = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForHeight = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForFreeAdmission = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForControlType = new HashSet<SaleSummary>(0);
+	private Set<SaleSummary> saleSummariesForHallButton = new HashSet<SaleSummary>(0);
 	private Set<Quotation> quotationsForFloorDisplay = new HashSet<Quotation>(0);
-	private Set<Budget> budgetsForElevatorType = new HashSet<Budget>(0);
+	private Set<Budget> budgetsForBuildingType = new HashSet<Budget>(0);
 	private Set<Quotation> quotationsForBoothDisplay = new HashSet<Quotation>(0);
-	private Set<Budget> budgetsForElevatorCapacitance = new HashSet<Budget>(0);
+	private Set<Budget> budgetsForElevatorType = new HashSet<Budget>(0);
 	private Set<Quotation> quotationsForControlType = new HashSet<Quotation>(0);
+	private Set<Budget> budgetsForElevatorCapacitance = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForDoorFrameHammered = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForMachineType = new HashSet<Budget>(0);
 	private Set<Budget> budgetsForAccess = new HashSet<Budget>(0);
 	private Set<Quotation> quotationsForMachineType = new HashSet<Quotation>(0);
-	private Set<Budget> budgetsForElectricityType = new HashSet<Budget>(0);
-	private Set<Budget> budgetsForCabinModel = new HashSet<Budget>(0);
 	private Set<Quotation> quotationsForHallButton = new HashSet<Quotation>(0);
+	private Set<Budget> budgetsForCabinModel = new HashSet<Budget>(0);
+	private Set<Budget> budgetsForElectricityType = new HashSet<Budget>(0);
 	private Set<Quotation> quotationsForManeuverType = new HashSet<Quotation>(0);
-	private Set<Quotation> quotationsForSpeed = new HashSet<Quotation>(0);
 	private Set<Budget> budgetsForMachineBase = new HashSet<Budget>(0);
+	private Set<Quotation> quotationsForSpeed = new HashSet<Quotation>(0);
 	private Set<Quotation> quotationsForElevatorCapacitance = new HashSet<Quotation>(0);
 
 	public BasicData() {
@@ -104,7 +139,7 @@ public class BasicData implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public BasicData(int idBasic, BasicData basicData, String dataBaseName, String name, String field, boolean editable, int priority, String imageurl, char status, Set<Quotation> quotationsForElectricityType, Set<Quotation> quotationsForRailing, Set<Quotation> quotationsForRoofType, Set<Quotation> quotationsForFloorType, Set<Quotation> quotationsForDoorType, Set<Budget> budgetsForHeight, Set<Budget> budgetsForFreeAdmission, Set<Quotation> quotationsForElevatorType, Set<Budget> budgetsForSpeed, Set<Item> items, Set<Item> items_1, Set<Quotation> quotationsForCabinDesign, Set<Budget> budgetsForFloorType, Set<Quotation> quotationsForMirror, Set<Budget> budgetsForDoorSystem, Set<Quotation> quotationsForDoorFrameHammered, Set<Budget> budgetsForDoorframeType, Set<Quotation> quotationsForHeight, Set<Budget> budgetsForControlType, Set<Budget> budgetsForBoothButton, Set<Quotation> quotationsForFreeAdmission, Set<Budget> budgetsForBoothDisplay, Set<Budget> budgetsForFloorDisplay, Set<Quotation> quotationsForDoorframeType, Set<Budget> budgetsForFan, Set<Budget> budgetsForDoorType, Set<Budget> budgetsForVoltageLighting, Set<Budget> budgetsForFrequency, Set<Budget> budgetsForHourMachine, Set<Budget> budgetsForMirror, Set<Budget> budgetsForRailing, Set<Budget> budgetsForButtonType, Set<Budget> budgetsForRoofType, Set<Budget> budgetsForHallButtonType, Set<Budget> budgetsForCabinDesign, Set<Budget> budgetsForManeuverType, Set<Budget> budgetsForHallButton, Set<BasicData> basicDatas, Set<Quotation> quotationsForHallButtonType, Set<Budget> budgetsForBuildingType, Set<Quotation> quotationsForFloorDisplay, Set<Budget> budgetsForElevatorType, Set<Quotation> quotationsForBoothDisplay, Set<Budget> budgetsForElevatorCapacitance, Set<Quotation> quotationsForControlType, Set<Budget> budgetsForDoorFrameHammered, Set<Budget> budgetsForMachineType, Set<Budget> budgetsForAccess, Set<Quotation> quotationsForMachineType, Set<Budget> budgetsForElectricityType, Set<Budget> budgetsForCabinModel, Set<Quotation> quotationsForHallButton, Set<Quotation> quotationsForManeuverType, Set<Quotation> quotationsForSpeed, Set<Budget> budgetsForMachineBase, Set<Quotation> quotationsForElevatorCapacitance) {
+	public BasicData(int idBasic, BasicData basicData, String dataBaseName, String name, String field, boolean editable, int priority, String imageurl, char status, Set<SaleSummary> saleSummariesForDoorSystem, Set<SaleSummary> saleSummariesForDoorType, Set<SaleSummary> saleSummariesForFan, Set<SaleSummary> saleSummariesForRoofType, Set<SaleSummary> saleSummariesForCabinDesign, Set<SaleSummary> saleSummariesForManeuverType, Set<Quotation> quotationsForElectricityType, Set<SaleSummary> saleSummariesForFloorType, Set<Quotation> quotationsForRailing, Set<SaleSummary> saleSummariesForMirror, Set<Quotation> quotationsForRoofType, Set<SaleSummary> saleSummariesForRailing, Set<Quotation> quotationsForFloorType, Set<SaleSummary> saleSummariesForButtonType, Set<Quotation> quotationsForDoorType, Set<Budget> budgetsForHeight, Set<SaleSummary> saleSummariesForElevatorType, Set<Budget> budgetsForFreeAdmission, Set<SaleSummary> saleSummariesForMachineBase, Set<SaleSummary> saleSummariesForMachineType, Set<SaleSummary> saleSummariesForElectricityType, Set<SaleSummary> saleSummariesForAccess, Set<SaleSummary> saleSummariesForFrequency, Set<Quotation> quotationsForElevatorType, Set<SaleSummary> saleSummariesForSpeed, Set<SaleSummary> saleSummariesForHourMachine, Set<SaleSummary> saleSummariesForVoltageLighting, Set<Budget> budgetsForSpeed, Set<Item> items, Set<Item> items_1, Set<Quotation> quotationsForCabinDesign, Set<Quotation> quotationsForQuotationType, Set<Budget> budgetsForFloorType, Set<Quotation> quotationsForCabinModel, Set<Budget> budgetsForDoorSystem, Set<Quotation> quotationsForMirror, Set<Budget> budgetsForDoorframeType, Set<Quotation> quotationsForDoorFrameHammered, Set<Budget> budgetsForControlType, Set<Quotation> quotationsForHeight, Set<Budget> budgetsForBoothButton, Set<Quotation> quotationsForFreeAdmission, Set<Budget> budgetsForBoothDisplay, Set<Budget> budgetsForFloorDisplay, Set<Quotation> quotationsForDoorframeType, Set<Budget> budgetsForFan, Set<Budget> budgetsForDoorType, Set<SaleSummary> saleSummariesForCabinModel, Set<Budget> budgetsForVoltageLighting, Set<Budget> budgetsForFrequency, Set<Budget> budgetsForHourMachine, Set<SaleSummary> saleSummariesForBuildingType, Set<SaleSummary> saleSummariesForElevatorCapacitance, Set<Budget> budgetsForMirror, Set<Budget> budgetsForRailing, Set<Budget> budgetsForButtonType, Set<Budget> budgetsForRoofType, Set<Budget> budgetsForCabinDesign, Set<Budget> budgetsForManeuverType, Set<Budget> budgetsForHallButton, Set<SaleSummary> saleSummariesForBoothButton, Set<SaleSummary> saleSummariesForBoothDisplay, Set<SaleSummary> saleSummariesForFloorDisplay, Set<SaleSummary> saleSummariesForDoorFrameHammered, Set<BasicData> basicDatas, Set<SaleSummary> saleSummariesForDoorframeType, Set<SaleSummary> saleSummariesForHeight, Set<SaleSummary> saleSummariesForFreeAdmission, Set<SaleSummary> saleSummariesForControlType, Set<SaleSummary> saleSummariesForHallButton, Set<Quotation> quotationsForFloorDisplay, Set<Budget> budgetsForBuildingType, Set<Quotation> quotationsForBoothDisplay, Set<Budget> budgetsForElevatorType, Set<Quotation> quotationsForControlType, Set<Budget> budgetsForElevatorCapacitance, Set<Budget> budgetsForDoorFrameHammered, Set<Budget> budgetsForMachineType, Set<Budget> budgetsForAccess, Set<Quotation> quotationsForMachineType, Set<Quotation> quotationsForHallButton, Set<Budget> budgetsForCabinModel, Set<Budget> budgetsForElectricityType, Set<Quotation> quotationsForManeuverType, Set<Budget> budgetsForMachineBase, Set<Quotation> quotationsForSpeed, Set<Quotation> quotationsForElevatorCapacitance) {
 		this.idBasic = idBasic;
 		this.basicData = basicData;
 		this.dataBaseName = dataBaseName;
@@ -114,25 +149,46 @@ public class BasicData implements java.io.Serializable {
 		this.priority = priority;
 		this.imageurl = imageurl;
 		this.status = status;
+		this.saleSummariesForDoorSystem = saleSummariesForDoorSystem;
+		this.saleSummariesForDoorType = saleSummariesForDoorType;
+		this.saleSummariesForFan = saleSummariesForFan;
+		this.saleSummariesForRoofType = saleSummariesForRoofType;
+		this.saleSummariesForCabinDesign = saleSummariesForCabinDesign;
+		this.saleSummariesForManeuverType = saleSummariesForManeuverType;
 		this.quotationsForElectricityType = quotationsForElectricityType;
+		this.saleSummariesForFloorType = saleSummariesForFloorType;
 		this.quotationsForRailing = quotationsForRailing;
+		this.saleSummariesForMirror = saleSummariesForMirror;
 		this.quotationsForRoofType = quotationsForRoofType;
+		this.saleSummariesForRailing = saleSummariesForRailing;
 		this.quotationsForFloorType = quotationsForFloorType;
+		this.saleSummariesForButtonType = saleSummariesForButtonType;
 		this.quotationsForDoorType = quotationsForDoorType;
 		this.budgetsForHeight = budgetsForHeight;
+		this.saleSummariesForElevatorType = saleSummariesForElevatorType;
 		this.budgetsForFreeAdmission = budgetsForFreeAdmission;
+		this.saleSummariesForMachineBase = saleSummariesForMachineBase;
+		this.saleSummariesForMachineType = saleSummariesForMachineType;
+		this.saleSummariesForElectricityType = saleSummariesForElectricityType;
+		this.saleSummariesForAccess = saleSummariesForAccess;
+		this.saleSummariesForFrequency = saleSummariesForFrequency;
 		this.quotationsForElevatorType = quotationsForElevatorType;
+		this.saleSummariesForSpeed = saleSummariesForSpeed;
+		this.saleSummariesForHourMachine = saleSummariesForHourMachine;
+		this.saleSummariesForVoltageLighting = saleSummariesForVoltageLighting;
 		this.budgetsForSpeed = budgetsForSpeed;
 		this.items = items;
 		this.items_1 = items_1;
 		this.quotationsForCabinDesign = quotationsForCabinDesign;
+		this.quotationsForQuotationType = quotationsForQuotationType;
 		this.budgetsForFloorType = budgetsForFloorType;
-		this.quotationsForMirror = quotationsForMirror;
+		this.quotationsForCabinModel = quotationsForCabinModel;
 		this.budgetsForDoorSystem = budgetsForDoorSystem;
-		this.quotationsForDoorFrameHammered = quotationsForDoorFrameHammered;
+		this.quotationsForMirror = quotationsForMirror;
 		this.budgetsForDoorframeType = budgetsForDoorframeType;
-		this.quotationsForHeight = quotationsForHeight;
+		this.quotationsForDoorFrameHammered = quotationsForDoorFrameHammered;
 		this.budgetsForControlType = budgetsForControlType;
+		this.quotationsForHeight = quotationsForHeight;
 		this.budgetsForBoothButton = budgetsForBoothButton;
 		this.quotationsForFreeAdmission = quotationsForFreeAdmission;
 		this.budgetsForBoothDisplay = budgetsForBoothDisplay;
@@ -140,35 +196,45 @@ public class BasicData implements java.io.Serializable {
 		this.quotationsForDoorframeType = quotationsForDoorframeType;
 		this.budgetsForFan = budgetsForFan;
 		this.budgetsForDoorType = budgetsForDoorType;
+		this.saleSummariesForCabinModel = saleSummariesForCabinModel;
 		this.budgetsForVoltageLighting = budgetsForVoltageLighting;
 		this.budgetsForFrequency = budgetsForFrequency;
 		this.budgetsForHourMachine = budgetsForHourMachine;
+		this.saleSummariesForBuildingType = saleSummariesForBuildingType;
+		this.saleSummariesForElevatorCapacitance = saleSummariesForElevatorCapacitance;
 		this.budgetsForMirror = budgetsForMirror;
 		this.budgetsForRailing = budgetsForRailing;
 		this.budgetsForButtonType = budgetsForButtonType;
 		this.budgetsForRoofType = budgetsForRoofType;
-		this.budgetsForHallButtonType = budgetsForHallButtonType;
 		this.budgetsForCabinDesign = budgetsForCabinDesign;
 		this.budgetsForManeuverType = budgetsForManeuverType;
 		this.budgetsForHallButton = budgetsForHallButton;
+		this.saleSummariesForBoothButton = saleSummariesForBoothButton;
+		this.saleSummariesForBoothDisplay = saleSummariesForBoothDisplay;
+		this.saleSummariesForFloorDisplay = saleSummariesForFloorDisplay;
+		this.saleSummariesForDoorFrameHammered = saleSummariesForDoorFrameHammered;
 		this.basicDatas = basicDatas;
-		this.quotationsForHallButtonType = quotationsForHallButtonType;
-		this.budgetsForBuildingType = budgetsForBuildingType;
+		this.saleSummariesForDoorframeType = saleSummariesForDoorframeType;
+		this.saleSummariesForHeight = saleSummariesForHeight;
+		this.saleSummariesForFreeAdmission = saleSummariesForFreeAdmission;
+		this.saleSummariesForControlType = saleSummariesForControlType;
+		this.saleSummariesForHallButton = saleSummariesForHallButton;
 		this.quotationsForFloorDisplay = quotationsForFloorDisplay;
-		this.budgetsForElevatorType = budgetsForElevatorType;
+		this.budgetsForBuildingType = budgetsForBuildingType;
 		this.quotationsForBoothDisplay = quotationsForBoothDisplay;
-		this.budgetsForElevatorCapacitance = budgetsForElevatorCapacitance;
+		this.budgetsForElevatorType = budgetsForElevatorType;
 		this.quotationsForControlType = quotationsForControlType;
+		this.budgetsForElevatorCapacitance = budgetsForElevatorCapacitance;
 		this.budgetsForDoorFrameHammered = budgetsForDoorFrameHammered;
 		this.budgetsForMachineType = budgetsForMachineType;
 		this.budgetsForAccess = budgetsForAccess;
 		this.quotationsForMachineType = quotationsForMachineType;
-		this.budgetsForElectricityType = budgetsForElectricityType;
-		this.budgetsForCabinModel = budgetsForCabinModel;
 		this.quotationsForHallButton = quotationsForHallButton;
+		this.budgetsForCabinModel = budgetsForCabinModel;
+		this.budgetsForElectricityType = budgetsForElectricityType;
 		this.quotationsForManeuverType = quotationsForManeuverType;
-		this.quotationsForSpeed = quotationsForSpeed;
 		this.budgetsForMachineBase = budgetsForMachineBase;
+		this.quotationsForSpeed = quotationsForSpeed;
 		this.quotationsForElevatorCapacitance = quotationsForElevatorCapacitance;
 	}
 
@@ -203,7 +269,7 @@ public class BasicData implements java.io.Serializable {
 		this.dataBaseName = dataBaseName;
 	}
 
-	@Column(name = "name", nullable = false, length = 150)
+	@Column(name = "name", nullable = false, length = 1500)
 	public String getName() {
 		return this.name;
 	}
@@ -257,6 +323,60 @@ public class BasicData implements java.io.Serializable {
 		this.status = status;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByDoorSystem")
+	public Set<SaleSummary> getSaleSummariesForDoorSystem() {
+		return this.saleSummariesForDoorSystem;
+	}
+
+	public void setSaleSummariesForDoorSystem(Set<SaleSummary> saleSummariesForDoorSystem) {
+		this.saleSummariesForDoorSystem = saleSummariesForDoorSystem;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByDoorType")
+	public Set<SaleSummary> getSaleSummariesForDoorType() {
+		return this.saleSummariesForDoorType;
+	}
+
+	public void setSaleSummariesForDoorType(Set<SaleSummary> saleSummariesForDoorType) {
+		this.saleSummariesForDoorType = saleSummariesForDoorType;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByFan")
+	public Set<SaleSummary> getSaleSummariesForFan() {
+		return this.saleSummariesForFan;
+	}
+
+	public void setSaleSummariesForFan(Set<SaleSummary> saleSummariesForFan) {
+		this.saleSummariesForFan = saleSummariesForFan;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByRoofType")
+	public Set<SaleSummary> getSaleSummariesForRoofType() {
+		return this.saleSummariesForRoofType;
+	}
+
+	public void setSaleSummariesForRoofType(Set<SaleSummary> saleSummariesForRoofType) {
+		this.saleSummariesForRoofType = saleSummariesForRoofType;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByCabinDesign")
+	public Set<SaleSummary> getSaleSummariesForCabinDesign() {
+		return this.saleSummariesForCabinDesign;
+	}
+
+	public void setSaleSummariesForCabinDesign(Set<SaleSummary> saleSummariesForCabinDesign) {
+		this.saleSummariesForCabinDesign = saleSummariesForCabinDesign;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByManeuverType")
+	public Set<SaleSummary> getSaleSummariesForManeuverType() {
+		return this.saleSummariesForManeuverType;
+	}
+
+	public void setSaleSummariesForManeuverType(Set<SaleSummary> saleSummariesForManeuverType) {
+		this.saleSummariesForManeuverType = saleSummariesForManeuverType;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElectricityType")
 	public Set<Quotation> getQuotationsForElectricityType() {
 		return this.quotationsForElectricityType;
@@ -264,6 +384,15 @@ public class BasicData implements java.io.Serializable {
 
 	public void setQuotationsForElectricityType(Set<Quotation> quotationsForElectricityType) {
 		this.quotationsForElectricityType = quotationsForElectricityType;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByFloorType")
+	public Set<SaleSummary> getSaleSummariesForFloorType() {
+		return this.saleSummariesForFloorType;
+	}
+
+	public void setSaleSummariesForFloorType(Set<SaleSummary> saleSummariesForFloorType) {
+		this.saleSummariesForFloorType = saleSummariesForFloorType;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByRailing")
@@ -275,6 +404,15 @@ public class BasicData implements java.io.Serializable {
 		this.quotationsForRailing = quotationsForRailing;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByMirror")
+	public Set<SaleSummary> getSaleSummariesForMirror() {
+		return this.saleSummariesForMirror;
+	}
+
+	public void setSaleSummariesForMirror(Set<SaleSummary> saleSummariesForMirror) {
+		this.saleSummariesForMirror = saleSummariesForMirror;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByRoofType")
 	public Set<Quotation> getQuotationsForRoofType() {
 		return this.quotationsForRoofType;
@@ -284,6 +422,15 @@ public class BasicData implements java.io.Serializable {
 		this.quotationsForRoofType = quotationsForRoofType;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByRailing")
+	public Set<SaleSummary> getSaleSummariesForRailing() {
+		return this.saleSummariesForRailing;
+	}
+
+	public void setSaleSummariesForRailing(Set<SaleSummary> saleSummariesForRailing) {
+		this.saleSummariesForRailing = saleSummariesForRailing;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByFloorType")
 	public Set<Quotation> getQuotationsForFloorType() {
 		return this.quotationsForFloorType;
@@ -291,6 +438,15 @@ public class BasicData implements java.io.Serializable {
 
 	public void setQuotationsForFloorType(Set<Quotation> quotationsForFloorType) {
 		this.quotationsForFloorType = quotationsForFloorType;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByButtonType")
+	public Set<SaleSummary> getSaleSummariesForButtonType() {
+		return this.saleSummariesForButtonType;
+	}
+
+	public void setSaleSummariesForButtonType(Set<SaleSummary> saleSummariesForButtonType) {
+		this.saleSummariesForButtonType = saleSummariesForButtonType;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByDoorType")
@@ -311,6 +467,15 @@ public class BasicData implements java.io.Serializable {
 		this.budgetsForHeight = budgetsForHeight;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElevatorType")
+	public Set<SaleSummary> getSaleSummariesForElevatorType() {
+		return this.saleSummariesForElevatorType;
+	}
+
+	public void setSaleSummariesForElevatorType(Set<SaleSummary> saleSummariesForElevatorType) {
+		this.saleSummariesForElevatorType = saleSummariesForElevatorType;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByFreeAdmission")
 	public Set<Budget> getBudgetsForFreeAdmission() {
 		return this.budgetsForFreeAdmission;
@@ -320,6 +485,51 @@ public class BasicData implements java.io.Serializable {
 		this.budgetsForFreeAdmission = budgetsForFreeAdmission;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByMachineBase")
+	public Set<SaleSummary> getSaleSummariesForMachineBase() {
+		return this.saleSummariesForMachineBase;
+	}
+
+	public void setSaleSummariesForMachineBase(Set<SaleSummary> saleSummariesForMachineBase) {
+		this.saleSummariesForMachineBase = saleSummariesForMachineBase;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByMachineType")
+	public Set<SaleSummary> getSaleSummariesForMachineType() {
+		return this.saleSummariesForMachineType;
+	}
+
+	public void setSaleSummariesForMachineType(Set<SaleSummary> saleSummariesForMachineType) {
+		this.saleSummariesForMachineType = saleSummariesForMachineType;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElectricityType")
+	public Set<SaleSummary> getSaleSummariesForElectricityType() {
+		return this.saleSummariesForElectricityType;
+	}
+
+	public void setSaleSummariesForElectricityType(Set<SaleSummary> saleSummariesForElectricityType) {
+		this.saleSummariesForElectricityType = saleSummariesForElectricityType;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByAccess")
+	public Set<SaleSummary> getSaleSummariesForAccess() {
+		return this.saleSummariesForAccess;
+	}
+
+	public void setSaleSummariesForAccess(Set<SaleSummary> saleSummariesForAccess) {
+		this.saleSummariesForAccess = saleSummariesForAccess;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByFrequency")
+	public Set<SaleSummary> getSaleSummariesForFrequency() {
+		return this.saleSummariesForFrequency;
+	}
+
+	public void setSaleSummariesForFrequency(Set<SaleSummary> saleSummariesForFrequency) {
+		this.saleSummariesForFrequency = saleSummariesForFrequency;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElevatorType")
 	public Set<Quotation> getQuotationsForElevatorType() {
 		return this.quotationsForElevatorType;
@@ -327,6 +537,33 @@ public class BasicData implements java.io.Serializable {
 
 	public void setQuotationsForElevatorType(Set<Quotation> quotationsForElevatorType) {
 		this.quotationsForElevatorType = quotationsForElevatorType;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataBySpeed")
+	public Set<SaleSummary> getSaleSummariesForSpeed() {
+		return this.saleSummariesForSpeed;
+	}
+
+	public void setSaleSummariesForSpeed(Set<SaleSummary> saleSummariesForSpeed) {
+		this.saleSummariesForSpeed = saleSummariesForSpeed;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByHourMachine")
+	public Set<SaleSummary> getSaleSummariesForHourMachine() {
+		return this.saleSummariesForHourMachine;
+	}
+
+	public void setSaleSummariesForHourMachine(Set<SaleSummary> saleSummariesForHourMachine) {
+		this.saleSummariesForHourMachine = saleSummariesForHourMachine;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByVoltageLighting")
+	public Set<SaleSummary> getSaleSummariesForVoltageLighting() {
+		return this.saleSummariesForVoltageLighting;
+	}
+
+	public void setSaleSummariesForVoltageLighting(Set<SaleSummary> saleSummariesForVoltageLighting) {
+		this.saleSummariesForVoltageLighting = saleSummariesForVoltageLighting;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataBySpeed")
@@ -365,6 +602,15 @@ public class BasicData implements java.io.Serializable {
 		this.quotationsForCabinDesign = quotationsForCabinDesign;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByQuotationType")
+	public Set<Quotation> getQuotationsForQuotationType() {
+		return this.quotationsForQuotationType;
+	}
+
+	public void setQuotationsForQuotationType(Set<Quotation> quotationsForQuotationType) {
+		this.quotationsForQuotationType = quotationsForQuotationType;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByFloorType")
 	public Set<Budget> getBudgetsForFloorType() {
 		return this.budgetsForFloorType;
@@ -374,13 +620,13 @@ public class BasicData implements java.io.Serializable {
 		this.budgetsForFloorType = budgetsForFloorType;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByMirror")
-	public Set<Quotation> getQuotationsForMirror() {
-		return this.quotationsForMirror;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByCabinModel")
+	public Set<Quotation> getQuotationsForCabinModel() {
+		return this.quotationsForCabinModel;
 	}
 
-	public void setQuotationsForMirror(Set<Quotation> quotationsForMirror) {
-		this.quotationsForMirror = quotationsForMirror;
+	public void setQuotationsForCabinModel(Set<Quotation> quotationsForCabinModel) {
+		this.quotationsForCabinModel = quotationsForCabinModel;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByDoorSystem")
@@ -392,13 +638,13 @@ public class BasicData implements java.io.Serializable {
 		this.budgetsForDoorSystem = budgetsForDoorSystem;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByDoorFrameHammered")
-	public Set<Quotation> getQuotationsForDoorFrameHammered() {
-		return this.quotationsForDoorFrameHammered;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByMirror")
+	public Set<Quotation> getQuotationsForMirror() {
+		return this.quotationsForMirror;
 	}
 
-	public void setQuotationsForDoorFrameHammered(Set<Quotation> quotationsForDoorFrameHammered) {
-		this.quotationsForDoorFrameHammered = quotationsForDoorFrameHammered;
+	public void setQuotationsForMirror(Set<Quotation> quotationsForMirror) {
+		this.quotationsForMirror = quotationsForMirror;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByDoorframeType")
@@ -410,13 +656,13 @@ public class BasicData implements java.io.Serializable {
 		this.budgetsForDoorframeType = budgetsForDoorframeType;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByHeight")
-	public Set<Quotation> getQuotationsForHeight() {
-		return this.quotationsForHeight;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByDoorFrameHammered")
+	public Set<Quotation> getQuotationsForDoorFrameHammered() {
+		return this.quotationsForDoorFrameHammered;
 	}
 
-	public void setQuotationsForHeight(Set<Quotation> quotationsForHeight) {
-		this.quotationsForHeight = quotationsForHeight;
+	public void setQuotationsForDoorFrameHammered(Set<Quotation> quotationsForDoorFrameHammered) {
+		this.quotationsForDoorFrameHammered = quotationsForDoorFrameHammered;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByControlType")
@@ -426,6 +672,15 @@ public class BasicData implements java.io.Serializable {
 
 	public void setBudgetsForControlType(Set<Budget> budgetsForControlType) {
 		this.budgetsForControlType = budgetsForControlType;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByHeight")
+	public Set<Quotation> getQuotationsForHeight() {
+		return this.quotationsForHeight;
+	}
+
+	public void setQuotationsForHeight(Set<Quotation> quotationsForHeight) {
+		this.quotationsForHeight = quotationsForHeight;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByBoothButton")
@@ -491,6 +746,15 @@ public class BasicData implements java.io.Serializable {
 		this.budgetsForDoorType = budgetsForDoorType;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByCabinModel")
+	public Set<SaleSummary> getSaleSummariesForCabinModel() {
+		return this.saleSummariesForCabinModel;
+	}
+
+	public void setSaleSummariesForCabinModel(Set<SaleSummary> saleSummariesForCabinModel) {
+		this.saleSummariesForCabinModel = saleSummariesForCabinModel;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByVoltageLighting")
 	public Set<Budget> getBudgetsForVoltageLighting() {
 		return this.budgetsForVoltageLighting;
@@ -516,6 +780,24 @@ public class BasicData implements java.io.Serializable {
 
 	public void setBudgetsForHourMachine(Set<Budget> budgetsForHourMachine) {
 		this.budgetsForHourMachine = budgetsForHourMachine;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByBuildingType")
+	public Set<SaleSummary> getSaleSummariesForBuildingType() {
+		return this.saleSummariesForBuildingType;
+	}
+
+	public void setSaleSummariesForBuildingType(Set<SaleSummary> saleSummariesForBuildingType) {
+		this.saleSummariesForBuildingType = saleSummariesForBuildingType;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElevatorCapacitance")
+	public Set<SaleSummary> getSaleSummariesForElevatorCapacitance() {
+		return this.saleSummariesForElevatorCapacitance;
+	}
+
+	public void setSaleSummariesForElevatorCapacitance(Set<SaleSummary> saleSummariesForElevatorCapacitance) {
+		this.saleSummariesForElevatorCapacitance = saleSummariesForElevatorCapacitance;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByMirror")
@@ -554,15 +836,6 @@ public class BasicData implements java.io.Serializable {
 		this.budgetsForRoofType = budgetsForRoofType;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByHallButtonType")
-	public Set<Budget> getBudgetsForHallButtonType() {
-		return this.budgetsForHallButtonType;
-	}
-
-	public void setBudgetsForHallButtonType(Set<Budget> budgetsForHallButtonType) {
-		this.budgetsForHallButtonType = budgetsForHallButtonType;
-	}
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByCabinDesign")
 	public Set<Budget> getBudgetsForCabinDesign() {
 		return this.budgetsForCabinDesign;
@@ -590,6 +863,42 @@ public class BasicData implements java.io.Serializable {
 		this.budgetsForHallButton = budgetsForHallButton;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByBoothButton")
+	public Set<SaleSummary> getSaleSummariesForBoothButton() {
+		return this.saleSummariesForBoothButton;
+	}
+
+	public void setSaleSummariesForBoothButton(Set<SaleSummary> saleSummariesForBoothButton) {
+		this.saleSummariesForBoothButton = saleSummariesForBoothButton;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByBoothDisplay")
+	public Set<SaleSummary> getSaleSummariesForBoothDisplay() {
+		return this.saleSummariesForBoothDisplay;
+	}
+
+	public void setSaleSummariesForBoothDisplay(Set<SaleSummary> saleSummariesForBoothDisplay) {
+		this.saleSummariesForBoothDisplay = saleSummariesForBoothDisplay;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByFloorDisplay")
+	public Set<SaleSummary> getSaleSummariesForFloorDisplay() {
+		return this.saleSummariesForFloorDisplay;
+	}
+
+	public void setSaleSummariesForFloorDisplay(Set<SaleSummary> saleSummariesForFloorDisplay) {
+		this.saleSummariesForFloorDisplay = saleSummariesForFloorDisplay;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByDoorFrameHammered")
+	public Set<SaleSummary> getSaleSummariesForDoorFrameHammered() {
+		return this.saleSummariesForDoorFrameHammered;
+	}
+
+	public void setSaleSummariesForDoorFrameHammered(Set<SaleSummary> saleSummariesForDoorFrameHammered) {
+		this.saleSummariesForDoorFrameHammered = saleSummariesForDoorFrameHammered;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicData")
 	public Set<BasicData> getBasicDatas() {
 		return this.basicDatas;
@@ -599,22 +908,49 @@ public class BasicData implements java.io.Serializable {
 		this.basicDatas = basicDatas;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByHallButtonType")
-	public Set<Quotation> getQuotationsForHallButtonType() {
-		return this.quotationsForHallButtonType;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByDoorframeType")
+	public Set<SaleSummary> getSaleSummariesForDoorframeType() {
+		return this.saleSummariesForDoorframeType;
 	}
 
-	public void setQuotationsForHallButtonType(Set<Quotation> quotationsForHallButtonType) {
-		this.quotationsForHallButtonType = quotationsForHallButtonType;
+	public void setSaleSummariesForDoorframeType(Set<SaleSummary> saleSummariesForDoorframeType) {
+		this.saleSummariesForDoorframeType = saleSummariesForDoorframeType;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByBuildingType")
-	public Set<Budget> getBudgetsForBuildingType() {
-		return this.budgetsForBuildingType;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByHeight")
+	public Set<SaleSummary> getSaleSummariesForHeight() {
+		return this.saleSummariesForHeight;
 	}
 
-	public void setBudgetsForBuildingType(Set<Budget> budgetsForBuildingType) {
-		this.budgetsForBuildingType = budgetsForBuildingType;
+	public void setSaleSummariesForHeight(Set<SaleSummary> saleSummariesForHeight) {
+		this.saleSummariesForHeight = saleSummariesForHeight;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByFreeAdmission")
+	public Set<SaleSummary> getSaleSummariesForFreeAdmission() {
+		return this.saleSummariesForFreeAdmission;
+	}
+
+	public void setSaleSummariesForFreeAdmission(Set<SaleSummary> saleSummariesForFreeAdmission) {
+		this.saleSummariesForFreeAdmission = saleSummariesForFreeAdmission;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByControlType")
+	public Set<SaleSummary> getSaleSummariesForControlType() {
+		return this.saleSummariesForControlType;
+	}
+
+	public void setSaleSummariesForControlType(Set<SaleSummary> saleSummariesForControlType) {
+		this.saleSummariesForControlType = saleSummariesForControlType;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByHallButton")
+	public Set<SaleSummary> getSaleSummariesForHallButton() {
+		return this.saleSummariesForHallButton;
+	}
+
+	public void setSaleSummariesForHallButton(Set<SaleSummary> saleSummariesForHallButton) {
+		this.saleSummariesForHallButton = saleSummariesForHallButton;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByFloorDisplay")
@@ -626,13 +962,13 @@ public class BasicData implements java.io.Serializable {
 		this.quotationsForFloorDisplay = quotationsForFloorDisplay;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElevatorType")
-	public Set<Budget> getBudgetsForElevatorType() {
-		return this.budgetsForElevatorType;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByBuildingType")
+	public Set<Budget> getBudgetsForBuildingType() {
+		return this.budgetsForBuildingType;
 	}
 
-	public void setBudgetsForElevatorType(Set<Budget> budgetsForElevatorType) {
-		this.budgetsForElevatorType = budgetsForElevatorType;
+	public void setBudgetsForBuildingType(Set<Budget> budgetsForBuildingType) {
+		this.budgetsForBuildingType = budgetsForBuildingType;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByBoothDisplay")
@@ -644,13 +980,13 @@ public class BasicData implements java.io.Serializable {
 		this.quotationsForBoothDisplay = quotationsForBoothDisplay;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElevatorCapacitance")
-	public Set<Budget> getBudgetsForElevatorCapacitance() {
-		return this.budgetsForElevatorCapacitance;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElevatorType")
+	public Set<Budget> getBudgetsForElevatorType() {
+		return this.budgetsForElevatorType;
 	}
 
-	public void setBudgetsForElevatorCapacitance(Set<Budget> budgetsForElevatorCapacitance) {
-		this.budgetsForElevatorCapacitance = budgetsForElevatorCapacitance;
+	public void setBudgetsForElevatorType(Set<Budget> budgetsForElevatorType) {
+		this.budgetsForElevatorType = budgetsForElevatorType;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByControlType")
@@ -660,6 +996,15 @@ public class BasicData implements java.io.Serializable {
 
 	public void setQuotationsForControlType(Set<Quotation> quotationsForControlType) {
 		this.quotationsForControlType = quotationsForControlType;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElevatorCapacitance")
+	public Set<Budget> getBudgetsForElevatorCapacitance() {
+		return this.budgetsForElevatorCapacitance;
+	}
+
+	public void setBudgetsForElevatorCapacitance(Set<Budget> budgetsForElevatorCapacitance) {
+		this.budgetsForElevatorCapacitance = budgetsForElevatorCapacitance;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByDoorFrameHammered")
@@ -698,13 +1043,13 @@ public class BasicData implements java.io.Serializable {
 		this.quotationsForMachineType = quotationsForMachineType;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElectricityType")
-	public Set<Budget> getBudgetsForElectricityType() {
-		return this.budgetsForElectricityType;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByHallButton")
+	public Set<Quotation> getQuotationsForHallButton() {
+		return this.quotationsForHallButton;
 	}
 
-	public void setBudgetsForElectricityType(Set<Budget> budgetsForElectricityType) {
-		this.budgetsForElectricityType = budgetsForElectricityType;
+	public void setQuotationsForHallButton(Set<Quotation> quotationsForHallButton) {
+		this.quotationsForHallButton = quotationsForHallButton;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByCabinModel")
@@ -716,13 +1061,13 @@ public class BasicData implements java.io.Serializable {
 		this.budgetsForCabinModel = budgetsForCabinModel;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByHallButton")
-	public Set<Quotation> getQuotationsForHallButton() {
-		return this.quotationsForHallButton;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElectricityType")
+	public Set<Budget> getBudgetsForElectricityType() {
+		return this.budgetsForElectricityType;
 	}
 
-	public void setQuotationsForHallButton(Set<Quotation> quotationsForHallButton) {
-		this.quotationsForHallButton = quotationsForHallButton;
+	public void setBudgetsForElectricityType(Set<Budget> budgetsForElectricityType) {
+		this.budgetsForElectricityType = budgetsForElectricityType;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByManeuverType")
@@ -734,15 +1079,6 @@ public class BasicData implements java.io.Serializable {
 		this.quotationsForManeuverType = quotationsForManeuverType;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataBySpeed")
-	public Set<Quotation> getQuotationsForSpeed() {
-		return this.quotationsForSpeed;
-	}
-
-	public void setQuotationsForSpeed(Set<Quotation> quotationsForSpeed) {
-		this.quotationsForSpeed = quotationsForSpeed;
-	}
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByMachineBase")
 	public Set<Budget> getBudgetsForMachineBase() {
 		return this.budgetsForMachineBase;
@@ -750,6 +1086,15 @@ public class BasicData implements java.io.Serializable {
 
 	public void setBudgetsForMachineBase(Set<Budget> budgetsForMachineBase) {
 		this.budgetsForMachineBase = budgetsForMachineBase;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataBySpeed")
+	public Set<Quotation> getQuotationsForSpeed() {
+		return this.quotationsForSpeed;
+	}
+
+	public void setQuotationsForSpeed(Set<Quotation> quotationsForSpeed) {
+		this.quotationsForSpeed = quotationsForSpeed;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "basicDataByElevatorCapacitance")

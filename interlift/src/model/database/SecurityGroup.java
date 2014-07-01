@@ -1,9 +1,10 @@
 package model.database;
 
-// Generated 09-sep-2013 15:28:18 by Hibernate Tools 4.0.0
+// Generated 23-may-2014 15:32:55 by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,12 +25,15 @@ import javax.persistence.Table;
 @Table(name = "security_group", schema = "public")
 public class SecurityGroup implements java.io.Serializable {
 
-	private static final long serialVersionUID = 8859167423155062595L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1118337627195243121L;
 	private int idSecurityGroup;
 	private String name;
 	private char status;
-	private Set<SecurityRole> securityRoles = new HashSet<SecurityRole>(0);
 	private Set<SecurityUser> securityUsers = new HashSet<SecurityUser>(0);
+	private Set<SecurityRole> securityRoles = new HashSet<SecurityRole>(0);
 
 	public SecurityGroup() {
 	}
@@ -39,12 +44,12 @@ public class SecurityGroup implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public SecurityGroup(int idSecurityGroup, String name, char status, Set<SecurityRole> securityRoles, Set<SecurityUser> securityUsers) {
+	public SecurityGroup(int idSecurityGroup, String name, char status, Set<SecurityUser> securityUsers, Set<SecurityRole> securityRoles) {
 		this.idSecurityGroup = idSecurityGroup;
 		this.name = name;
 		this.status = status;
-		this.securityRoles = securityRoles;
 		this.securityUsers = securityUsers;
+		this.securityRoles = securityRoles;
 	}
 
 	@Id
@@ -77,6 +82,15 @@ public class SecurityGroup implements java.io.Serializable {
 		this.status = status;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "securityGroup")
+	public Set<SecurityUser> getSecurityUsers() {
+		return this.securityUsers;
+	}
+
+	public void setSecurityUsers(Set<SecurityUser> securityUsers) {
+		this.securityUsers = securityUsers;
+	}
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "role_group", schema = "public", joinColumns = { @JoinColumn(name = "id_security_group", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_security_role", nullable = false, updatable = false) })
 	public Set<SecurityRole> getSecurityRoles() {
@@ -85,15 +99,6 @@ public class SecurityGroup implements java.io.Serializable {
 
 	public void setSecurityRoles(Set<SecurityRole> securityRoles) {
 		this.securityRoles = securityRoles;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "securityGroups")
-	public Set<SecurityUser> getSecurityUsers() {
-		return this.securityUsers;
-	}
-
-	public void setSecurityUsers(Set<SecurityUser> securityUsers) {
-		this.securityUsers = securityUsers;
 	}
 
 }

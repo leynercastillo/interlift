@@ -1,9 +1,11 @@
 <?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?>
 <zk>
-	<window apply="org.zkoss.bind.BindComposer" border="normal" id="win"
-		mode="modal" title="Socios de Negocios"
+	<window apply="org.zkoss.bind.BindComposer" border="normal"
+		closable="true" id="win" mode="@load(vm.windowType)"
+		onClose="@command('close', win = win)" title="Socios de Negocios"
 		viewModel="@id('vm') @init('controller.socios.FrmBusinessPartner')"
-		width="60%">
+		width="@load(vm.windowType eq 'modal'? '80%' : '100%')">
+		
 		<style src="resource/style/styleZK.css"></style>
 		<grid zclass="grid">
 			<columns>
@@ -13,18 +15,16 @@
 			</columns>
 			<rows>
 				<row>
-					<label sclass="formLabel" value="Nit:"></label>
-					<div width="100%">
-						<textbox hflex="1" maxlength="15"
-							value="@save(vm.businessPartner.nit, before = 'save') @validator(vm.noRepeatNit, component = self)">
-						</textbox>
-					</div>
+					<label value="Nit:" sclass="formLabel"></label>
+					<textbox hflex="1" maxlength="15"
+						value="@save(vm.businessPartner.nit, before = 'save') @load(vm.businessPartner.nit) @validator(vm.noRepeatNit, component = self)">
+					</textbox>
 					<space></space>
 				</row>
 				<row>
 					<label sclass="formLabel" value="Nombre:"></label>
 					<textbox hflex="1" maxlength="100"
-						value="@save(vm.businessPartner.name, before = 'save') @validator(vm.noEmpty, component = self)">
+						value="@save(vm.businessPartner.name, before = 'save') @load(vm.businessPartner.name) @validator(vm.noEmpty, component = self)">
 					</textbox>
 					<space></space>
 				</row>
@@ -32,13 +32,13 @@
 					<label sclass="formLabel" value="Dirección:">
 					</label>
 					<textbox hflex="1" maxlength="200"
-						value="@save(vm.businessPartner.address)">
+						value="@save(vm.businessPartner.address) @load(vm.businessPartner.address)">
 					</textbox>
 					<space></space>
 				</row>
 				<row>
 					<radiogroup id="status"
-						selectedItem="@save(vm.businessPartner.status)">
+						selectedItem="@save(vm.businessPartner.status) @load(vm.businessPartner.status)">
 						<radio
 							checked="@load(vm.businessPartner.status eq 'A' ? 'true':'false')"
 							disabled="true" label="Activo" sclass="frmLabel" value="A">
@@ -46,21 +46,23 @@
 					</radiogroup>
 					<radio
 						checked="@load(vm.businessPartner.status eq 'I' ? 'true':'false')"
-						disabled="true" label="Inactivo" radiogroup="status"
-						sclass="formLabel" value="I">
+						disabled="true" label="Inactivo" radiogroup="status" sclass="formLabel" value="I">
 					</radio>
 					<space></space>
 				</row>
 				<row>
-					<button label="Guardar"
-						image="/resource/images/icons/save.png"
-						onClick="@command('save')">
+					<button image="/resource/images/icons/search.png"
+						label="Buscar" onClick="@command('search')">
 					</button>
-					<button label="Cancelar"
-						image="/resource/images/icons/cancel.png"
-						onClick="@command('cancel')">
-					</button>
-					<space></space>
+					<hlayout>
+						<button image="/resource/images/icons/save.png"
+							label="Guardar" onClick="@command('save', win = win)">
+						</button>
+						<button
+							image="/resource/images/icons/cancel.png" label="Cancelar"
+							onClick="@command('restartForm')">
+						</button>
+					</hlayout>
 				</row>
 			</rows>
 		</grid>

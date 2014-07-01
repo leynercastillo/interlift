@@ -41,7 +41,7 @@ public class Emails {
      * @throws MessagingException
      *             It happens when the properties aren't loaded.
      */
-    public void sendMail(String from, String subject, List<String> listRecipient, String message, List<File> listAttach) {
+    public void sendMail(String from, String subject, List<String> listRecipient, String message, List<File> listAttachFile) {
 	MimeMessage msg = mailSender.createMimeMessage();
 	try {
 	    MimeMessageHelper helper = new MimeMessageHelper(msg, true);
@@ -51,8 +51,8 @@ public class Emails {
 	    String[] to = listRecipient.toArray(new String[listRecipient.size()]);
 	    helper.setTo(to);
 	    helper.setText(message);
-	    if (listAttach != null) {
-		for (File file : listAttach) {
+	    if (listAttachFile != null) {
+		for (File file : listAttachFile) {
 		    helper.addAttachment(file.getName(), file);
 		}
 	    }

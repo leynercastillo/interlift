@@ -84,4 +84,5 @@ public class DaoSecurityRole {
 		Object bp = criteria.uniqueResult();
 		return bp != null ? (SecurityRole) bp : null;
 	}
+	
 }

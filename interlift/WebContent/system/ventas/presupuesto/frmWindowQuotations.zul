@@ -27,8 +27,11 @@
 				<listheader label="Fecha" sort="auto(date)"
 					width="15%">
 				</listheader>
-				<listheader align="right" label="Precio"
-					sort="auto(totalPrice)" width="10%">
+				<listheader align="right" label="Valor Comercial"
+					sort="auto(totalPrice)" width="15%">
+				</listheader>
+				<listheader align="right" label="Valor Mercantil" 
+					sort="auto(totalPrice)" width="15%">
 				</listheader>
 				<listheader label="Vendedor" sort="auto(seller)"
 					width="15%">
@@ -46,7 +49,8 @@
 					<listcell
 						label="@load(quotation.date) @converter('formattedDate', format='dd/MM/yyyy')">
 					</listcell>
-					<listcell label="@load(quotation.totalPrice)"></listcell>
+					<listcell label="@load(vm.getValorComercial(quotation))" ></listcell>
+					<listcell label="@load(vm.getValorMercantil(quotation))"></listcell>
 					<listcell label="@load(quotation.seller)"></listcell>
 				</listitem>
 			</template>

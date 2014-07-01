@@ -1,9 +1,10 @@
 package model.database;
 
-// Generated 09-sep-2013 15:28:18 by Hibernate Tools 4.0.0
+// Generated 23-may-2014 15:32:55 by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +26,10 @@ import javax.persistence.Table;
 @Table(name = "item", schema = "public")
 public class Item implements java.io.Serializable {
 
-	private static final long serialVersionUID = 794900053845942242L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2636611866914598892L;
 	private int idItem;
 	private Item item;
 	private BasicData basicData;

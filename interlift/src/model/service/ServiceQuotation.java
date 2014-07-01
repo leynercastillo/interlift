@@ -18,7 +18,7 @@ public class ServiceQuotation {
 	@Transactional
 	public Boolean save(Quotation quotation) {
 		Quotation auxQuotation = findById(quotation.getIdQuotation());
-		if (quotation.getIdQuotation() == 0 || quotation.getTotalPrice() != auxQuotation.getTotalPrice() || !quotation.getPayment().equals(auxQuotation.getPayment()) || !quotation.getWarranty().equals(auxQuotation.getWarranty()) || !quotation.getExtendedWarranty().equals(auxQuotation.getExtendedWarranty()) || !quotation.getDeliveryEstimate().equals(auxQuotation.getDeliveryEstimate()) || !quotation.getNotes().equals(auxQuotation.getNotes()))
+		if (quotation.getIdQuotation() == 0 || quotation.getTotalPrice() != auxQuotation.getTotalPrice() || quotation.getPriceImportedMaterial() != auxQuotation.getPriceImportedMaterial() || quotation.getPriceNationalMaterial() != auxQuotation.getPriceNationalMaterial() || !quotation.getPayment().equals(auxQuotation.getPayment()) || !quotation.getWarranty().equals(auxQuotation.getWarranty()) || !quotation.getExtendedWarranty().equals(auxQuotation.getExtendedWarranty()) || !quotation.getDeliveryEstimate().equals(auxQuotation.getDeliveryEstimate()) || !quotation.getNotes().equals(auxQuotation.getNotes()))
 			return daoQuotation.save(quotation);
 		else if (quotation.getStatus() != auxQuotation.getStatus())
 			return daoQuotation.update(quotation);

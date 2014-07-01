@@ -50,59 +50,33 @@
 					</textbox>
 				</row>
 				<row>
-					<cell colspan="3">
-						<hlayout>
-							<listbox checkmark="true" hflex="1"
-								model="@load(vm.listGroups)" multiple="true"
-								selectedItems="@save(vm.listGroupsToAdd) @load(vm.listGroupsToAdd)">
-								<listhead>
-									<listheader label="Grupo"></listheader>
-								</listhead>
-								<template name="model" var="group">
-									<listitem
-										label="@load(group.name)">
-									</listitem>
-								</template>
-							</listbox>
-							<vlayout>
-								<space></space>
-								<button
-									image="resource/images/icons/arrow-right.png"
-									onClick="@command('addUserGroups')">
-								</button>
-								<button
-									image="resource/images/icons/arrow-left.png"
-									onClick="@command('delUserGroups')">
-								</button>
-							</vlayout>
-							<listbox checkmark="true" hflex="1"
-								id="listUserGroup" model="@load(vm.securityUser.securityGroups)"
-								multiple="true"
-								selectedItems="@save(vm.listGroupsToDel) @load(vm.listGroupsToDel)">
-								<listhead>
-									<listheader label="Grupo"></listheader>
-								</listhead>
-								<template name="model" var="group">
-									<listitem
-										label="@load(group.name)">
-									</listitem>
-								</template>
-							</listbox>
-						</hlayout>
-					</cell>
+					<label sclass="formLabel" value="Grupo:"></label>
+					<combobox hflex="1" model="@load(vm.listGroups)"
+						selectedItem="@load(vm.securityUser.securityGroup) @save(vm.securityUser.securityGroup, before = 'save') @validator(vm.noSelect, component = self)"
+						readonly="true"
+						value="@load(vm.securityUser.securityGroup eq null ? '--Seleccione--' : vm.securityUser.securityGroup.name)">
+						<template name="model" var="securityGroup">
+							<comboitem
+								label="@load(securityGroup.name)">
+							</comboitem>
+						</template>
+					</combobox>
 				</row>
 				<row>
-					<radiogroup
-						selectedItem="@save(vm.securityUser.status)">
-						<radio
-							checked="@load(vm.securityUser.status eq 'A' ? 'true' : 'false')"
-							label="Activo" sclass="frmLabel" value="A">
-						</radio>
-						<radio
-							checked="@load(vm.securityUser.status eq 'I' ? 'true' : 'false')"
-							label="Inactivo" sclass="formLabel" value="I">
-						</radio>
-					</radiogroup>
+					<cell colspan="3">
+						<radiogroup
+							selectedItem="@save(vm.securityUser.status)">
+							<radio
+								checked="@load(vm.securityUser.status eq 'A' ? 'true' : 'false')"
+								label="Activo" sclass="frmLabel" value="A">
+							</radio>
+							<space></space>
+							<radio
+								checked="@load(vm.securityUser.status eq 'I' ? 'true' : 'false')"
+								label="Inactivo" sclass="formLabel" value="I">
+							</radio>
+						</radiogroup>
+					</cell>
 				</row>
 				<row>
 					<cell colspan="3">

@@ -1,9 +1,10 @@
 package model.database;
 
-// Generated 11-oct-2013 10:33:55 by Hibernate Tools 4.0.0
+// Generated 23-may-2014 15:32:55 by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +22,10 @@ import javax.persistence.Table;
 @Table(name = "business_partner", schema = "public")
 public class BusinessPartner implements java.io.Serializable {
 
-	private static final long serialVersionUID = -8226898077750640075L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4169649209948226450L;
 	private int idBusinessPartner;
 	private String nit;
 	private String name;
@@ -33,9 +37,8 @@ public class BusinessPartner implements java.io.Serializable {
 	public BusinessPartner() {
 	}
 
-	public BusinessPartner(int idBusinessPartner, String nit, String name, char status) {
+	public BusinessPartner(int idBusinessPartner, String name, char status) {
 		this.idBusinessPartner = idBusinessPartner;
-		this.nit = nit;
 		this.name = name;
 		this.status = status;
 	}
@@ -62,7 +65,7 @@ public class BusinessPartner implements java.io.Serializable {
 		this.idBusinessPartner = idBusinessPartner;
 	}
 
-	@Column(name = "nit", nullable = false, length = 15)
+	@Column(name = "nit", length = 15)
 	public String getNit() {
 		return this.nit;
 	}

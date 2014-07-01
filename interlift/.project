@@ -3,6 +3,7 @@
 	<name>interlift</name>
 	<comment></comment>
 	<projects>
+		<project>zk</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -22,8 +22,6 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
 
-import controller.seguridad.SecurityUserStatus;
-
 public class FrmSecurityUserList {
 
 	@WireVariable

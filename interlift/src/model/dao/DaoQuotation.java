@@ -39,6 +39,39 @@ public class DaoQuotation /* extends GenericDao<Quotation> */{
 	}
 
 	/**
+	 * @param quotation
+	 *                Object to save in database.
+	 * @param update
+	 *                Boolean for generate version number of quotation (Only change the price, not more).
+	 * @return true if saved / false if not saved
+	 */
+	public Boolean save(Quotation quotation) {
+		Session session = getCurrentSession();
+		quotation.setDate(new Date());
+		try {
+			List<Quotation> list = listByInt("budgetNumber", quotation.getBudgetNumber());
+			if (list.size() > 0) {
+				getCurrentSession().evict(quotation);
+				quotation.setIdQuotation(0);
+				quotation.setVersionNumber((short) (getVersionQuotation(list.get(0)) + 1));
+			} else if (quotation.isType()) {
+				Integer number = getMaxNumber("newNumber");
+				quotation.setNewNumber(number == null ? 0 : number + 1);
+				quotation.setModernizationNumber(-1);
+			} else {
+				Integer number = getMaxNumber("modernizationNumber");
+				quotation.setModernizationNumber(number == null ? 0 : number + 1);
+				quotation.setNewNumber(-1);
+			}
+			session.save(quotation);
+			return true;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
 	 * @param model
 	 *                Object to update in database
 	 * @return true if updated / false if not updated
@@ -143,39 +176,6 @@ public class DaoQuotation /* extends GenericDao<Quotation> */{
 		criteria.setProjection(Projections.max("versionNumber"));
 		Short version = (Short) criteria.uniqueResult();
 		return version == null ? null : version;
-	}
-
-	/**
-	 * @param quotation
-	 *                Object to save in database.
-	 * @param update
-	 *                Boolean for generate version number of quotation (Only change the price, not more).
-	 * @return true if saved / false if not saved
-	 */
-	public Boolean save(Quotation quotation) {
-		Session session = getCurrentSession();
-		quotation.setDate(new Date());
-		try {
-			List<Quotation> list = listByInt("budgetNumber", quotation.getBudgetNumber());
-			if (list.size() > 0) {
-				getCurrentSession().evict(quotation);
-				quotation.setIdQuotation(0);
-				quotation.setVersionNumber((short) (getVersionQuotation(list.get(0)) + 1));
-			} else if (quotation.isType()) {
-				Integer number = getMaxNumber("newNumber");
-				quotation.setNewNumber(number == null ? 0 : number + 1);
-				quotation.setModernizationNumber(-1);
-			} else {
-				Integer number = getMaxNumber("modernizationNumber");
-				quotation.setModernizationNumber(number == null ? 0 : number + 1);
-				quotation.setNewNumber(-1);
-			}
-			session.save(quotation);
-			return true;
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			return false;
-		}
 	}
 
 	/**

@@ -16,6 +16,11 @@ public class ServiceSecurityGroup {
 	private DaoSecurityGroup daoSecurityGroup;
 
 	@Transactional(readOnly = true)
+	public SecurityGroup findById(int id) {
+		return daoSecurityGroup.findByField("idSecurityGroup", id);
+	}
+
+	@Transactional(readOnly = true)
 	public SecurityGroup findGroupSeller() {
 		return daoSecurityGroup.findByField("name", "SELLER");
 	}
@@ -23,6 +28,11 @@ public class ServiceSecurityGroup {
 	@Transactional(readOnly = true)
 	public SecurityGroup findGroupSalesCoordinator() {
 		return daoSecurityGroup.findByField("name", "SALES COORDINATOR");
+	}
+	
+	@Transactional(readOnly = true)
+	public SecurityGroup findGroupSalesAdmin() {
+		return daoSecurityGroup.findByField("name", "ADMIN");
 	}
 
 	@Transactional(readOnly = true)

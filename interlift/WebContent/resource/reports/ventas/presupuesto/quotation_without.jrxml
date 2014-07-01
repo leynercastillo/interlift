@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="quotation" language="groovy" pageWidth="612" pageHeight="792" columnWidth="576" leftMargin="18" rightMargin="18" topMargin="21" bottomMargin="21" uuid="31586bca-fe1e-4d29-8b2d-dd013c1e3579">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="quotation" pageWidth="612" pageHeight="792" columnWidth="576" leftMargin="18" rightMargin="18" topMargin="18" bottomMargin="18" uuid="31586bca-fe1e-4d29-8b2d-dd013c1e3579">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="317"/>
+	<property name="ireport.y" value="308"/>
 	<parameter name="VERSION" class="java.lang.Short">
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
@@ -65,14 +65,14 @@ WHERE
 	<pageHeader>
 		<band height="80" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="d1b9cf89-149d-4600-8117-3797ba88d7e5" x="341" y="65" width="174" height="15"/>
+				<reportElement x="341" y="65" width="174" height="15" uuid="d1b9cf89-149d-4600-8117-3797ba88d7e5"/>
 				<textElement>
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PRESUPUESTO NRO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="375aea9b-13ef-47ca-9666-1de7d4af4a7e" x="450" y="65" width="127" height="15"/>
+				<reportElement x="450" y="65" width="127" height="15" uuid="375aea9b-13ef-47ca-9666-1de7d4af4a7e"/>
 				<textElement>
 					<font fontName="Serif" size="10"/>
 				</textElement>
@@ -81,96 +81,96 @@ WHERE
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="625" splitType="Stretch">
+		<band height="624" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="4068636d-d67d-46a4-aeec-8565a295b86a" x="63" y="289" width="179" height="20"/>
+				<reportElement x="63" y="289" width="179" height="20" uuid="4068636d-d67d-46a4-aeec-8565a295b86a"/>
 				<textElement>
 					<font fontName="Serif" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[EQUIPOS:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="beee4dfb-452b-4893-bb02-84b094aad4a9" x="63" y="269" width="179" height="20"/>
+				<reportElement x="63" y="269" width="179" height="20" uuid="beee4dfb-452b-4893-bb02-84b094aad4a9"/>
 				<textElement>
 					<font fontName="Serif" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ATENCION:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="bf8f9319-4e06-4a95-b118-2067d2dbfb63" x="163" y="289" width="416" height="20"/>
+				<reportElement x="163" y="289" width="416" height="20" uuid="bf8f9319-4e06-4a95-b118-2067d2dbfb63"/>
 				<textElement>
 					<font fontName="Serif" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Equipos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="8b34cdcf-cfe5-4de9-a45b-29cb40baa81f" x="163" y="249" width="416" height="20"/>
+				<reportElement x="163" y="249" width="416" height="20" uuid="8b34cdcf-cfe5-4de9-a45b-29cb40baa81f"/>
 				<textElement>
 					<font fontName="Serif" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Obra}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d4765a2c-9d00-4788-bfb7-73846550bc88" x="163" y="229" width="416" height="20"/>
+				<reportElement x="163" y="229" width="416" height="20" uuid="d4765a2c-9d00-4788-bfb7-73846550bc88"/>
 				<textElement>
 					<font fontName="Serif" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Cliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1fbf6522-16f6-4b9f-acb9-2c88d8c483eb" x="163" y="269" width="416" height="20"/>
+				<reportElement x="163" y="269" width="416" height="20" uuid="1fbf6522-16f6-4b9f-acb9-2c88d8c483eb"/>
 				<textElement>
 					<font fontName="Serif" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Atencion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="93b654f1-27be-4d12-82de-6b9097243da6" x="63" y="249" width="179" height="20"/>
+				<reportElement x="63" y="249" width="179" height="20" uuid="93b654f1-27be-4d12-82de-6b9097243da6"/>
 				<textElement>
 					<font fontName="Serif" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[OBRA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1b8e4098-de64-4e00-ba82-91034195ac61" x="63" y="229" width="179" height="20"/>
+				<reportElement x="63" y="229" width="179" height="20" uuid="1b8e4098-de64-4e00-ba82-91034195ac61"/>
 				<textElement>
 					<font fontName="Serif" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CLIENTE:]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="32c9bf4d-f64c-4963-ac23-b34e3c998c44" x="450" y="0" width="127" height="15"/>
+				<reportElement x="450" y="0" width="127" height="15" uuid="32c9bf4d-f64c-4963-ac23-b34e3c998c44"/>
 				<textElement>
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="3b8a5bf4-6626-4b28-996b-899020bf080d" x="341" y="0" width="174" height="15"/>
+				<reportElement x="341" y="0" width="174" height="15" uuid="3b8a5bf4-6626-4b28-996b-899020bf080d"/>
 				<textElement>
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="fdb18384-4782-49e4-9c17-45e7275f5764" x="0" y="604" width="576" height="15"/>
+				<reportElement x="0" y="604" width="576" height="15" uuid="fdb18384-4782-49e4-9c17-45e7275f5764"/>
 				<textElement textAlignment="Center">
 					<font fontName="Serif" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Telefono}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="1475ff05-cedc-4bba-b6d0-3505802c5126" x="138" y="590" width="301" height="15"/>
+				<reportElement x="138" y="590" width="301" height="15" uuid="1475ff05-cedc-4bba-b6d0-3505802c5126"/>
 				<textElement textAlignment="Center">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[BARQUISIMETO - EDO. LARA]]></text>
+				<text><![CDATA[BOGOTÁ - COLOMBIA]]></text>
 			</staticText>
 			<break>
-				<reportElement uuid="18e41af0-c9a7-47fb-9251-176d51bbae54" x="0" y="620" width="576" height="1"/>
+				<reportElement x="0" y="618" width="576" height="1" uuid="18e41af0-c9a7-47fb-9251-176d51bbae54"/>
 			</break>
 			<subreport>
-				<reportElement uuid="acadc423-1944-4fb6-9b7b-0c2d580d3ef5" stretchType="RelativeToTallestObject" x="1" y="622" width="575" height="0"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1" y="620" width="575" height="0" uuid="acadc423-1944-4fb6-9b7b-0c2d580d3ef5"/>
 				<subreportParameter name="NEW">
 					<subreportParameterExpression><![CDATA[$F{nuevo}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -187,10 +187,10 @@ WHERE
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "quotation_detail_without.jasper"]]></subreportExpression>
 			</subreport>
 			<break>
-				<reportElement uuid="18e41af0-c9a7-47fb-9251-176d51bbae54" x="0" y="623" width="576" height="1"/>
+				<reportElement x="0" y="622" width="576" height="1" uuid="18e41af0-c9a7-47fb-9251-176d51bbae54"/>
 			</break>
 			<subreport>
-				<reportElement uuid="b636592c-0daf-4a80-860d-edc647b67c74" stretchType="RelativeToTallestObject" x="1" y="625" width="576" height="0"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1" y="624" width="576" height="0" uuid="b636592c-0daf-4a80-860d-edc647b67c74"/>
 				<subreportParameter name="NEW">
 					<subreportParameterExpression><![CDATA[$F{nuevo}]]></subreportParameterExpression>
 				</subreportParameter>

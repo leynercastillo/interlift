@@ -1,9 +1,10 @@
 package model.database;
 
-// Generated 09-sep-2013 15:28:18 by Hibernate Tools 4.0.0
+// Generated 23-may-2014 15:32:55 by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +22,10 @@ import javax.persistence.Table;
 @Table(name = "security_role", schema = "public")
 public class SecurityRole implements java.io.Serializable {
 
-	private static final long serialVersionUID = -5328166875548422724L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6903651411935581096L;
 	private int idSecurityRole;
 	private String name;
 	private char status;

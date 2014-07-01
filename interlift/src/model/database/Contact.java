@@ -1,8 +1,9 @@
 package model.database;
 
-// Generated 09-sep-2013 15:28:18 by Hibernate Tools 4.0.0
+// Generated 23-may-2014 15:32:55 by Hibernate Tools 4.0.0
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +24,10 @@ import javax.persistence.TemporalType;
 @Table(name = "contact", schema = "public")
 public class Contact implements java.io.Serializable {
 
-	private static final long serialVersionUID = 56106547336481543L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7032410861771343300L;
 	private int idContact;
 	private SecurityUser securityUser;
 	private String partnerName;

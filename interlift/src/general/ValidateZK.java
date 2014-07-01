@@ -88,7 +88,7 @@ public class ValidateZK {
 				InputElement inputElement = (InputElement) ctx.getBindContext().getValidatorArg("component");
 				String string = inputElement.getText();
 				if (string.trim().isEmpty() || string.equals("-")) {
-					throw new WrongValueException(inputElement, "Seleccione una opcion valida.");
+					throw new WrongValueException(inputElement, "Seleccione una opción valida.");
 				}
 			}
 		};
@@ -105,7 +105,7 @@ public class ValidateZK {
 			public void validate(ValidationContext ctx) {
 				Combobox combo = (Combobox) ctx.getBindContext().getValidatorArg("component");
 				if (combo.getSelectedItem() == null) {
-					throw new WrongValueException(combo, "Seleccione una opcion valida.");
+					throw new WrongValueException(combo, "Seleccione una opción valida.");
 				}
 			}
 		};

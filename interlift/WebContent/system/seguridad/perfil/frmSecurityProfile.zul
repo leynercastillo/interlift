@@ -8,13 +8,13 @@
 		</caption>
 		<grid zclass="grid">
 			<columns>
-				<column width="130px"></column>
+				<column width="20%"></column>
 				<column></column>
 			</columns>
 			<rows>
 				<row>
 					<label sclass="formLabel" value="Nombre:"></label>
-					<textbox disabled="true" sclass="txtGeneral"
+					<textbox readonly="true" sclass="txtGeneral"
 						value="@load(vm.user.name)">
 					</textbox>
 				</row>

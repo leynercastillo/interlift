@@ -5,46 +5,97 @@
 	<window width="100%">
 		<h:form id="f" name="f" action="../../j_spring_security_check"
 			method="POST" xmlns:h="native">
-			<grid zclass="login">
-				<columns>
-					<column width="35%"></column>
-					<column width="30%"></column>
-					<column></column>
-				</columns>
-				<rows>
-					<row spans="3">
+			<h:div class="container-fluid">
+				<h:div class="row-fluid">
+					<h:div class="span12">
 						<label style="color:red"
 							if="${not empty param.login_error}"
 							value="Tu usuario o contraseña son incorrectos. Intentalo de nuevo.">
 						</label>
-					</row>
-					<row>
-						<label value="Usuario:" sclass="formLabel">
-						</label>
-						<label value="Contraseña:" sclass="formLabel">
-						</label>
-						<space></space>
-					</row>
-					<row>
-						<textbox hflex="1" id="u" name="j_username"
-							mold="rounded" />
-						<textbox hflex="1" id="p" name="j_password"
-							type="password" mold="rounded" />
-						<button type="submit" label="Entrar"
-							mold="trendy">
-						</button>
-					</row>
-					<row>
-						<div>
-							<checkbox id="r"
-								name="j_spring_security_remember_me" />
-							<label value="No olvidar mi clave."></label>
-						</div>
-						<space></space>
-						<space></space>
-					</row>
+					</h:div>
+				</h:div>
+				<h:div class="row-fluid">
+					<h:div class="span5">
+						<h:div class="row-fluid">
+							<label value="Usuario:"
+								sclass="formLabel">
+							</label>
+						</h:div>
+						<h:div class="row-fluid">
+							<textbox hflex="1" id="u" name="j_username"
+								mold="rounded" />
+						</h:div>
+					</h:div>
+					<h:div class="span5">
+						<h:div class="row-fluid">
+							<label value="Contraseña:"
+								sclass="formLabel">
+							</label>
+						</h:div>
+						<h:div class="row-fluid">
+							<textbox hflex="1" id="p" name="j_password"
+								type="password" mold="rounded" />
+						</h:div>
+					</h:div>
+					<h:div class="span2">
+						<h:div class="row-fluid hidden-phone"
+							style="padding-top: 17px">
+						</h:div>
+						<h:div class="row-fluid">
+							<button type="submit" label="Entrar"
+								mold="trendy">
+							</button>
+						</h:div>
+					</h:div>
+				</h:div>
+				<h:div class="row-fluid">
+					<h:div class="span12">
+						<checkbox id="r"
+							name="j_spring_security_remember_me" />
+						<label value="No olvidar mi clave."></label>
+					</h:div>
+				</h:div>
+			</h:div>
+			<!-- <grid zclass="login">
+				<columns>
+				<column width="35%"></column>
+				<column width="30%"></column>
+				<column></column>
+				</columns>
+				<rows>
+				<row spans="3">
+				<label style="color:red"
+				if="${not empty param.login_error}"
+				value="Tu usuario o contraseña son incorrectos. Intentalo de nuevo.">
+				</label>
+				</row>
+				<row>
+				<label value="Usuario:" sclass="formLabel">
+				</label>
+				<label value="Contraseña:" sclass="formLabel">
+				</label>
+				<space></space>
+				</row>
+				<row>
+				<textbox hflex="1" id="u" name="j_username"
+				mold="rounded" />
+				<textbox hflex="1" id="p" name="j_password"
+				type="password" mold="rounded" />
+				<button type="submit" label="Entrar"
+				mold="trendy">
+				</button>
+				</row>
+				<row>
+				<div>
+				<checkbox id="r"
+				name="j_spring_security_remember_me" />
+				<label value="No olvidar mi clave."></label>
+				</div>
+				<space></space>
+				<space></space>
+				</row>
 				</rows>
-			</grid>
+				</grid> -->
 		</h:form>
 	</window>
 </zk>

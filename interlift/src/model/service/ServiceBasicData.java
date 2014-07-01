@@ -14,7 +14,21 @@ public class ServiceBasicData {
 
 	@Autowired
 	private DaoBasicdata daoBasicdata;
+	
+	@Transactional
+	public Boolean save(BasicData basicData) {
+		
+		if (basicData.getIdBasic() == 0)
+			return daoBasicdata.save(basicData);
+		else 
+			return daoBasicdata.update(basicData);
+		
+	}
 
+	public BasicData findById(int id){
+		return daoBasicdata.findByField("idBasic", id);
+	}
+	
 	@Transactional(readOnly = true)
 	public BasicData findByDoorSystem(String doorSystem) {
 		return daoBasicdata.findByName("BUDGET", "DOOR SYSTEM", doorSystem);
@@ -40,6 +54,16 @@ public class ServiceBasicData {
 		return daoBasicdata.listFieldByDataBase("BUDGET", "dataBaseName");
 	}
 
+	@Transactional(readOnly = true)
+	public List<BasicData> listRifType() {
+		return daoBasicdata.listByFieldTable("BUSINESS PARTNER", "RIF TYPE");
+	}
+//ana
+	@Transactional(readOnly = true)
+	public List<BasicData> listNitType() {
+		return daoBasicdata.listByFieldTable("BUSINESS PARTNER", "NIT TYPE");
+	}
+//ana
 	@Transactional(readOnly = true)
 	public List<BasicData> listRoofType() {
 		return daoBasicdata.listByFieldTable("BUDGET", "ROOF TYPE");
@@ -135,30 +159,6 @@ public class ServiceBasicData {
 		return daoBasicdata.listByFieldTable("BUDGET", "FLOOR DISPLAY");
 	}
 
-	/* ELIMINAR */
-	@Transactional(readOnly = true)
-	public List<BasicData> listBoothDisplaySistel() {
-		return daoBasicdata.listByFieldTable("BUDGET", "BOOTH DISPLAY SISTEL");
-	}
-
-	/* ELIMINAR */
-	@Transactional(readOnly = true)
-	public List<BasicData> listFloorDisplaySistel() {
-		return daoBasicdata.listByFieldTable("BUDGET", "FLOOR DISPLAY SISTEL");
-	}
-
-	/* ELIMINAR */
-	@Transactional(readOnly = true)
-	public List<BasicData> listBoothDisplayCF() {
-		return daoBasicdata.listByFieldTable("BUDGET", "BOOTH DISPLAY CF");
-	}
-
-	/* ELIMINAR */
-	@Transactional(readOnly = true)
-	public List<BasicData> listFloorDisplayCF() {
-		return daoBasicdata.listByFieldTable("BUDGET", "FLOOR DISPLAY CF");
-	}
-
 	@Transactional(readOnly = true)
 	public List<BasicData> listBuildingType() {
 		return daoBasicdata.listByFieldTable("BUDGET", "BUILDING TYPE");
@@ -224,31 +224,76 @@ public class ServiceBasicData {
 		return daoBasicdata.listByFieldTable("BUDGET", "FAN");
 	}
 
-	/* ELIMINAR */
-	@Transactional(readOnly = true)
-	public List<BasicData> listFan1() {
-		return daoBasicdata.listByFieldTable("BUDGET", "FAN 1");
-	}
-
-	/* ELIMINAR */
-	@Transactional(readOnly = true)
-	public List<BasicData> listFan2() {
-		return daoBasicdata.listByFieldTable("BUDGET", "FAN 2");
-	}
 
 	@Transactional(readOnly = true)
 	public List<BasicData> listRoofTypeByElevatorCapacitance(BasicData elevatorCapacitance) {
-		return daoBasicdata.listByParent(elevatorCapacitance);
-	}
-
-	/* ELIMINAR */
-	@Transactional(readOnly = true)
-	public List<BasicData> listDesignByModel(BasicData model) {
-		return daoBasicdata.listByParent(model);
+		if (elevatorCapacitance.getName().equals("OTRA"))
+			return daoBasicdata.listByParent(findByElevatorCapacitance("450 Kg - 6 Pers"));
+		else
+			return daoBasicdata.listByParent(elevatorCapacitance);
 	}
 
 	@Transactional(readOnly = true)
 	public List<BasicData> listDesign() {
 		return daoBasicdata.listByFieldTable("BUDGET", "DESIGN");
 	}
+
+	@Transactional(readOnly = true)
+	public List<BasicData> listQuotationTypeMoney() {
+		return daoBasicdata.listByFieldTable("QUOTATION", "QUOTATION TYPE MONEY");
+	}
+	
+	@Transactional(readOnly = true)
+	public BasicData findByQuotationTypeNotes() {
+		return daoBasicdata.findByFieldTable("QUOTATION", "QUOTATION TYPE NOTES");
+	}
+	
+	@Transactional(readOnly = true)
+	public BasicData findByQuotationTypePayment() {
+		return daoBasicdata.findByFieldTable("QUOTATION", "QUOTATION TYPE PAYMENT");
+	}
+	
+	@Transactional(readOnly = true)
+	public BasicData findByQuotationTypeWarranty() {
+		return daoBasicdata.findByFieldTable("QUOTATION", "QUOTATION TYPE WARRANTY");
+	}
+	
+	@Transactional(readOnly = true)
+	public BasicData findByQuotationTypeExtendedWarranty() {
+		return daoBasicdata.findByFieldTable("QUOTATION", "QUOTATION TYPE EXTENDED WARRANTY");
+	}
+	
+	@Transactional(readOnly = true)
+	public BasicData findByQuotationTypeDeliveryEstimate() {
+		return daoBasicdata.findByFieldTable("QUOTATION", "QUOTATION TYPE DELIVERY ESTIMATE");
+	}
+	
+	@Transactional(readOnly = true)
+	public BasicData findByQuotationTypeValidity() {
+		return daoBasicdata.findByFieldTable("QUOTATION", "QUOTATION TYPE VALIDITY");
+	}
+	
+	@Transactional(readOnly = true)
+	public List<BasicData> listQuotationTypePresupuesto() {
+		return daoBasicdata.listByFieldTable("QUOTATION", "QUOTATION TYPE");
+	}
+	
+	@Transactional(readOnly = true)
+	public List<BasicData> listDesignByModel(BasicData model) {
+		return daoBasicdata.listByParent(model);
+	}
+
+	@Transactional(readOnly = true)
+	public List<BasicData> listFan1() {
+		return daoBasicdata.listByFieldTable("BUDGET", "FAN 1");
+	}
+
+	@Transactional(readOnly = true)
+	public List<BasicData> listFan2() {
+		return daoBasicdata.listByFieldTable("BUDGET", "FAN 2");
+	}
+	
+	
+	
+	
 }

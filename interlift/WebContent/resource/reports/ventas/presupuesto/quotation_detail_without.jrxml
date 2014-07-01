@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="quotation_detail" language="groovy" pageWidth="570" pageHeight="626" columnWidth="570" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="83ebc60b-d05e-4fa3-99bd-0f6e9ccca3b9">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="quotation_detail" pageWidth="570" pageHeight="648" columnWidth="570" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="83ebc60b-d05e-4fa3-99bd-0f6e9ccca3b9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -70,13 +70,7 @@
 				FROM
 					basic_data T10
 				WHERE
-					T10.id_basic = T0.hall_button)
-			|| ' ' || (SELECT
-					T10.name
-				FROM
-					basic_data T10
-				WHERE
-					T10.id_basic = T0.hall_button_type) "Botonera pasillo",
+					T10.id_basic = T0.hall_button) "Botonera pasillo",
 	(SELECT
 			T10.name
 		FROM
@@ -100,18 +94,18 @@
 		WHERE
 			T10.id_basic = T0.cabin_design) "Diseno cabina",
 	(SELECT
-			T2.name
+			T10.name
 		FROM
-			basic_data T10 INNER JOIN basic_data T2 ON T10.parent_id_basic = T2.id_basic
+			basic_data T10
 		WHERE
-			T10.id_basic = T0.cabin_design) "Modelo",
+			T10.id_basic = T0.cabin_model) "Modelo",
 	CASE WHEN T0.cabin_width IS NULL THEN ''
 	     WHEN T0.cabin_width = 0 THEN ''
 	     WHEN T0.cabin_height IS NULL THEN ''
 	     WHEN T0.cabin_height = 0 THEN ''
 	     WHEN T0.cabin_background IS NULL THEN ''
 	     WHEN T0.cabin_background = 0 THEN ''
-	     ELSE 'Ancho: '|| round(cast(T0.cabin_width as numeric),2) || ' mts X Profundidad: ' || round(cast(T0.cabin_background as numeric),2) || ' mts X Alto: ' || round(cast(T0.cabin_height as numeric),2) || ' mts' END "Dimensiones",
+	     ELSE 'Ancho: '|| round(cast(T0.cabin_width as numeric),2) || ' mm X Profundidad: ' || round(cast(T0.cabin_background as numeric),2) || ' mm X Alto: ' || round(cast(T0.cabin_height as numeric),2) || ' mm' END "Dimensiones",
 	(SELECT
 			T10.name
 		FROM
@@ -224,401 +218,401 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="470" splitType="Stretch">
+		<band height="486" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="78859b01-862c-47f8-9b20-61bf00947a71" x="0" y="59" width="257" height="15"/>
+				<reportElement x="0" y="59" width="257" height="15" uuid="78859b01-862c-47f8-9b20-61bf00947a71"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CAPACIDAD:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b43b5e62-94c7-4579-86da-a73fc3669c15" x="144" y="59" width="432" height="15"/>
+				<reportElement x="144" y="59" width="432" height="15" uuid="b43b5e62-94c7-4579-86da-a73fc3669c15"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Capacidad}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="a5fb3c4f-26f1-4437-899e-878943ac5bf6" x="0" y="75" width="257" height="15"/>
+				<reportElement x="0" y="75" width="257" height="15" uuid="a5fb3c4f-26f1-4437-899e-878943ac5bf6"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RECORRIDO:]]></text>
 			</staticText>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement uuid="1f040889-eb98-40ae-83c5-931ee1ba67e8" x="144" y="75" width="432" height="15"/>
+				<reportElement x="144" y="75" width="432" height="15" uuid="1f040889-eb98-40ae-83c5-931ee1ba67e8"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Recorrido}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="27cb832b-6952-447f-94d2-f3637141786a" x="0" y="91" width="257" height="15"/>
+				<reportElement x="0" y="91" width="257" height="15" uuid="27cb832b-6952-447f-94d2-f3637141786a"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VELOCIDAD:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="591df5eb-9145-4e2d-b6c5-6a49ae07ace5" x="144" y="91" width="432" height="15"/>
+				<reportElement x="144" y="91" width="432" height="15" uuid="591df5eb-9145-4e2d-b6c5-6a49ae07ace5"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Velocidad}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="7cc3548b-276c-48e2-b669-f2afbef5ec93" x="0" y="107" width="257" height="15"/>
+				<reportElement x="0" y="107" width="257" height="15" uuid="7cc3548b-276c-48e2-b669-f2afbef5ec93"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PISOS:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="a4eb9e14-00b7-4f04-8030-e59c933f49a4" x="144" y="107" width="432" height="15"/>
+				<reportElement x="144" y="107" width="432" height="15" uuid="a4eb9e14-00b7-4f04-8030-e59c933f49a4"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Pisos}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="d1ae2cc0-6afd-4627-8efb-609ecb2e6694" x="0" y="123" width="257" height="15"/>
+				<reportElement x="0" y="123" width="257" height="15" uuid="d1ae2cc0-6afd-4627-8efb-609ecb2e6694"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ACCESOS:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="49c16f83-e363-4c80-9bd2-761ec93bce05" x="144" y="123" width="432" height="15"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="144" y="123" width="432" height="15" uuid="49c16f83-e363-4c80-9bd2-761ec93bce05"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Accesos}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="daf03053-a916-4574-96a8-d38224565b29" x="0" y="139" width="257" height="15"/>
+				<reportElement x="0" y="155" width="257" height="15" uuid="daf03053-a916-4574-96a8-d38224565b29"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MANIOBRA:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="07259275-a463-4fa1-a8d3-049372f7d9c8" x="144" y="139" width="432" height="15"/>
+				<reportElement x="144" y="155" width="432" height="15" uuid="07259275-a463-4fa1-a8d3-049372f7d9c8"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Maniobra}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="79e7cb73-cab6-45bc-8d57-3d3572018085" x="0" y="155" width="257" height="15" isRemoveLineWhenBlank="true"/>
+				<reportElement x="0" y="171" width="257" height="15" isRemoveLineWhenBlank="true" uuid="79e7cb73-cab6-45bc-8d57-3d3572018085"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CONTROL:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="9340c61c-7a08-4b77-8311-caf8a3d25dc1" x="144" y="155" width="432" height="15"/>
+				<reportElement x="144" y="171" width="432" height="15" uuid="9340c61c-7a08-4b77-8311-caf8a3d25dc1"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Control}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="d078ca01-d070-41a2-9a71-fcc82a187474" x="0" y="171" width="257" height="15"/>
+				<reportElement x="0" y="187" width="257" height="15" uuid="d078ca01-d070-41a2-9a71-fcc82a187474"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SEÑALIZACION:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="92071b5b-f0be-4b27-86bb-5c667257ac2b" x="144" y="171" width="432" height="15"/>
+				<reportElement x="144" y="187" width="432" height="15" uuid="92071b5b-f0be-4b27-86bb-5c667257ac2b"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Display cabina}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="d7858550-6f00-4ab8-85c0-9d6ce58d9539" x="144" y="187" width="432" height="15"/>
+				<reportElement x="144" y="203" width="432" height="15" uuid="d7858550-6f00-4ab8-85c0-9d6ce58d9539"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Display piso}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="cfaf26d9-da9b-43e3-998f-b977a34d3a7e" x="144" y="203" width="432" height="15"/>
+				<reportElement x="144" y="219" width="432" height="15" uuid="cfaf26d9-da9b-43e3-998f-b977a34d3a7e"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Botonera pasillo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="cf18064d-c8f1-401a-9b24-db1f0dbce78f" x="0" y="219" width="257" height="15"/>
+				<reportElement x="0" y="235" width="257" height="15" uuid="cf18064d-c8f1-401a-9b24-db1f0dbce78f"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MOTOR:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="108a8ad1-4503-4826-a70b-3efdf341f1d8" x="144" y="219" width="432" height="15"/>
+				<reportElement x="144" y="235" width="432" height="15" uuid="108a8ad1-4503-4826-a70b-3efdf341f1d8"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Motor}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="51239e8e-cf67-4e2f-a136-237eb652a192" x="0" y="235" width="257" height="15"/>
+				<reportElement x="0" y="251" width="257" height="15" uuid="51239e8e-cf67-4e2f-a136-237eb652a192"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VOLTAJE CORRIENTE:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="12bd300f-578d-4eb9-844f-bbda1e25e4b0" x="144" y="235" width="432" height="15"/>
+				<reportElement x="144" y="251" width="432" height="15" uuid="12bd300f-578d-4eb9-844f-bbda1e25e4b0"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Voltaje corriente}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="f19f4169-6a32-4c2c-a013-07e604799740" x="0" y="251" width="257" height="15"/>
+				<reportElement x="0" y="267" width="257" height="15" uuid="f19f4169-6a32-4c2c-a013-07e604799740"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MEDIDAS DEL POZO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8c8ecd0f-8276-4d75-9ba3-e367aaa86029" x="144" y="251" width="122" height="15"/>
+				<reportElement x="144" y="267" width="122" height="15" uuid="8c8ecd0f-8276-4d75-9ba3-e367aaa86029"/>
 				<textElement>
 					<font fontName="Serif" size="9" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[ANCHO:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b1d7ca68-ae0b-485d-8d5e-e496be61ac9b" x="185" y="251" width="100" height="15"/>
+				<reportElement x="185" y="267" width="100" height="15" uuid="b1d7ca68-ae0b-485d-8d5e-e496be61ac9b"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Ancho hueco}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="805e95b9-66d3-4eb3-92f2-dc3456ef6d5f" x="214" y="251" width="101" height="15"/>
+				<reportElement x="214" y="267" width="101" height="15" uuid="805e95b9-66d3-4eb3-92f2-dc3456ef6d5f"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<text><![CDATA[mts.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b60e9651-9fbc-49bb-81c2-d981abb67a1f" x="264" y="251" width="151" height="15"/>
+				<reportElement x="264" y="267" width="151" height="15" uuid="b60e9651-9fbc-49bb-81c2-d981abb67a1f"/>
 				<textElement>
 					<font fontName="Serif" size="9" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[FONDO:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="f753e365-afa8-45be-9b46-45c4b8635d5d" x="303" y="251" width="101" height="15"/>
+				<reportElement x="303" y="267" width="101" height="15" uuid="f753e365-afa8-45be-9b46-45c4b8635d5d"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Fondo hueco}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="805e95b9-66d3-4eb3-92f2-dc3456ef6d5f" x="365" y="251" width="211" height="15"/>
+				<reportElement x="365" y="267" width="211" height="15" uuid="805e95b9-66d3-4eb3-92f2-dc3456ef6d5f"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<text><![CDATA[mts.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6e1b2247-bb4b-4ab0-8642-2bca7f85b0a3" x="0" y="267" width="257" height="15"/>
+				<reportElement x="0" y="283" width="257" height="15" uuid="6e1b2247-bb4b-4ab0-8642-2bca7f85b0a3"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PROFUNDIDAD NIVEL 0:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="293463dc-a688-4173-b96f-d892a1b74181" x="144" y="267" width="432" height="15"/>
+				<reportElement x="144" y="283" width="432" height="15" uuid="293463dc-a688-4173-b96f-d892a1b74181"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Profundidad nivel 0}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="805e95b9-66d3-4eb3-92f2-dc3456ef6d5f" x="199" y="267" width="102" height="15"/>
+				<reportElement x="199" y="283" width="102" height="15" uuid="805e95b9-66d3-4eb3-92f2-dc3456ef6d5f"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<text><![CDATA[mts.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f4489c7f-e98a-4439-9398-2d17cbc4c875" x="0" y="283" width="257" height="15"/>
+				<reportElement x="0" y="299" width="257" height="15" uuid="f4489c7f-e98a-4439-9398-2d17cbc4c875"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RECORRIDO SEGURIDAD:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="7a7ed9ec-8bdf-48c0-a9a4-6b9ea2a0baca" x="144" y="283" width="432" height="15"/>
+				<reportElement x="144" y="299" width="432" height="15" uuid="7a7ed9ec-8bdf-48c0-a9a4-6b9ea2a0baca"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Recorrido seguridad}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="805e95b9-66d3-4eb3-92f2-dc3456ef6d5f" x="199" y="283" width="102" height="15"/>
+				<reportElement x="199" y="299" width="102" height="15" uuid="805e95b9-66d3-4eb3-92f2-dc3456ef6d5f"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<text><![CDATA[mts.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fffb453f-862d-4273-971a-daf085bcaee7" x="0" y="299" width="257" height="15"/>
+				<reportElement x="0" y="315" width="257" height="15" uuid="fffb453f-862d-4273-971a-daf085bcaee7"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CABINA:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="534af32b-8bfc-4135-8fb4-de76d9137d31" x="215" y="315" width="355" height="15"/>
+				<reportElement x="215" y="331" width="355" height="15" uuid="534af32b-8bfc-4135-8fb4-de76d9137d31"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Diseno cabina}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="5176c334-36c4-4451-8d3b-edc6069dd459" x="144" y="315" width="170" height="15"/>
+				<reportElement x="144" y="331" width="170" height="15" uuid="5176c334-36c4-4451-8d3b-edc6069dd459"/>
 				<textElement>
 					<font fontName="Serif" size="9" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[DISEÑO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2bffb796-d567-4e82-b477-7f235f12f95c" x="144" y="299" width="170" height="15"/>
+				<reportElement x="144" y="315" width="170" height="15" uuid="2bffb796-d567-4e82-b477-7f235f12f95c"/>
 				<textElement>
 					<font fontName="Serif" size="9" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[MODELO:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="4467e4ca-c7ab-45f0-bbd2-de20aa98affd" x="215" y="299" width="355" height="15"/>
+				<reportElement x="215" y="315" width="355" height="15" uuid="4467e4ca-c7ab-45f0-bbd2-de20aa98affd"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Modelo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="2e049042-d5d4-42bd-b397-1307c7743d1a" x="144" y="331" width="170" height="15"/>
+				<reportElement x="144" y="347" width="170" height="15" uuid="2e049042-d5d4-42bd-b397-1307c7743d1a"/>
 				<textElement>
 					<font fontName="Serif" size="9" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[PISO:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="e831bb44-df6d-4c0e-8eb2-5c176716daed" x="214" y="331" width="356" height="15"/>
+				<reportElement x="214" y="347" width="356" height="15" uuid="e831bb44-df6d-4c0e-8eb2-5c176716daed"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Tipo de piso}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="86379bcf-b97b-4694-a3ed-7d49eb6c2859" x="0" y="363" width="257" height="15"/>
+				<reportElement x="0" y="379" width="257" height="15" uuid="86379bcf-b97b-4694-a3ed-7d49eb6c2859"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PASAMANO:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="03fa9634-94a8-4278-8380-01a1f8cb9b98" x="144" y="363" width="426" height="15"/>
+				<reportElement x="144" y="379" width="426" height="15" uuid="03fa9634-94a8-4278-8380-01a1f8cb9b98"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Pasamano}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="3473f3d1-9407-4fba-8e06-01f916b455be" x="0" y="379" width="257" height="15"/>
+				<reportElement x="0" y="395" width="257" height="15" uuid="3473f3d1-9407-4fba-8e06-01f916b455be"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TECHO DE CABINA:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="0e512fd7-d200-4be8-9965-8eb096b9f35b" x="144" y="379" width="426" height="15"/>
+				<reportElement x="144" y="395" width="426" height="15" uuid="0e512fd7-d200-4be8-9965-8eb096b9f35b"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Techo de cabina}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="0a256918-a089-4fcf-8287-61a5becb0bd1" x="0" y="395" width="257" height="15"/>
+				<reportElement x="0" y="411" width="257" height="15" uuid="0a256918-a089-4fcf-8287-61a5becb0bd1"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PUERTA PASILLO:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="e6890e15-765a-4251-a300-df0f309d976a" x="144" y="395" width="426" height="15"/>
+				<reportElement x="144" y="411" width="426" height="15" uuid="e6890e15-765a-4251-a300-df0f309d976a"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Puertas}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="40cf9c4d-1c73-48b0-aeb9-8cb4ed24f2b3" x="144" y="411" width="426" height="15"/>
+				<reportElement x="144" y="427" width="426" height="15" uuid="40cf9c4d-1c73-48b0-aeb9-8cb4ed24f2b3"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Martillado}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="1234cde5-6ae9-4eb2-bd1f-49e04fd8fc40" x="0" y="427" width="257" height="15"/>
+				<reportElement x="0" y="443" width="257" height="15" uuid="1234cde5-6ae9-4eb2-bd1f-49e04fd8fc40"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MARCOS:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="508a4b9c-5e64-413d-9faf-5d6abca15385" x="144" y="427" width="426" height="15"/>
+				<reportElement x="144" y="443" width="426" height="15" uuid="508a4b9c-5e64-413d-9faf-5d6abca15385"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Marco}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="308e57e2-5c11-4795-876c-8d6456230e4a" x="0" y="455" width="257" height="15"/>
+				<reportElement x="0" y="471" width="257" height="15" uuid="308e57e2-5c11-4795-876c-8d6456230e4a"/>
 				<textElement>
 					<font fontName="Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[INCLUYE:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="bceea72f-dd9a-4812-aa4a-7aa055608106" x="144" y="455" width="426" height="15"/>
+				<reportElement x="144" y="471" width="426" height="15" uuid="bceea72f-dd9a-4812-aa4a-7aa055608106"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Incluye}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="7d31840d-5f54-4bb8-abd8-bf3f1c58add2" x="146" y="13" width="284" height="20"/>
+				<reportElement x="146" y="13" width="284" height="20" uuid="7d31840d-5f54-4bb8-abd8-bf3f1c58add2"/>
 				<textElement textAlignment="Center">
 					<font fontName="Serif" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CARACTERISTICAS]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b756b7b4-8207-499b-8a96-2105feb31f79" x="36" y="33" width="504" height="20"/>
+				<reportElement x="36" y="33" width="504" height="20" uuid="b756b7b4-8207-499b-8a96-2105feb31f79"/>
 				<textElement textAlignment="Center">
 					<font fontName="Serif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Equipos}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="63ed33ca-ed92-486f-85fd-0a3ecdca0a54" x="215" y="347" width="355" height="15"/>
+				<reportElement x="215" y="363" width="355" height="15" uuid="63ed33ca-ed92-486f-85fd-0a3ecdca0a54"/>
 				<textElement>
 					<font fontName="Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Dimensiones}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="484acfa2-5065-4167-93e4-724aca465295" x="144" y="347" width="170" height="15"/>
+				<reportElement x="144" y="363" width="170" height="15" uuid="484acfa2-5065-4167-93e4-724aca465295"/>
 				<textElement>
 					<font fontName="Serif" size="9" isItalic="true"/>
 				</textElement>

@@ -23,6 +23,16 @@ import org.zkoss.zk.ui.Sessions;
 
 public class GenericReport {
 
+	private File file;
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
 	private Connection getConnection() {
 		Properties dbProperties = new Properties();
 		try {
@@ -65,15 +75,18 @@ public class GenericReport {
 		JRExporter jrExporter = new JRPdfExporter();
 		jrExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 		jrExporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, path + "/" + pdfName);
+		// Buscamos un archivo con el mismo nombre en el mismo directorio.
 		File file = new File(path + "/" + pdfName);
-		/* Eliminamos el pdf si ya existia, puesto que no se sobreescribe. */
+		// Eliminamos el pdf si ya existia, puesto que no se sobreescribe.
 		if (file.isFile())
 			file.delete();
 		try {
 			jrExporter.exportReport();
 		} catch (JRException e) {
-			System.out.println("Report wasn't export.");
+			System.out.println("Report wasn't export." + pdfName);
 		}
+		// Guardamos el archivo en la variable global para que este disponible.
+		this.file = new File(path + "/" + pdfName);
 		try {
 			connection.close();
 		} catch (SQLException e) {
